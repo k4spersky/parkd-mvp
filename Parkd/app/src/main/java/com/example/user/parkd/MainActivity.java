@@ -1,4 +1,4 @@
-package com.example.kkuczkowski.parkd;
+package com.example.user.parkd;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.example.kkuczkowski.parkd;
+package com.example.user.parkd.test;
 
 import org.junit.Test;
 

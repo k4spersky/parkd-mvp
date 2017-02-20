@@ -1,4 +1,4 @@
-package com.example.kkuczkowski.parkd;
+package com.example.user.parkd.test;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
