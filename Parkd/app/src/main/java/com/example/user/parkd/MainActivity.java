@@ -13,11 +13,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //testy
+
         final Button bLogin = (Button) findViewById(R.id.bLoginButton);
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //This Listener listens for click on the login button
+                //The login button is located here just for testng purposes
+                //The following code is standard for running a new activity
                 Intent LoginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 MainActivity.this.startActivity(LoginIntent);
             }

@@ -14,7 +14,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        //The following code is used for assigning variables to the controls located on the register page
         final EditText etAge = (EditText) findViewById(R.id.etAge);
         final EditText etUsername = (EditText) findViewById(R.id.etUsername);
         final EditText etName = (EditText) findViewById(R.id.etName);
