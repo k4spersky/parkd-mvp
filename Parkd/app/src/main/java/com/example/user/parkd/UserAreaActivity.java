@@ -18,5 +18,15 @@ public class UserAreaActivity extends AppCompatActivity {
         final EditText etUsername = (EditText) findViewById(R.id.etUsername);
         final EditText etAge = (EditText) findViewById(R.id.etAge);
         final TextView welcomeMessage = (TextView) findViewById(R.id.tvWelcomeMessage);
+        //Get data sent from login page
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("name");
+        String username = intent.getStringExtra("username");
+        int age = intent.getIntExtra("age", -1);
+        //Sets controls
+        String message = name + " welcome to your user area.";
+        welcomeMessage.setText(message);
+        etUsername.setText(username);
+        etAge.setText(age + "");
     }
 }
