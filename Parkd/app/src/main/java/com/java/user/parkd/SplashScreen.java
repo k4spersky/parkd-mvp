@@ -1,4 +1,4 @@
-package com.example.user.parkd;
+package com.java.user.parkd;
 
         import android.app.Activity;
         import android.content.Intent;
@@ -14,7 +14,7 @@ public class SplashScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        setContentView(com.java.user.parkd.R.layout.activity_splash_screen);
 
         new Handler().postDelayed(new Runnable() {
 

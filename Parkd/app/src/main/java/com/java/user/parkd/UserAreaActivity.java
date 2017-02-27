@@ -1,9 +1,8 @@
-package com.example.user.parkd;
+package com.java.user.parkd;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
 
@@ -13,11 +12,11 @@ public class UserAreaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_area);
+        setContentView(com.java.user.parkd.R.layout.activity_user_area);
         //The following code is used for assigning variables to the controls located on the login page
-        final EditText etUsername = (EditText) findViewById(R.id.etUsername);
-        final EditText etAge = (EditText) findViewById(R.id.etAge);
-        final TextView welcomeMessage = (TextView) findViewById(R.id.tvWelcomeMessage);
+        final EditText etUsername = (EditText) findViewById(com.java.user.parkd.R.id.etUsername);
+        final EditText etAge = (EditText) findViewById(com.java.user.parkd.R.id.etAge);
+        final TextView welcomeMessage = (TextView) findViewById(com.java.user.parkd.R.id.tvWelcomeMessage);
         //Get data sent from login page
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");

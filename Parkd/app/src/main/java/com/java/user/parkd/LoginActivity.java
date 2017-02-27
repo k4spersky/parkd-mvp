@@ -1,4 +1,4 @@
-package com.example.user.parkd;
+package com.java.user.parkd;
 
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,12 +21,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(com.java.user.parkd.R.layout.activity_login);
         //The following code is used for assigning variables to the controls located on the login page
-        final EditText etUsername = (EditText) findViewById(R.id.etUsername);
-        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
-        final Button bLogin = (Button) findViewById(R.id.bLogin);
-        final TextView registerLink = (TextView) findViewById(R.id.tvRegisterHere);
+        final EditText etUsername = (EditText) findViewById(com.java.user.parkd.R.id.etUsername);
+        final EditText etPassword = (EditText) findViewById(com.java.user.parkd.R.id.etPassword);
+        final Button bLogin = (Button) findViewById(com.java.user.parkd.R.id.bLogin);
+        final TextView registerLink = (TextView) findViewById(com.java.user.parkd.R.id.tvRegisterHere);
 
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override

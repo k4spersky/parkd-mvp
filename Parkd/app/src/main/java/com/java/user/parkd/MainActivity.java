@@ -1,4 +1,4 @@
-package com.example.user.parkd;
+package com.java.user.parkd;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +12,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(com.java.user.parkd.R.layout.activity_main);
 
-        final Button bLogin = (Button) findViewById(R.id.bLoginButton);
+        final Button bLogin = (Button) findViewById(com.java.user.parkd.R.id.bLoginButton);
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
