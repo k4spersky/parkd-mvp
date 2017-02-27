@@ -39,15 +39,6 @@
         android:id="@+id/etUsername"
         android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:text="Age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etUsername"
-        android:layout_alignEnd="@+id/tvWelcomeMessage"
-        android:layout_marginTop="37dp"
-        android:id="@+id/textView3" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,4 +50,13 @@
         android:layout_marginTop="22dp"
         android:id="@+id/etAge"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/etUsername"
+        android:layout_alignStart="@+id/etUsername" />
 </RelativeLayout>
