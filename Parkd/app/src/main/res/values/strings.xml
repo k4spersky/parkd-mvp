@@ -2,4 +2,23 @@
     <string name="app_name">Parkd</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_signup">SignupActivity</string>
+
+    <!-- Test Strings below -->
+    <string name="login_btn">Login</string>
+    <string name="main_test">Hello World</string>
+
+    <!-- activity_login strings -->
+    <string name="login_title">Login</string>
+    <string name="reg_title">Register Here</string>
+
+    <!-- activity_register strings -->
+    <string name="register">Register</string>
+
+    <!-- activity_register_ua strings -->
+    <string name="txt_view_head">Text View</string>
+    <string name="u_name_head">Username</string>
+    <string name="name_head">Name</string>
+    <string name="age_head">Register</string>
+
+
 </resources>

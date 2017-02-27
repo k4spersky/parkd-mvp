@@ -23,7 +23,7 @@
         android:hint="Username" />
 
     <Button
-        android:text="Login"
+        android:text="@string/login_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etPassword"
@@ -33,7 +33,7 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="Register Here"
+        android:text="@string/reg_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bLogin"
