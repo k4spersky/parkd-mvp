@@ -22,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.java.user.parkd.R.layout.activity_register);
+
         //The following code is used for assigning variables to the controls located on the register page
         final EditText etAge = (EditText) findViewById(com.java.user.parkd.R.id.etAge);
         final EditText etUsername = (EditText) findViewById(com.java.user.parkd.R.id.etUsername);
@@ -59,9 +60,9 @@ public class RegisterActivity extends AppCompatActivity {
                                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                     RegisterActivity.this.startActivity(intent);
                                 }else{
-                                    //Alerts the user of failure and asks for them ti retry
+                                    //Alerts the user of failure and asks for them to retry
                                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                    builder.setMessage("Register Failed")
+                                    builder.setMessage("Registration Failed")
                                             .setNegativeButton("Retry", null)
                                             .create()
                                             .show();

@@ -12,8 +12,6 @@ import java.util.Map;
 
 public class RegisterRequest extends StringRequest {
 
-    //Url for the register page
-    private static final String REGISTER_REQUEST_URL = "http://pjohnston37.students.cs.qub.ac.uk/Android/Register.php";
     private Map<String, String> params;
 
     //Constructor for the request
@@ -30,4 +28,7 @@ public class RegisterRequest extends StringRequest {
     public Map<String, String> getParams() {
         return params;
     }
+
+    //Url for the register page
+    private static final String REGISTER_REQUEST_URL = "http://pjohnston37.students.cs.qub.ac.uk/Android/Register.php";
 }
