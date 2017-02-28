@@ -56,15 +56,19 @@ public class LoginActivity extends AppCompatActivity {
                             if (success)
                             {
                                 //Opens up userActivity form if successful
-                                String name = jsonResponse.getString("name");
-                                int age = jsonResponse.getInt("age");
+                                String firstname = jsonResponse.getString("firstname");
+                                String lastname = jsonResponse.getString("lastname");
+                                String email = jsonResponse.getString("email");
+                                //int age = jsonResponse.getInt("age");
 
                                 Intent intent = new Intent(LoginActivity.this, UserAreaActivity.class);
                                 //Allows for data to be sent from one form to another
-                                intent.putExtra("name", name);
+                                intent.putExtra("firstname", firstname);
+                                intent.putExtra("lastname", lastname);
+                                intent.putExtra("email", email);
                                 intent.putExtra("username", username);
                                 intent.putExtra("password", password);
-                                intent.putExtra("age", age);
+                                //intent.putExtra("age", age);
                                 LoginActivity.this.startActivity(intent);
                             }else{
                                 //Alerts the user of failure and asks for them retry
