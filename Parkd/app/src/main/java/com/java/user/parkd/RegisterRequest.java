@@ -15,12 +15,13 @@ public class RegisterRequest extends StringRequest {
     private Map<String, String> params;
 
     //Constructor for the request
-    public RegisterRequest(String name, String username, int age, String password, Response.Listener<String> listener) {
+    public RegisterRequest(String firstname, String lastname, String username, String email,  String password, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);
         params = new HashMap<>();
-        params.put("name", name);
+        params.put("firstname", firstname);
         params.put("username", username);
-        params.put("age", age + "");
+        params.put("lastname", lastname);
+        params.put("email", email);
         params.put("password", password);
     }
 
@@ -30,5 +31,5 @@ public class RegisterRequest extends StringRequest {
     }
 
     //Url for the register page
-    private static final String REGISTER_REQUEST_URL = "http://pjohnston37.students.cs.qub.ac.uk/Android/Register.php";
+    private static final String REGISTER_REQUEST_URL = "http://pjohnston37.students.cs.qub.ac.uk/Android/register.php";
 }
