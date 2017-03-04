@@ -1,5 +1,5 @@
 <h1>This is read me for parkd-mvp</h1>
 
-<h2><i>@Yolo</i></h2>
-<h2>Added some php files to connect to database</h2>
+<h2>source for uniform icons:</h2>
+https://material.io/icons/
 <hr>
