@@ -9,10 +9,14 @@
 
     <!-- activity_login strings -->
     <string name="login_title">Login</string>
-    <string name="reg_title">Register Here</string>
+    <string name="reg_title">Dont\'t have an account? Register Here</string>
 
     <!-- activity_register strings -->
     <string name="register">Register</string>
+    <string name="reg">Sign Up</string>
+    <string name="inform">By signing up you agree to our terms of service, privacy policy and cookie policy</string>
+
+
 
     <!-- activity_register_ua strings -->
     <string name="txt_view_head">Text View</string>
