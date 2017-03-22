@@ -4,10 +4,13 @@ import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
 import android.content.Intent;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 import com.android.volley.RequestQueue;
@@ -18,8 +21,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -57,6 +58,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                 //Check if passwords match
                 //check if email is valid
+                if (emptyData(firstName, lastName, email, username, password, confirmPassword ))
+                {
+                    return;
+                }
                 if (isEmailValid(email)) {
 
                 } else {
@@ -67,6 +72,16 @@ public class RegisterActivity extends AppCompatActivity {
                             .show();
                     return;
                 }
+                //check if passwords are right format
+                if (validate(password))
+                {}
+                else{AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setMessage("Password is not valid. Make sure it contains 6 to 20 characters with at least one digit, one upper case letter, one lower case letter. ")
+                            .setNegativeButton("Retry", null)
+                            .create()
+                            .show();
+                    return;}
+
                 //Check if passwords match
                 if (checkPass(password, confirmPassword)) {//do nothing
                 } else {
@@ -84,12 +99,10 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onResponse(String response) {
 
                         try {
-
-
                             //Receives response from the php
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
-                            if (success) {
+                            if (success = true) {
                                 //Opens up login form if successful
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                 builder.setMessage("Account Created")
@@ -97,15 +110,29 @@ public class RegisterActivity extends AppCompatActivity {
                                         .show();
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 RegisterActivity.this.startActivity(intent);
-                            } else {
-                                //Alerts the user of failure and asks for them to retry
+                            }else
+                            {
+                                String resp = jsonResponse.getString("text");
+                                if(resp.equals("Email Exists"))
+                                {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                    builder.setMessage("Email has already been registered. Please choose another.")
+                                            .setNegativeButton("Retry", null)
+                                            .create()
+                                            .show();
+                                }else if(resp.equals("User Exists")){
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                    builder.setMessage("Username already exists. Please choose another.")
+                                            .setNegativeButton("Retry", null)
+                                            .create()
+                                            .show();
+                                }else{
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                 builder.setMessage("Registration Failed")
                                         .setNegativeButton("Retry", null)
                                         .create()
-                                        .show();
-                            }
-                        } catch (JSONException e) {
+                                        .show();}
+                        } }catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -144,6 +171,87 @@ public class RegisterActivity extends AppCompatActivity {
         }
         return isValid;
     }
+    //Checks if there are any empty strings
+    public boolean emptyData(String firstName, String lastName, String email, String username, String confirmPass, String Pass)
+    {
+        if (firstName.equals("")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            builder.setMessage("Please enter your first name.")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return true;
+        }else
+        {
+        }
+        if (lastName.equals("")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            builder.setMessage("Please enter your last name.")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return true;
+        }else
+        {
+        }
+        if (email.equals("")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            builder.setMessage("Please enter an email address.")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return true;
+        }else
+        {
+        }
+        if (username.equals("")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            builder.setMessage("Please chhose a username.")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return true;
+        }else
+        {
+        }
+        if (Pass.equals("")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            builder.setMessage("Please enter a password.")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return true;
+        }else
+        {
+        }
+        if (confirmPass.equals("")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            builder.setMessage("Please confirm your password.")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return true;
+        }else
+        {
+        }
+        return false;
+    }
 
+    /**
+     * Validate password with regular expression
+     * @param password password for validation
+     * @return true valid password, false invalid password
+     */
+    public boolean validate(final String password){
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+
+    }
+
+    private Pattern pattern;
+    private Matcher matcher;
+    private static final String PASSWORD_PATTERN =
+            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{4,}$";
 
 }
