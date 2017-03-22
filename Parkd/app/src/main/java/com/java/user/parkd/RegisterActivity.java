@@ -206,7 +206,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         if (username.equals("")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-            builder.setMessage("Please chhose a username.")
+            builder.setMessage("Please choose a username.")
                     .setNegativeButton("Retry", null)
                     .create()
                     .show();
