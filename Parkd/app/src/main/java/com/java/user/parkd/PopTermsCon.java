@@ -4,7 +4,6 @@ package com.java.user.parkd;
  * Created by Paul on 27/03/2017.
  */
 import android.app.Activity;
-import android.hardware.display.DisplayManager;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
@@ -15,15 +14,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Pop extends Activity{
+public class PopTermsCon extends Activity{
 
     private TextView textView;
     private StringBuilder text = new StringBuilder();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        
         setContentView(R.layout.popup);
 
         //set height and width for popup
@@ -33,7 +31,7 @@ public class Pop extends Activity{
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) (width * .9), (int) (height * .9));
+        getWindow().setLayout((int) (width * .85), (int) (height * .6));
         BufferedReader reader = null;
 
         try {
@@ -61,8 +59,6 @@ public class Pop extends Activity{
             TextView output = (TextView) findViewById(R.id.termsView);
             output.setText((CharSequence) text);
             output.setMovementMethod(new ScrollingMovementMethod());
-
         }
-
     }
 }

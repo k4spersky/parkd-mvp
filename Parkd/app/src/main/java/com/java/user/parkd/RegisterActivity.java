@@ -8,9 +8,6 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.content.Intent;
 import android.widget.TextView;
-import android.view.LayoutInflater;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.PopupWindow;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -156,7 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View arg0) {
-               startActivity(new Intent(RegisterActivity.this, Pop.class));
+               startActivity(new Intent(RegisterActivity.this, PopTermsCon.class));
 
 
 
