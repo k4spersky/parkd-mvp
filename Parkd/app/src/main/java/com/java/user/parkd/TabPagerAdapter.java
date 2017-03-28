@@ -11,7 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class TabPagerAdapter extends FragmentPagerAdapter {
 
-    private String tabTitles[] = new String[]{"Sites", "Search", "Settings"};
+    private String tabTitles[] = new String[]{"parkd", "search", "settings"};
 
     public TabPagerAdapter (FragmentManager fm, Context context) {
         super(fm);
