@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/linearLayout">
+        
         <TextView
             android:id="@+id/regTextView"
             android:layout_width="wrap_content"
@@ -20,8 +21,7 @@
             android:layout_marginStart="130dp"
             android:textStyle="bold"
             android:layout_marginTop="50dp"
-            android:text="@string/reg"
-            />
+            android:text="@string/reg" />
 
         <EditText
             android:id="@+id/etFirstName"
@@ -33,7 +33,7 @@
             android:drawablePadding="8dp"
             android:hint="First Name"
             android:inputType="textPersonName"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -44,8 +44,8 @@
             android:ems="20"
             android:id="@+id/etLastName"
             android:hint="Last Name"
-            android:gravity="center_vertical"
-             />
+            android:gravity="center_vertical" />
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,8 +55,8 @@
             android:id="@+id/etEmail"
             android:hint="Email"
             android:gravity="center_vertical"
-            android:drawablePadding="8dp"
-             />
+            android:drawablePadding="8dp" />
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,8 +66,8 @@
             android:ems="20"
             android:id="@+id/etUsername"
             android:hint="Username"
-            android:gravity="center_vertical"
-            />
+            android:gravity="center_vertical" />
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,8 +77,8 @@
             android:drawableStart="@drawable/pass"
             android:id="@+id/etPassword"
             android:hint="Password"
-            android:gravity="center_vertical"
-            />
+            android:gravity="center_vertical" />
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,7 +88,8 @@
             android:drawableStart="@drawable/pass"
             android:id="@+id/etConfirmPass"
             android:hint="Confirm Password"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical" />
+        
         <Button
             android:text="@string/register"
             android:layout_width="fill_parent"
@@ -102,6 +103,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="40dp"
             android:layout_alignParentBottom="true" />
+        
         <TextView
             android:id="@+id/informtextView"
             android:layout_width="wrap_content"
@@ -109,12 +111,6 @@
             android:layout_alignParentStart="true"
             android:textSize="20sp"
             android:text="@string/inform"
-            android:layout_gravity="center"
-            />
-
+            android:layout_gravity="center" />
     </LinearLayout>
-
-
-
 </ScrollView>
-
