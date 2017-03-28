@@ -23,7 +23,7 @@ public class PopTermsCon extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.popup);
+        setContentView(R.layout.terms_popup);
 
         //set height and width for popup
         DisplayMetrics dm = new DisplayMetrics();
@@ -32,7 +32,7 @@ public class PopTermsCon extends Activity{
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) (width * .85), (int) (height * .6));
+        getWindow().setLayout((int) (width * .85), (int) (height * .7));
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         BufferedReader reader = null;
