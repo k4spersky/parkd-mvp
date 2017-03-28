@@ -1,14 +1,14 @@
 package com.java.user.parkd;
 
-import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.TextView;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText etLastName = (EditText) findViewById(R.id.etLastName);
         final EditText etPassword = (EditText) findViewById(R.id.etPassword);
         final Button bRegister = (Button) findViewById(R.id.bRegister);
+        final TextView termsLink = (TextView) findViewById(com.java.user.parkd.R.id.informtextView);
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,8 +148,17 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-    }
+        //Terms and Condtions popup
+        termsLink.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View arg0) {
+               startActivity(new Intent(RegisterActivity.this, PopTermsCon.class));
+
+
+
+            }});
+    }
     private boolean checkPass(String pass, String confirmPass) {
         if (pass.equals(confirmPass)) {
             return true;
@@ -206,7 +216,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         if (username.equals("")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-            builder.setMessage("Please chhose a username.")
+            builder.setMessage("Please choose a username.")
                     .setNegativeButton("Retry", null)
                     .create()
                     .show();

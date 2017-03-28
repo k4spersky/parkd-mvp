@@ -29,6 +29,10 @@
         <activity android:name="com.java.user.parkd.LoginActivity" />
         <activity android:name="com.java.user.parkd.RegisterActivity" />
         <activity android:name="com.java.user.parkd.UserAreaActivity" />
+        <activity android:name="com.java.user.parkd.PopTermsCon"
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
+
 
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
