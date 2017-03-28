@@ -4,6 +4,7 @@ package com.java.user.parkd;
  * Created by Paul on 27/03/2017.
  */
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
@@ -21,7 +22,7 @@ public class PopTermsCon extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         setContentView(R.layout.popup);
 
         //set height and width for popup
@@ -32,6 +33,8 @@ public class PopTermsCon extends Activity{
         int height = dm.heightPixels;
 
         getWindow().setLayout((int) (width * .85), (int) (height * .6));
+        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
         BufferedReader reader = null;
 
         try {
