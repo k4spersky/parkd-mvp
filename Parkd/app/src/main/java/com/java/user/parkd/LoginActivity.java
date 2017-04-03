@@ -1,5 +1,6 @@
 package com.java.user.parkd;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,6 +61,12 @@ public class LoginActivity extends AppCompatActivity {
                                 String lastname = jsonResponse.getString("lastname");
                                 String email = jsonResponse.getString("email");
                                 //int age = jsonResponse.getInt("age");
+                                String name = firstname + " " + lastname;
+                                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putString("username", name); // Storing string
+                                editor.commit();
+                                //SaveSharedPreference.setUserName(LoginActivity.this, name);
 
                                 Intent intent = new Intent(LoginActivity.this, UserAreaActivity.class);
                                 //Allows for data to be sent from one form to another

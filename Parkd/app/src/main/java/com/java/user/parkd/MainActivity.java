@@ -15,6 +15,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.java.user.parkd.R.layout.activity_main);
+        if(SaveSharedPreference.getUserName(MainActivity.this).length() == 0)
+        {
+            // do nothing
+        }
+        else
+        {
+            // Stay at the current activity.
+        }
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
