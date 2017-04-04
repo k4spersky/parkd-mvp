@@ -14,7 +14,7 @@ public class UserAreaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.java.user.parkd.R.layout.activity_register_ua);
         //The following code is used for assigning variables to the controls located on the login page
-        final EditText etUsername = (EditText) findViewById(com.java.user.parkd.R.id.etUsername);
+        final EditText etUsername = (EditText) findViewById(com.java.user.parkd.R.id.etEmail);
         final EditText etAge = (EditText) findViewById(com.java.user.parkd.R.id.etConfrimPass);
         final TextView welcomeMessage = (TextView) findViewById(com.java.user.parkd.R.id.tvWelcomeMessage);
         //Get data sent from login page

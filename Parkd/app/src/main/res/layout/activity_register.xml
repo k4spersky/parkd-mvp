@@ -52,21 +52,10 @@
             android:inputType="text"
             android:ems="20"
             android:drawableStart="@drawable/email"
-            android:id="@+id/etEmail"
+            android:id="@+id/etEmaily"
             android:hint="Email"
             android:gravity="center_vertical"
             android:drawablePadding="8dp" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="8dp"
-            android:inputType="textPersonName"
-            android:drawableStart="@drawable/user"
-            android:ems="20"
-            android:id="@+id/etUsername"
-            android:hint="Username"
-            android:gravity="center_vertical" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -79,21 +68,11 @@
             android:hint="Password"
             android:gravity="center_vertical" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:drawablePadding="8dp"
-            android:ems="20"
-            android:drawableStart="@drawable/pass"
-            android:id="@+id/etConfirmPass"
-            android:hint="Confirm Password"
-            android:gravity="center_vertical" />
         
         <Button
             android:text="@string/register"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="100dp"
             android:id="@+id/bRegister"
             android:textColor="@color/white"
             android:textSize="20sp"
