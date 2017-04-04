@@ -2,27 +2,18 @@
     $mysqli = new mysqli("pjohnston37.students.cs.qub.ac.uk", "pjohnston37", "pqjg4ll4k3wytzmv", "pjohnston37");
    $firstname = $_POST["firstname"];
     $lastname = $_POST["lastname"];
-   $username = $_POST["username"];
     $password = $_POST["password"];
     $email = $_POST["email"];
 
-    $sql = "Select username from user where username = '$username'";
-    if ($result = $mysqli->query($sql)) {
 
-        /* determine number of rows result set */
-        $row_cnt = $result->num_rows;
-
-        if ($row_cnt == 0)
-        {
-        $result->close();
-        $sql = "Select username from user where email = '$email'";
+        $sql = "Select email from user where email = '$email'";
         if ($result = $mysqli->query($sql)){
         $row_cnt = $result->num_rows;
         if ($row_cnt == 0)
         {
         //Create User
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO user (first_name, last_name, username, password, email) VALUES ('$firstname', '$lastname', '$username', '$password', '$email')";
+        $sql = "INSERT INTO user (first_name, last_name, password, email) VALUES ('$firstname', '$lastname', '$password', '$email')";
         $result = $mysqli->query($sql);
         //$result->close();
         $mysqli->close();
@@ -57,22 +48,13 @@
 
                                  mail($to,$subject,$message,$headers);
                  }else{
-                 //Error occured, dont sent email
-
-                 }
-        }else{
         //Email Exists
          $response = array();
          $response["success"] = false;
          $response["text"] = "Email Exists";
         }
         }
-        }else{
-        //User Exists
-        $response = array();
-        $response["success"] = false;
-        $response["text"] = "User Exists";
-        }
+
 }
 //send results back to app
 echo json_encode($response);

@@ -1,10 +1,14 @@
 package com.java.user.parkd;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Intent;
+import android.widget.Toast;
 
 
 public class UserAreaActivity extends AppCompatActivity {
@@ -14,22 +18,29 @@ public class UserAreaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.java.user.parkd.R.layout.activity_register_ua);
         //The following code is used for assigning variables to the controls located on the login page
-        final EditText etUsername = (EditText) findViewById(com.java.user.parkd.R.id.etUsername);
-        final EditText etAge = (EditText) findViewById(com.java.user.parkd.R.id.etConfrimPass);
-        final TextView welcomeMessage = (TextView) findViewById(com.java.user.parkd.R.id.tvWelcomeMessage);
-        //Get data sent from login page
-        Intent intent = getIntent();
-        String firstname = intent.getStringExtra("firstname");
-        String lastname = intent.getStringExtra("lastname");
-        String username = intent.getStringExtra("username");
-        int age = intent.getIntExtra("age", -1);
-        //Sets controls
-        String message = firstname + WELCOME_MSG;
-        welcomeMessage.setText(message);
-        etUsername.setText(username);
-        etAge.setText(age + "");
+        final TextView logOut = (TextView) findViewById(R.id.logout);
+        logOut.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //This Listener listens for click on the register text link
+                //The following code is standard for running a new activity, in this case it opens the register form
+                removeData();
+                finish();
+
+            }
+        });
+
+
+    }
+    public void removeData()
+    {
+        SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpref.edit();
+        editor.clear();
+        editor.apply();
+
+        Toast.makeText(this, "Logged Out", Toast.LENGTH_LONG).show();
+
     }
 
-    // constants declared below
-    protected static final String WELCOME_MSG = " welcome to your user area." ;
 }

@@ -15,10 +15,10 @@ public class LoginRequest extends StringRequest {
     private Map<String, String> params;
 
     //Constructor for the request
-    public LoginRequest(String username, String password, Response.Listener<String> listener) {
+    public LoginRequest(String email, String password, Response.Listener<String> listener) {
         super(Method.POST, Login_REQUEST_URL, listener, null);
         params = new HashMap<>();
-        params.put("username", username);
+        params.put("email", email);
         params.put("password", password);
     }
 
