@@ -1,5 +1,6 @@
 package com.java.user.parkd;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -17,6 +19,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static com.java.user.parkd.R.id.etEmail;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -47,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Collects values from text boxes and put them into variables
                 final String email = etEmail.getText().toString();
+                useremail = email;
                 final String password = etPassword.getText().toString();
                 Response.Listener<String> responseListener = new Response.Listener<String>()
                 {
@@ -67,21 +72,20 @@ public class LoginActivity extends AppCompatActivity {
                                 String email = jsonResponse.getString("email");
                                 //int age = jsonResponse.getInt("age");
 
-                                String name = firstname + " " + lastname;
-                                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-                                SharedPreferences.Editor editor = pref.edit();
-                                editor.putString("username", name); // Storing string
-                                editor.commit();
-                                //SaveSharedPreference.setUserName(LoginActivity.this, name);
+                                 name = firstname + " " + lastname;
+                                saveinfo();
 
-                                Intent intent = new Intent(LoginActivity.this, Fragment3Activity.class);
+
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                //login = true;
+                                LoginActivity.this.startActivity(intent);
                                 //Allows for data to be sent from one form to another
                                 //intent.putExtra("firstname", firstname);
                                 //intent.putExtra("lastname", lastname);
                                 //intent.putExtra("email", email);
                                 //intent.putExtra("password", password);
                                 //intent.putExtra("age", age);
-                                LoginActivity.this.startActivity(intent);
+
                             }else{
                                 //Alerts the user of failure and asks for them retry
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
@@ -103,4 +107,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    public void saveinfo()
+    {
+        //saves users name and email
+            SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpref.edit();
+            editor.putString("name", name);
+            editor.putString("email", useremail);
+            editor.apply();
+        //Toast.makeText(this, "worked", Toast.LENGTH_LONG).show();
+
+
+    }
+    private static String name;
+    private static String useremail;
+    //public static boolean login = false;
 }
