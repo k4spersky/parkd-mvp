@@ -96,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 builder.setMessage("Account Created")
                                         .create()
                                         .show();
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                                 RegisterActivity.this.startActivity(intent);
                             }else
                             {

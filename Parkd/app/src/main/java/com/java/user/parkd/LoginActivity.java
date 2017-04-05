@@ -36,6 +36,18 @@ public class LoginActivity extends AppCompatActivity {
         final EditText etPassword = (EditText) findViewById(com.java.user.parkd.R.id.etPassword);
         final Button bLogin = (Button) findViewById(com.java.user.parkd.R.id.bLogin);
         final TextView registerLink = (TextView) findViewById(com.java.user.parkd.R.id.tvRegisterHere);
+        final TextView user = (TextView) findViewById(R.id.accName);
+        getData();
+        if (name.length()==0)
+        {
+
+
+        }else{
+            //send to login page
+            Intent LoginIntent = new Intent(LoginActivity.this, MainActivity.class);
+            //finish();
+            LoginActivity.this.startActivity(LoginIntent);
+        }
 
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,19 +86,14 @@ public class LoginActivity extends AppCompatActivity {
 
                                  name = firstname + " " + lastname;
                                 saveinfo();
+                                user.setText(name);
 
 
-                                //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 //login = true;
-                                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                finish();
-                                //LoginActivity.this.startActivity(intent);
-                                //Allows for data to be sent from one form to another
-                                //intent.putExtra("firstname", firstname);
-                                //intent.putExtra("lastname", lastname);
-                                //intent.putExtra("email", email);
-                                //intent.putExtra("password", password);
-                                //intent.putExtra("age", age);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                LoginActivity.this.startActivity(intent);
+
 
                             }else{
                                 //Alerts the user of failure and asks for them retry
@@ -123,5 +130,12 @@ public class LoginActivity extends AppCompatActivity {
     }
     private static String name;
     private static String useremail;
+    public void getData()
+    {
+        SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        name = sharedpref.getString("name", "");
+
+    }
+
     //public static boolean login = false;
 }
