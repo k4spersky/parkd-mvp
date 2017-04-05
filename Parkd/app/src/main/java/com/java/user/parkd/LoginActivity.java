@@ -76,10 +76,11 @@ public class LoginActivity extends AppCompatActivity {
                                 saveinfo();
 
 
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 //login = true;
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                LoginActivity.this.startActivity(intent);
+                                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                finish();
+                                //LoginActivity.this.startActivity(intent);
                                 //Allows for data to be sent from one form to another
                                 //intent.putExtra("firstname", firstname);
                                 //intent.putExtra("lastname", lastname);
