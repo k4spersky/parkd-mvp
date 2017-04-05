@@ -27,7 +27,7 @@ public class Fragment2Activity extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         Intent LoginIntent = new Intent(Fragment2Activity.this.getActivity(), LoginActivity.class);
-        getActivity().finish();
+        //getActivity().finish();
         Fragment2Activity.this.startActivity(LoginIntent);
     }
 }
