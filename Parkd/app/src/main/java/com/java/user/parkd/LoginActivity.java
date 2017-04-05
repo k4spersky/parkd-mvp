@@ -78,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 //login = true;
+                                finish();
                                 LoginActivity.this.startActivity(intent);
                                 //Allows for data to be sent from one form to another
                                 //intent.putExtra("firstname", firstname);
