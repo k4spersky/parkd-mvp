@@ -27,7 +27,7 @@ public class UserAreaActivity extends AppCompatActivity {
                 //This Listener listens for click on the register text link
                 //The following code is standard for running a new activity, in this case it opens the register form
                 removeData();
-                user.setText("");
+                //user.setText("");
                 Intent intent = new Intent(UserAreaActivity.this, LoginActivity.class);
                 //login = true;
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

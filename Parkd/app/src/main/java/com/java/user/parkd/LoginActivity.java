@@ -20,8 +20,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.java.user.parkd.R.id.etEmail;
-
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -45,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             //send to login page
             Intent LoginIntent = new Intent(LoginActivity.this, MainActivity.class);
-            //finish();
+            finish();
             LoginActivity.this.startActivity(LoginIntent);
         }
 
@@ -84,11 +82,9 @@ public class LoginActivity extends AppCompatActivity {
                                 String email = jsonResponse.getString("email");
                                 //int age = jsonResponse.getInt("age");
 
-                                 name = firstname + " " + lastname;
+                                name = firstname + " " + lastname;
                                 saveinfo();
-                                user.setText(name);
-
-
+                                //user.setText(name);
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 //login = true;
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
