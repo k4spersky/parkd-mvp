@@ -30,8 +30,11 @@ public class UserAreaActivity extends AppCompatActivity {
                 //user.setText("");
                 Intent intent = new Intent(UserAreaActivity.this, LoginActivity.class);
                 //login = true;
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                UserAreaActivity.this.startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
+                finish();
+
 
             }
         });

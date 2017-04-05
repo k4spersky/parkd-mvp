@@ -43,8 +43,10 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             //send to login page
             Intent LoginIntent = new Intent(LoginActivity.this, MainActivity.class);
+            LoginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            LoginIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(LoginIntent);
             finish();
-            LoginActivity.this.startActivity(LoginIntent);
         }
 
         registerLink.setOnClickListener(new View.OnClickListener() {
@@ -87,8 +89,10 @@ public class LoginActivity extends AppCompatActivity {
                                 //user.setText(name);
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 //login = true;
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                LoginActivity.this.startActivity(intent);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                startActivity(intent);
+                                finish();
 
 
                             }else{
