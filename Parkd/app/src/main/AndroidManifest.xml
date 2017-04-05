@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <!-- Splash screen -->
+         Splash screen
         <activity
             android:name="com.java.user.parkd.SplashScreen"
             android:label="@string/app_name"
@@ -17,16 +17,16 @@
             android:theme="@android:style/Theme.Black.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.java.user.parkd.MainActivity">
+        <activity android:name="com.java.user.parkd.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.java.user.parkd.LoginActivity" />
+        <activity android:name="com.java.user.parkd.MainActivity" />
         <activity android:name="com.java.user.parkd.RegisterActivity" />
         <activity android:name="com.java.user.parkd.UserAreaActivity" />
         <activity android:name="com.java.user.parkd.PopTermsCon"
