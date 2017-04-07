@@ -4,6 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,7 +16,12 @@ import android.content.Intent;
 import android.widget.Toast;
 
 
-public class UserAreaActivity extends AppCompatActivity {
+public class UserAreaActivity extends AppCompatActivity
+
+{
+    Toolbar tb1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +30,10 @@ public class UserAreaActivity extends AppCompatActivity {
         //The following code is used for assigning variables to the controls located on the login page
         final TextView logOut = (TextView) findViewById(R.id.logout);
         final TextView user = (TextView) findViewById(R.id.accName);
+         tb1 = (Toolbar) findViewById(R.id.toolbar1);
+        setSupportActionBar(tb1);
+        getSupportActionBar().setTitle("My Account");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         logOut.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -30,11 +44,11 @@ public class UserAreaActivity extends AppCompatActivity {
                 //user.setText("");
                 Intent intent = new Intent(UserAreaActivity.this, LoginActivity.class);
                 //login = true;
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                finishAffinity();
                 startActivity(intent);
                 finish();
-
 
             }
         });
@@ -45,13 +59,35 @@ public class UserAreaActivity extends AppCompatActivity {
     {
         SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpref.edit();
-        editor.clear();
+        editor.remove("name");
+        switchStatus = sharedpref.getString("Saveemail", "");
+        if(switchStatus.matches("No"))
+        {
+            editor.remove("email");
+        }
         editor.apply();
 
         Toast.makeText(this, "Logged Out", Toast.LENGTH_LONG).show();
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+
+        return super.onOptionsItemSelected(item);
+    }
+
+   /* @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mi = getMenuInflater();
+        mi.inflate(R.menu.actionbar1, menu);
+        return super.onCreateOptionsMenu(menu);
+    }*/
+
+
     private String name;
+    private String switchStatus;
 
 }

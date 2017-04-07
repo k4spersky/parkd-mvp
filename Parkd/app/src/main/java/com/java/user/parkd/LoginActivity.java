@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.content.Intent;
 import android.widget.Toast;
@@ -20,8 +21,11 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity {
+import static com.java.user.parkd.R.id.etEmail;
+import static com.java.user.parkd.R.id.switch1;
 
+public class LoginActivity extends AppCompatActivity {
+        Switch emailSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,21 +34,31 @@ public class LoginActivity extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         //The following code is used for assigning variables to the controls located on the login page
-        final EditText etEmail = (EditText) findViewById(com.java.user.parkd.R.id.etEmail);
+        final EditText Email = (EditText) findViewById(etEmail);
         final EditText etPassword = (EditText) findViewById(com.java.user.parkd.R.id.etPassword);
         final Button bLogin = (Button) findViewById(com.java.user.parkd.R.id.bLogin);
         final TextView registerLink = (TextView) findViewById(com.java.user.parkd.R.id.tvRegisterHere);
         final TextView user = (TextView) findViewById(R.id.accName);
+         emailSwitch = (Switch) findViewById(R.id.switch1);
         getData();
         if (name.length()==0)
         {
+            if(switchStatus.toString().matches("Yes"))
+            {
+                //Set controls
+                Email.setText(useremail);
+                emailSwitch.setChecked(true);
+
+            }
+            else {//DO nothing
+                 }
 
 
         }else{
             //send to login page
             Intent LoginIntent = new Intent(LoginActivity.this, MainActivity.class);
             LoginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            LoginIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            //LoginIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(LoginIntent);
             finish();
         }
@@ -62,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Collects values from text boxes and put them into variables
-                final String email = etEmail.getText().toString();
+                final String email = Email.getText().toString();
                 useremail = email;
                 final String password = etPassword.getText().toString();
                 Response.Listener<String> responseListener = new Response.Listener<String>()
@@ -90,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 //login = true;
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                                 startActivity(intent);
                                 finish();
 
@@ -122,20 +136,33 @@ public class LoginActivity extends AppCompatActivity {
             SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpref.edit();
             editor.putString("name", name);
-            editor.putString("email", useremail);
-            editor.apply();
-        //Toast.makeText(this, "worked", Toast.LENGTH_LONG).show();
+        if(emailSwitch.isChecked())
+        {
+            editor.putString("Saveemail", "Yes");
+        }else
+            {
+                editor.putString("Saveemail", "No");
+            }
+                editor.putString("email", useremail);
+                editor.apply();
+
 
 
     }
     private static String name;
     private static String useremail;
+    private static String switchStatus;
     public void getData()
+
     {
         SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         name = sharedpref.getString("name", "");
+        useremail = sharedpref.getString("email", "");
+        switchStatus = sharedpref.getString("Saveemail", "");
+
 
     }
+
 
     //public static boolean login = false;
 }
