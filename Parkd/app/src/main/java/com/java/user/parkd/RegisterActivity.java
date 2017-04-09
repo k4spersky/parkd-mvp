@@ -3,6 +3,9 @@ package com.java.user.parkd;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -30,8 +33,9 @@ public class RegisterActivity extends AppCompatActivity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient client;
 
+    private GoogleApiClient client;
+    Toolbar tb1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +43,17 @@ public class RegisterActivity extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //The following code is used for assigning variables to the controls located on the register page
 
+
         final EditText etEmail = (EditText) findViewById(R.id.etEmaily);
         final EditText etFirstName = (EditText) findViewById(R.id.etFirstName);
         final EditText etLastName = (EditText) findViewById(R.id.etLastName);
         final EditText etPassword = (EditText) findViewById(R.id.etPassword);
         final Button bRegister = (Button) findViewById(R.id.bRegister);
         final TextView termsLink = (TextView) findViewById(com.java.user.parkd.R.id.informtextView);
+        tb1 = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(tb1);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,6 +222,13 @@ public class RegisterActivity extends AppCompatActivity {
         matcher = pattern.matcher(password);
         return matcher.matches();
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+
+        return super.onOptionsItemSelected(item);
     }
 
     private Pattern pattern;
