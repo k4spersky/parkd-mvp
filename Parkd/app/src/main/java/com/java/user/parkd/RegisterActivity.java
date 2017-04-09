@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
      */
 
     private GoogleApiClient client;
-
+    Toolbar tb1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +50,10 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText etPassword = (EditText) findViewById(R.id.etPassword);
         final Button bRegister = (Button) findViewById(R.id.bRegister);
         final TextView termsLink = (TextView) findViewById(com.java.user.parkd.R.id.informtextView);
+        tb1 = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(tb1);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override

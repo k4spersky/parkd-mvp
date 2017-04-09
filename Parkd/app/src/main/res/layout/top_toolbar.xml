@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <!---->
+    <!--code needed in java file-->
+    <!--@Override-->
+    <!--public boolean onOptionsItemSelected(MenuItem item) {-->
+    <!--this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));-->
+    <!--this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));-->
+
+    <!--return super.onOptionsItemSelected(item);-->
+    <!--}-->
+    <!--Toolbar tb1;-->
+    <!--tb1 = (Toolbar) findViewById(R.id.toolbar);-->
+    <!--setSupportActionBar(tb1);-->
+    <!--getSupportActionBar().setTitle("");-->
+    <!--getSupportActionBar().setDisplayHomeAsUpEnabled(true);-->
+</LinearLayout>

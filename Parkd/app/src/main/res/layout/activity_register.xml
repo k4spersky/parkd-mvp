@@ -9,6 +9,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/linearLayout">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
         <TextView
             android:id="@+id/regTextView"
             android:layout_width="wrap_content"

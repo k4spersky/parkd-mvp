@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.TextView;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 public class UserAreaActivity extends AppCompatActivity
 
 {
+    Toolbar tb1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +26,10 @@ public class UserAreaActivity extends AppCompatActivity
         //The following code is used for assigning variables to the controls located on the login page
         final TextView logOut = (TextView) findViewById(R.id.logout);
         final TextView user = (TextView) findViewById(R.id.accName);
+        tb1 = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(tb1);
+        getSupportActionBar().setTitle("My Account");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         logOut.setOnClickListener(new View.OnClickListener(){
@@ -74,6 +82,12 @@ public class UserAreaActivity extends AppCompatActivity
     private String name;
     private String switchStatus;
 
-    private class Toolbar {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+
+        return super.onOptionsItemSelected(item);
     }
 }
