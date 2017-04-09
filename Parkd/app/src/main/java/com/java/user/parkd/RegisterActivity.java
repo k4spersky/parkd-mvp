@@ -44,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         //The following code is used for assigning variables to the controls located on the register page
         tb1 = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(tb1);
-        getSupportActionBar().setTitle("Register");
+        //getSupportActionBar().setTitle("Register");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final EditText etEmail = (EditText) findViewById(R.id.etEmaily);
