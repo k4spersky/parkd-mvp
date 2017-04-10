@@ -6,30 +6,28 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 /**
- * Created by kkuczkowski on 03/03/2017.
+ * Created by Paul on 10/04/2017.
  */
 
-public class TabPagerAdapter extends FragmentPagerAdapter {
+public class BookingsTabPagerAdapter extends FragmentPagerAdapter {
 
-    private String tabTitles[] = new String[]{"parkd", "search", "settings"};
+    private String tabTitles[] = new String[]{"Active", "Inactive"};
 
-    public TabPagerAdapter (FragmentManager fm, Context context) {
+    public BookingsTabPagerAdapter (FragmentManager fm, Context context) {
         super(fm);
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     @Override
     public Fragment getItem(int position) {
         if(position == 0){
-            return new Fragment1Activity();
+            return new FragmentBookings1Activity();
         } else if(position == 1) {
-            return new Fragment2Activity();
-        } else if(position == 2) {
-            return new Fragment3Activity();
+            return new FragmentBookings2Activity();
         }
 
         return null;
