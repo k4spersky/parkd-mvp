@@ -171,4 +171,5 @@
             android:text="v1.0"
             android:textSize="10sp" />
     </RelativeLayout>
+
 </RelativeLayout>
