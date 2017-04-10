@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This is the fragment  to be displayed for a section associated with a tab -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false">
 
-    <LinearLayout
+    <android.support.percent.PercentRelativeLayout
         android:id="@+id/topper2"
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -15,6 +17,8 @@
 
         <SearchView
             android:id="@+id/search_frag2"
-            style="@style/search_style"/>
-    </LinearLayout>
+            style="@style/search_style"
+            app:layout_widthPercent="90%"
+            app:layout_marginStartPercent="5%" />
+    </android.support.percent.PercentRelativeLayout>
 </RelativeLayout>
