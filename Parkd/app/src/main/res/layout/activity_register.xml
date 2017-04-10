@@ -4,11 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/linearLayout">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -16,6 +18,7 @@
             android:background="@drawable/border"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
+
         <TextView
             android:id="@+id/regTextView"
             android:layout_width="wrap_content"
@@ -70,6 +73,7 @@
             android:id="@+id/etPassword"
             android:hint="Password"
             android:gravity="center_vertical" />
+
         <TextView
             android:id="@+id/informtextView"
             android:layout_width="wrap_content"
@@ -79,6 +83,7 @@
             android:text="@string/inform"
             android:layout_gravity="center" />
     </LinearLayout>
+
     <Button
         android:text="@string/register"
         android:id="@+id/bRegister"
@@ -87,7 +92,7 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:background="@color/regbutton"
+        android:background="@color/dodger_blue"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
 </RelativeLayout>

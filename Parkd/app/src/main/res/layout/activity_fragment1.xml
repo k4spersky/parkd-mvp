@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="2dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/topper"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/dodger_blue"
+        android:orientation="vertical">
+    </LinearLayout>
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv"
@@ -12,6 +19,7 @@
         android:layout_height="wrap_content"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
+        android:layout_below="@id/topper"
         app:cardElevation="1dp">
 
         <RelativeLayout
@@ -60,7 +68,5 @@
                 android:layout_marginStart="5dp"
                 android:text="BT1 4QG Belfast" />
         </RelativeLayout>
-
     </android.support.v7.widget.CardView>
-
-</LinearLayout>
+</RelativeLayout>
