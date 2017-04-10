@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         viewPager.setAdapter(new TabPagerAdapter(getSupportFragmentManager(),
                 MainActivity.this));
-        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.google_blue));
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.eucalyptus));
         viewPager.setCurrentItem(1);
 
         // Give the TabLayout the ViewPager
@@ -29,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
-                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.eucalyptus));
+                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.dodger_blue));
                 }
                 if (tab.getPosition() == 1) {
-                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.google_blue));
+                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.eucalyptus));
                 }
                 if (tab.getPosition() == 2) {
-                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.nap_yellow));
+                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.cadet_grey));
                 }
             }
             // left empty as not needed

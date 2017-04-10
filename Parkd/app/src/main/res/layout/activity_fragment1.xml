@@ -9,7 +9,7 @@
         android:id="@+id/topper"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/eucalyptus"
+        android:background="@color/dodger_blue"
         android:orientation="vertical">
     </LinearLayout>
 
