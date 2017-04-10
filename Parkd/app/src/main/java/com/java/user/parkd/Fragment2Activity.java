@@ -14,12 +14,12 @@ public class Fragment2Activity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_fragment2, container, false);
-        final android.widget.SearchView searchView1 = (android.widget.SearchView) view.findViewById(R.id.search_frag2);
+        final android.widget.SearchView searchView = (android.widget.SearchView) view.findViewById(R.id.search_frag2);
 
-        searchView1.setOnClickListener(new View.OnClickListener() {
+        searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchView1.setIconified(false);
+                searchView.setIconified(false);
             }
         });
         return view;
