@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
+            // Method designed to change colours depending on selected fragment position
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                     tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.nap_yellow));
                 }
             }
-
+            // left empty as not needed
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
 
