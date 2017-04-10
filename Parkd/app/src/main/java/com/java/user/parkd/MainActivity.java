@@ -1,11 +1,9 @@
 package com.java.user.parkd;
 
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -15,15 +13,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(com.java.user.parkd.R.layout.activity_main);
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         viewPager.setAdapter(new TabPagerAdapter(getSupportFragmentManager(),
                 MainActivity.this));
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.google_blue));
         viewPager.setCurrentItem(1);
+
         // Give the TabLayout the ViewPager
         tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
