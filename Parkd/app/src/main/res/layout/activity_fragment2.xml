@@ -7,8 +7,14 @@
     android:baselineAligned="false">
 
     <LinearLayout
+        android:id="@+id/topper2"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/eucalyptus">
+        android:layout_height="70dp"
+        android:background="@color/eucalyptus"
+        android:orientation="vertical">
+
+        <SearchView
+            android:id="@+id/search_frag2"
+            style="@style/search_style"/>
     </LinearLayout>
 </RelativeLayout>
