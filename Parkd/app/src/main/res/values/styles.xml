@@ -55,5 +55,4 @@
         <item name="android:background">@drawable/gradient_search</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
-
 </resources>

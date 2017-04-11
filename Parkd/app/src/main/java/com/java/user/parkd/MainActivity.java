@@ -41,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
             // left empty as not needed
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                // TODO Auto-generated method stub
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                // TODO Auto-generated method stub
             }
         });
     }
