@@ -70,6 +70,6 @@
 	"free_until": 0,
 	"disabled_access": true,
 	"city_picker": "belfast",
-    "sponsor": false,
+       "sponsor": false,
 	"location": ""
 }
