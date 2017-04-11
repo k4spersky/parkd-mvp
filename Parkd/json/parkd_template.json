@@ -5,6 +5,7 @@
 	"address_line1": "Victoria Street 1",
 	"address_line2": "BT1 4QG, Belfast",
 	"description": "",
+       "image_url": "image_url",
 	"available_spaces": 69,
 	"schedule": [{
 		"monday": {
