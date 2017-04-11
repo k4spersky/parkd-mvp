@@ -36,8 +36,7 @@
 			"close": "21:00"
 		}
 	}],
-    //flags
 	"disabled_access": true,
-    "city": "belfast",
+    "city_picker": "belfast",
 	"location": ""
 }
