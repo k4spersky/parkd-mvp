@@ -37,6 +37,6 @@
 		}
 	}],
 	"disabled_access": true,
-	"city": "belfast",
+	"city_picker": "belfast",
 	"location": ""
 }
