@@ -1,0 +1,75 @@
+{
+	"_id": "",
+	"title": "Castle Court Car Park",
+	"owner": "CastleCourt",
+	"address_line1": "26 Smithfield Square N",
+	"address_line2": {
+		"post_code": "BT1 1EH",
+		"city": "Belfast"
+	},
+	"description": "CastleCourt car park entrances can be found at King Street or Smithfield Square North. When using Satellite Navigation devices use co-ordinations N 54° 36012’ or W 5° 56071’",
+	"image_url": "image_url",
+	"parking_capacity": 1600,
+	"available_spaces": 127,
+	"max_vehicle_height": 2.1,
+	"schedule": [{
+		"monday": {
+			"24_7": false,
+			"open": "7:30",
+			"close": "20:00"
+		},
+		"tuesday": {
+			"24_7": false,
+			"open": "7:30",
+			"close": "20:00"
+		},
+		"wednesday": {
+			"24_7": false,
+			"open": "7:30",
+			"close": "20:00"
+		},
+		"thursday": {
+			"24_7": false,
+			"open": "7:30",
+			"close": "22:00"
+		},
+		"friday": {
+			"24_7": false,
+			"open": "7:30",
+			"close": "20:00"
+		},
+		"saturday": {
+			"24_7": false,
+			"open": "7:30",
+			"close": "19:00"
+		},
+		"sunday": {
+			"24_7": false,
+			"open": "12:00",
+			"close": "19:00"
+		}
+	}],
+	"pricing": [{
+		"24_7": false,
+		"schedule": {
+			"day": {
+				"hourly_rate": 1.70,
+				"start_time": null,
+				"end_time": null
+			},
+			"night": {
+				"hourly_rate": null,
+				"start_time": null,
+				"end_time": null
+			}
+		},
+		"24_7_pass": null,
+		"day_pass": 6.00,
+		"night_pass": 5.00
+	}],
+	"free_until": 0,
+	"disabled_access": true,
+	"city_picker": "belfast",
+    "sponsor": false,
+	"location": ""
+}
