@@ -5,39 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.percent.PercentRelativeLayout
         android:id="@+id/topper"
+        android:layout_height="70dp"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
         android:background="@color/dodger_blue"
         android:orientation="vertical">
-    </LinearLayout>
+        <Spinner
+            android:id="@+id/spinner_frag1"
+            style="@style/spinner_style"
+            app:layout_widthPercent="90%"
+            app:layout_marginStartPercent="5%" />
+    </android.support.percent.PercentRelativeLayout>
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         android:layout_below="@id/topper"
-        app:cardElevation="1dp">
+        app:cardElevation="1.5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:padding="4dp">
+            android:layout_height="100dp"
+            android:paddingStart="4dp">
 
              <!-- colors will change programmatically -->
             <Button
                 android:id="@+id/message_button"
-                android:layout_width="wrap_content"
-                android:layout_height="75dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="0dp"
                 android:text="#27"
                 android:textColor="#FFF"
-                android:textSize="28sp" />
+                android:textSize="42sp" />
 
             <TextView
                 android:id="@+id/carpark_name"
@@ -46,8 +51,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Q-Park Victoria Square"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -57,6 +63,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/carpark_name"
                 android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Victoria Street 1" />
 
             <TextView
