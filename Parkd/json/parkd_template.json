@@ -1,11 +1,11 @@
 {
 	"_id": "de30-5d54-75b4-2u9d",
 	"title": "Q-Park Victoria Square",
-	"owner": "Company",
-	"address_line1": "",
-	"address_line2": "",
+	"owner": "Q-Park",
+	"address_line1": "Victoria Street 1",
+	"address_line2": "BT1 4QG, Belfast",
 	"description": "",
-	"avail_no": 69,
+	"available_spaces": 69,
 	"schedule": [{
 		"monday": {
 			"open": "8:00",
@@ -36,6 +36,8 @@
 			"close": "21:00"
 		}
 	}],
+    //flags
 	"disabled_access": true,
+    "city": "belfast",
 	"location": ""
 }
