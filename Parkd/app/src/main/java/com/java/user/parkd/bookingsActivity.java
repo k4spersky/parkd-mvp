@@ -13,7 +13,7 @@ import android.view.MenuItem;
  * Created by Paul on 09/04/2017.
  */
 
-public class bookingsActivity extends AppCompatActivity {
+public class BookingsActivity extends AppCompatActivity {
     Toolbar tb1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class bookingsActivity extends AppCompatActivity {
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.bookings_viewpager);
         viewPager.setAdapter(new BookingsTabPagerAdapter(getSupportFragmentManager(),
-                bookingsActivity.this));
+                BookingsActivity.this));
         viewPager.setCurrentItem(0);
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.booking_sliding_tabs);
