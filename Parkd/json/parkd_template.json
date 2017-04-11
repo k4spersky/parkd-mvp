@@ -1,19 +1,41 @@
 {
-    "_id": "de30-5d54-75b4-2u9d",
-    "title": "Q-Park Victoria Square",
-    "owner": "Company",
-    "address_line1": "",
-    "address_line2": "",
-    "description": "",
-    "avail_no": 69,
-    "schedule": [{"monday": {"open": "8:00", "close": "21:00"},
-                  "tuesday": {"open": "8:00", "close": "21:00"},
-                  "wednesday": {"open": "8:00", "close": "21:00"},
-                  "thursday": {"open": "8:00", "close": "21:00"},
-                  "friday": {"open": "8:00", "close": "21:00"},
-                  "saturday": {"open": "8:00", "close": "21:00"},
-                  "sunday": {"open": "8:00", "close": "21:00"}}], 
-    "disable_access": true,
-    "location": ""
+	"_id": "de30-5d54-75b4-2u9d",
+	"title": "Q-Park Victoria Square",
+	"owner": "Company",
+	"address_line1": "",
+	"address_line2": "",
+	"description": "",
+	"avail_no": 69,
+	"schedule": [{
+		"monday": {
+			"open": "8:00",
+			"close": "21:00"
+		},
+		"tuesday": {
+			"open": "8:00",
+			"close": "21:00"
+		},
+		"wednesday": {
+			"open": "8:00",
+			"close": "21:00"
+		},
+		"thursday": {
+			"open": "8:00",
+			"close": "21:00"
+		},
+		"friday": {
+			"open": "8:00",
+			"close": "21:00"
+		},
+		"saturday": {
+			"open": "8:00",
+			"close": "21:00"
+		},
+		"sunday": {
+			"open": "8:00",
+			"close": "21:00"
+		}
+	}],
+	"disabled_access": true,
+	"location": ""
 }
-
