@@ -9,12 +9,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import java.util.List;
+
 /**
  * Created by Paul on 09/04/2017.
  */
 
 public class BookingsActivity extends AppCompatActivity {
     Toolbar tb1;
+    TabLayout tabLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +32,10 @@ public class BookingsActivity extends AppCompatActivity {
         viewPager.setAdapter(new BookingsTabPagerAdapter(getSupportFragmentManager(),
                 BookingsActivity.this));
         viewPager.setCurrentItem(0);
+
         // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.booking_sliding_tabs);
+        tabLayout = (TabLayout) findViewById(R.id.booking_sliding_tabs);
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.eucalyptus));
         tabLayout.setupWithViewPager(viewPager);
     }
     @Override
@@ -40,5 +45,7 @@ public class BookingsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

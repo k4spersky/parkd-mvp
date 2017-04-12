@@ -11,7 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class BookingsTabPagerAdapter extends FragmentPagerAdapter {
 
-    private String tabTitles[] = new String[]{"Active", "Inactive"};
+    private String tabTitles[] = new String[]{"Current", "Previous"};
 
     public BookingsTabPagerAdapter (FragmentManager fm, Context context) {
         super(fm);
