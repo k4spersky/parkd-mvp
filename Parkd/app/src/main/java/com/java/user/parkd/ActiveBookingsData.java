@@ -4,7 +4,7 @@ package com.java.user.parkd;
  * Created by Paul on 11/04/2017.
  */
 
-public class MyData {
+public class ActiveBookingsData {
     private String date;
     private String image_source;
     private String address;
@@ -42,7 +42,7 @@ public class MyData {
         this.postcode = postcode;
     }
 
-    public MyData(String date, String image_source, String address, String postcode) {
+    public ActiveBookingsData(String date, String image_source, String address, String postcode) {
 
         this.date = date;
         this.image_source = image_source;

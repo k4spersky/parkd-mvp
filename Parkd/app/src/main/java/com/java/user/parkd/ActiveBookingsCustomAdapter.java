@@ -12,12 +12,12 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class ActiveBookingsCustomAdapter extends RecyclerView.Adapter<ActiveBookingsCustomAdapter.ViewHolder> {
 
     private Context context;
-    private List<MyData> my_data;
+    private List<ActiveBookingsData> my_data;
 
-    public CustomAdapter(Context context, List<MyData> my_data) {
+    public ActiveBookingsCustomAdapter(Context context, List<ActiveBookingsData> my_data) {
         this.context = context;
         this.my_data = my_data;
     }
@@ -35,7 +35,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         holder.address.setText(my_data.get(position).getAddress());
         holder.postcode.setText(my_data.get(position).getPostcode());
-        holder.datebooked.setText(my_data.get(position).getDate());
+        holder.datebooked.setText("Booked For: " + my_data.get(position).getDate());
         Glide.with(context).load(my_data.get(position).getImage_source()).into(holder.imageView);
     }
 
