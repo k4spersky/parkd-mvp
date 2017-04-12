@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,8 +38,6 @@ public class FragmentBookings1Activity extends Fragment {
     private String jsonString = "";
     private LinearLayout linlaHeaderProgress;
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_bookings_fragment1, container, false);
@@ -48,11 +45,11 @@ public class FragmentBookings1Activity extends Fragment {
         linlaHeaderProgress = (LinearLayout) view.findViewById(R.id.linlaHeaderProgress);
         datalist = new ArrayList<>();
 
-
         linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ActiveBookingsCustomAdapter(getActivity(), datalist);
         recyclerView.setAdapter(adapter);
+        
         //Downloading data from below url (Universal Resource Locator) to obtain data from the Admin database
         SharedPreferences sharedpref = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         String email = sharedpref.getString("email", "");
@@ -60,7 +57,6 @@ public class FragmentBookings1Activity extends Fragment {
         new AsyncHTTPTask().execute(url);
 
         return view;
-
     }
 
     public class AsyncHTTPTask extends AsyncTask<String, Void, Integer> {
@@ -69,6 +65,7 @@ public class FragmentBookings1Activity extends Fragment {
         protected Integer doInBackground(String... params) {
             Integer result = 0;
             HttpURLConnection urlConnection;
+            
             try {
                 URL url = new URL(params[0]);
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -94,6 +91,7 @@ public class FragmentBookings1Activity extends Fragment {
             }
             return result; //"Failed to fetch data!";
         }
+        
         @Override
         protected void onPreExecute() {
             // SHOW THE SPINNER WHILE LOADING FEEDS
@@ -102,11 +100,9 @@ public class FragmentBookings1Activity extends Fragment {
 
         @Override
         protected void onPostExecute(Integer result) {
-
             super.onPostExecute(result);
 
             //adapter.getItemCount();
-
             if (result == 1) {
                 //Initialising the adapter - Passing in the activity and the parsed Admin Team List
                 adapter = new ActiveBookingsCustomAdapter(getActivity(), datalist);
@@ -123,22 +119,15 @@ public class FragmentBookings1Activity extends Fragment {
     private void parseResult() {
 
         try {
-
             JSONArray AdminArrays = new JSONArray(jsonString);
             datalist = new ArrayList<>();
             for (int i = 0; i < AdminArrays.length(); i++) {
                 JSONObject object = AdminArrays.getJSONObject(i);
                 ActiveBookingsData data = new ActiveBookingsData(object.getString("bookingdate"), object.getString("image"), object.getString("address"), object.getString("postcode"));
                 this.datalist.add(data);
-
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-
-
 }
-
-
