@@ -2,7 +2,8 @@
  $con = mysqli_connect("pjohnston37.students.cs.qub.ac.uk", "pjohnston37", "pqjg4ll4k3wytzmv", "pjohnston37");
   //Getting the page number which is to be displayed
 
-  $user = $_POST["email"];
+  $user = $_GET["id"];
+   //$user = "pjohnston37@qub.ac.uk";
 
   $datey = date("Y-m-d H:i:s");
   $day = substr($datey, 8, 2);

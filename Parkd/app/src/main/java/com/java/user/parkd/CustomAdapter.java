@@ -37,8 +37,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         holder.postcode.setText(my_data.get(position).getPostcode());
         holder.datebooked.setText(my_data.get(position).getDate());
         Glide.with(context).load(my_data.get(position).getImage_source()).into(holder.imageView);
-
-
     }
 
     @Override
