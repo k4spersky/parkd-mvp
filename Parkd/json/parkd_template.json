@@ -15,38 +15,38 @@
 	"schedule": [{
 		"monday": {
 			"24_7": true,
-			"open": null,
-			"close": null
+			"open": "",
+			"close": ""
 		},
 		"tuesday": {
 			"24_7": true,
-			"open": null,
-			"close": null
+			"open": "",
+			"close": ""
 		},
 		"wednesday": {
 			"24_7": true,
-			"open": null,
-			"close": null
+			"open": "",
+			"close": ""
 		},
 		"thursday": {
 			"24_7": true,
-			"open": null,
-			"close": null
+			"open": "",
+			"close": ""
 		},
 		"friday": {
 			"24_7": true,
-			"open": null,
-			"close": null
+			"open": "",
+			"close": ""
 		},
 		"saturday": {
 			"24_7": true,
-			"open": null,
-			"close": null
+			"open": "",
+			"close": ""
 		},
 		"sunday": {
 			"24_7": true,
-			"open": null,
-			"close": null
+			"open": "",
+			"close": ""
 		}
 	}],
 	"pricing": [{
@@ -54,22 +54,22 @@
 		"schedule": {
 			"day": {
 				"hourly_rate": 3.00,
-				"start_time": null,
+				"start_time": "",
 				"end_time": ""
 			},
 			"night": {
 				"hourly_rate": 4.50,
 				"start_time": "",
-				"end_time": null
+				"end_time": ""
 			}
 		},
 		"24_7_pass": 18.00,
-		"day_pass": null,
-		"night_pass": null
+		"day_pass": 0.00,
+		"night_pass": 0.00
 	}],
 	"free_until": 0,
 	"disabled_access": true,
-	"city_picker": "",
+	"city_picker": "belfast",
 	"sponsor": false,
 	"location": ""
 }
