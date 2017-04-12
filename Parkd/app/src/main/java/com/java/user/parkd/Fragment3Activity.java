@@ -25,9 +25,8 @@ public class Fragment3Activity extends Fragment {
         final TextView help = (TextView) view.findViewById(R.id.accAbout);
         name = "";
         getData();
-        if (name.length()==0)
-        {
-        }else{
+        if (name.length()==0) {
+        } else {
             loggedinName.setText(name);
         }
         rent.setOnClickListener(new View.OnClickListener(){
@@ -35,7 +34,6 @@ public class Fragment3Activity extends Fragment {
             public void onClick(View view) {
                 //This Listener listens for click on the register text link
                 //The following code is standard for running a new activity, in this case it opens the register form
-
             }
         });
 
@@ -51,13 +49,13 @@ public class Fragment3Activity extends Fragment {
                 Fragment3Activity.this.startActivity(settings);
             }
         });
+
         //Listener for payments
         payments.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 //This Listener listens for click on the register text link
                 //The following code is standard for running a new activity, in this case it opens the register form
-
             }
         });
         //Listener for account
@@ -68,27 +66,25 @@ public class Fragment3Activity extends Fragment {
                 //The following code is standard for running a new activity, in this case it opens the register form
                 Intent settings = new Intent(Fragment3Activity.this.getActivity(), UserAreaActivity.class);
                 Fragment3Activity.this.startActivity(settings);
-
             }
         });
+
         //Listener for help
         help.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 //This Listener listens for click on the register text link
                 //The following code is standard for running a new activity, in this case it opens the register form
-
             }
         });
 
         return view;
     }
 
-    public void getData()
-    {
+    public void getData() {
         SharedPreferences sharedpref = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         name = sharedpref.getString("name", "");
-
     }
+
     private String name;
 }

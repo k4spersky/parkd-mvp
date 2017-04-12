@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/acc"
         android:orientation="vertical"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="25dp"
         android:background="@color/white">
 
         <View
