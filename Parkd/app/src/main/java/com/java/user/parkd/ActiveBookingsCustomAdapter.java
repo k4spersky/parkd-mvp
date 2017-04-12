@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ActiveBookingsCustomAdapter extends RecyclerView.Adapter<ActiveBookingsCustomAdapter.ViewHolder> {
@@ -32,9 +33,14 @@ public class ActiveBookingsCustomAdapter extends RecyclerView.Adapter<ActiveBook
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        DecimalFormat df = new DecimalFormat("0.00##");
+        String result = df.format(my_data.get(position).getPrice());
 
         holder.address.setText(my_data.get(position).getAddress());
         holder.postcode.setText(my_data.get(position).getPostcode());
+        holder.time.setText("Time Booked: " + my_data.get(position).getStarttime() + " - " + my_data.get(position).getEndtime());
+        holder.type.setText(my_data.get(position).getType() + " Car Park");
+        holder.price.setText("Cost of Booking: £" + result);
         holder.datebooked.setText("Booked For: " + my_data.get(position).getDate());
         Glide.with(context).load(my_data.get(position).getImage_source()).into(holder.imageView);
     }
@@ -50,6 +56,9 @@ public class ActiveBookingsCustomAdapter extends RecyclerView.Adapter<ActiveBook
         public TextView postcode;
         public TextView datebooked;
         public ImageView imageView;
+        public TextView time;
+        public TextView price;
+        public TextView type;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -57,6 +66,9 @@ public class ActiveBookingsCustomAdapter extends RecyclerView.Adapter<ActiveBook
             imageView = (ImageView) itemView.findViewById(R.id.spacePhoto);
             postcode = (TextView) itemView.findViewById(R.id.carpark_postcode);
             datebooked = (TextView) itemView.findViewById(R.id.carpark_bookeddate);
+            time = (TextView) itemView.findViewById(R.id.carpark_bookedtimes);
+            price = (TextView) itemView.findViewById(R.id.carpark_cost);
+            type = (TextView) itemView.findViewById(R.id.carpark_name);
         }
     }
 }

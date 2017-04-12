@@ -31,7 +31,10 @@
   "address"=>$row['address'],
   "postcode"=>$row['postcode'],
   //"duration"=>$row['duration'],
-  //"price"=>$row['price'],
+  "price"=>$row['price'],
+  "starttime"=>$row['start_time'],
+  "endtime"=>$row['end_time'],
+  "type"=>$row['space_type'],
   "image"=>$row['image_address'])
   );
   }
