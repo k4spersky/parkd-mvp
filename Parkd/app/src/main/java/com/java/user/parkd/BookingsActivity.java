@@ -16,10 +16,6 @@ import java.util.List;
  */
 
 public class BookingsActivity extends AppCompatActivity {
-<<<<<<< HEAD:Parkd/app/src/main/java/com/java/user/parkd/bookingsActivity.java
-
-=======
->>>>>>> origin/master:Parkd/app/src/main/java/com/java/user/parkd/BookingsActivity.java
     Toolbar tb1;
     TabLayout tabLayout;
     @Override
