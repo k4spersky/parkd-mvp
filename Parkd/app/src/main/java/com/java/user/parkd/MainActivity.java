@@ -59,14 +59,14 @@ public class MainActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
-        //Button connect
-        //m_MessageButton = (Button)findViewById(R.id.message_button);
+        // Button connect
+        m_MessageButton = (Button)findViewById(R.id.message_button);
     }
 
-//    protected void onStart() {
-//        super.onStart();
-//        FirebasePost postFirebase = new FirebasePost();
-//        postFirebase.run(mConditionRef, m_MessageButton);
-//
-//    }
+    protected void onStart() {
+        super.onStart();
+        FirebasePost postFirebase = new FirebasePost();
+        postFirebase.run(mConditionRef, m_MessageButton);
+
+    }
 }
