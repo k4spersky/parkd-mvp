@@ -4,19 +4,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    // Creating reference to root of the json tree in firebase
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference mConditionRef = mRootRef.child("condition");
     // declare button
-    Button m_MessageButton;
+    TextView m_MessageView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +54,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // Button connect
-        m_MessageButton = (Button)findViewById(R.id.message_button);
+        m_MessageView = (TextView)findViewById(R.id.carpark_name);
+        m_MessageView.setText("STRING");
     }
 
-    protected void onStart() {
-        super.onStart();
-        FirebasePost postFirebase = new FirebasePost();
-        postFirebase.run(mConditionRef, m_MessageButton);
-
-    }
+//    protected void onStart() {
+//        super.onStart();
+//
+//        //instantiate FirebasePost
+//        FirebasePost postFirebase = new FirebasePost();
+//        //call main method
+//        postFirebase.run(m_MessageView);
+//    }
 }

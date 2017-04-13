@@ -52,7 +52,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-                android:text="Q-Park Victoria Square"
+                android:text=""
                 android:textSize="22sp"
                 android:textStyle="bold"/>
 
