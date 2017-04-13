@@ -33,13 +33,13 @@
             android:layout_height="100dp"
             android:paddingStart="4dp">
 
-             <!-- colors will change programmatically -->
+            <!-- colors will change programmatically -->
             <Button
                 android:id="@+id/message_button"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
                 android:text="#27"
                 android:textColor="#FFF"
                 android:textSize="42sp" />
@@ -52,9 +52,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-                android:text="Q-Park Victoria Square"
+                android:text=""
                 android:textSize="22sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/carpark_detail1"
