@@ -38,10 +38,10 @@ public class ActiveBookingsCustomAdapter extends RecyclerView.Adapter<ActiveBook
 
         holder.address.setText(my_data.get(position).getAddress());
         holder.postcode.setText(my_data.get(position).getPostcode());
-        holder.time.setText("Time Booked: " + my_data.get(position).getStarttime() + " - " + my_data.get(position).getEndtime());
+        holder.time.setText("Booking: " + my_data.get(position).getStarttime() + " - " + my_data.get(position).getEndtime());
         holder.type.setText(my_data.get(position).getType() + " Car Park");
-        holder.price.setText("Cost of Booking: £" + result);
-        holder.datebooked.setText("Booked For: " + my_data.get(position).getDate());
+        holder.price.setText("Fee: £" + result);
+        holder.datebooked.setText(my_data.get(position).getDate());
         Glide.with(context).load(my_data.get(position).getImage_source()).into(holder.imageView);
     }
 
