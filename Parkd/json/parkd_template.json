@@ -1,0 +1,75 @@
+{
+	"_id": "",
+	"title": "",
+	"owner": "",
+	"address_line1": "",
+	"address_line2": {
+		"post_code": "",
+		"city": ""
+	},
+	"description": "",
+	"image_url": "",
+	"parking_capacity": 1000,
+	"available_spaces": 70,
+	"max_vehicle_height": 2.1,
+	"schedule": [{
+		"monday": {
+			"24_7": true,
+			"open": "",
+			"close": ""
+		},
+		"tuesday": {
+			"24_7": true,
+			"open": "",
+			"close": ""
+		},
+		"wednesday": {
+			"24_7": true,
+			"open": "",
+			"close": ""
+		},
+		"thursday": {
+			"24_7": true,
+			"open": "",
+			"close": ""
+		},
+		"friday": {
+			"24_7": true,
+			"open": "",
+			"close": ""
+		},
+		"saturday": {
+			"24_7": true,
+			"open": "",
+			"close": ""
+		},
+		"sunday": {
+			"24_7": true,
+			"open": "",
+			"close": ""
+		}
+	}],
+	"pricing": [{
+		"24_7": true,
+		"schedule": {
+			"day": {
+				"hourly_rate": 3.00,
+				"start_time": "",
+				"end_time": ""
+			},
+			"night": {
+				"hourly_rate": 4.50,
+				"start_time": "",
+				"end_time": ""
+			}
+		},
+		"24_7_pass": 18.00,
+		"day_pass": 0.00,
+		"night_pass": 0.00
+	}],
+	"free_until": 0,
+	"disabled_access": true,
+	"city_picker": "belfast",
+	"sponsor": false,
+	"location": ""
+}
