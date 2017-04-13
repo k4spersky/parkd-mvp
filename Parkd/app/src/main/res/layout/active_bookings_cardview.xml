@@ -6,98 +6,90 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="2dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    <android.support.v7.widget.CardView
-        android:id="@+id/cv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true"
-        app:cardElevation="1dp">
-
-        <android.support.percent.PercentRelativeLayout
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:padding="4dp">
+            android:layout_height="wrap_content"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="1dp">
 
-            <ImageView
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/some_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp">
+
+                <ImageView
                 android:id="@+id/spacePhoto"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                app:layout_widthPercent="45%"
+                android:layout_height="135dp"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="0dp"
-                />
+                app:layout_marginEndPercent="1%" />
 
-            <TextView
-                android:id="@+id/carpark_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="5dp"
-                android:text=""
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/carpark_name"
+                    app:layout_widthPercent="48%"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    app:layout_marginStartPercent="1%"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/carpark_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/carpark_name"
-                android:layout_marginStart="5dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/carpark_address"
+                    android:paddingTop="30dp"
+                    app:layout_widthPercent="48%"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/carpark_name"
+                    app:layout_marginStartPercent="1%"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/carpark_postcode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/carpark_address"
-                android:layout_marginStart="5dp"
-                android:text="" />
-           
+                <TextView
+                    android:id="@+id/carpark_postcode"
+                    android:paddingTop="2dp"
+                    app:layout_widthPercent="48%"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/carpark_address"
+                    app:layout_marginStartPercent="1%"
+                    android:text="" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="">
+
                 <TextView
                     android:id="@+id/carpark_bookeddate"
-                    android:layout_width="wrap_content"
+                    android:paddingTop="2dp"
+                    app:layout_widthPercent="48%"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/carpark_postcode"
-                    android:layout_marginStart="5dp"
+                    app:layout_marginStartPercent="1%"
                     android:text="" />
 
                 <TextView
                     android:id="@+id/carpark_bookedtimes"
-                    android:layout_width="wrap_content"
+                    android:paddingTop="2dp"
+                    app:layout_widthPercent="48%"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/carpark_bookeddate"
-                    android:layout_marginStart="5dp"
+                    app:layout_marginStartPercent="1%"
                     android:text="" />
+
                 <TextView
                     android:id="@+id/carpark_cost"
+                    android:paddingTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spacePhoto"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
+                    app:layout_marginEndPercent="1%"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:text="" />
-
-            </LinearLayout>
-        </android.support.percent.PercentRelativeLayout>
-
+                
+           </android.support.percent.PercentRelativeLayout>
     </android.support.v7.widget.CardView>
-    </LinearLayout>
 </LinearLayout>
