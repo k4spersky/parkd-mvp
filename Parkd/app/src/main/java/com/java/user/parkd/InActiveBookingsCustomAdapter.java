@@ -1,6 +1,7 @@
 package com.java.user.parkd;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,26 +14,30 @@ import com.bumptech.glide.Glide;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class ActiveBookingsCustomAdapter extends RecyclerView.Adapter<ActiveBookingsCustomAdapter.ViewHolder> {
+/**
+ * Created by Paul on 13/04/2017.
+ */
+
+public class InActiveBookingsCustomAdapter extends RecyclerView.Adapter<InActiveBookingsCustomAdapter.ViewHolder> {
 
     private Context context;
-    private List<ActiveBookingsData> my_data;
+    private List<InActiveBookingsData> my_data;
 
-    public ActiveBookingsCustomAdapter(Context context, List<ActiveBookingsData> my_data) {
+    public InActiveBookingsCustomAdapter(Context context, List<InActiveBookingsData> my_data) {
         this.context = context;
         this.my_data = my_data;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public InActiveBookingsCustomAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.active_bookings_cardview,parent,false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.inactive_bookings_cardview,parent,false);
 
-        return new ViewHolder(itemView);
+        return new InActiveBookingsCustomAdapter.ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(InActiveBookingsCustomAdapter.ViewHolder holder, int position) {
         DecimalFormat df = new DecimalFormat("0.00##");
         String result = df.format(my_data.get(position).getPrice());
 
