@@ -1,14 +1,12 @@
 package com.java.user.parkd;
 
-import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 /**
@@ -17,19 +15,25 @@ import com.google.firebase.database.ValueEventListener;
 
 public class FirebasePost extends AppCompatActivity {
 
-        public void run(DatabaseReference m_ConditionRef, final Button m_MessageButton) {
-//            m_ConditionRef.addValueEventListener(new ValueEventListener() {
-//
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    String text = dataSnapshot.getValue(String.class);
-//                    m_MessageButton.setText(text);
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
+
+        public void run(final TextView m_MessageView) {
+
+            // Creating reference to root of the json tree in firebase
+            DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference m_ConditionRef = mRootRef.child("type");
+
+            m_ConditionRef.addValueEventListener(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String text = dataSnapshot.getValue(String.class);
+                    m_MessageView.setText(text);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
 }
