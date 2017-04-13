@@ -1,0 +1,75 @@
+{
+	"_id": "",
+	"title": "Q-Park Victoria Square",
+	"owner": "Q-Park",
+	"address_line1": "Victoria Street 1",
+	"address_line2": {
+		"post_code": "BT1 4QG",
+		"city": "Belfast"
+	},
+	"description": "Located in the heart of Belfast City, Q-Park Victoria Square has direct access to each floor of Victoria Square Shopping Centre",
+	"image_url": "image_url",
+	"parking_capacity": 1000,
+	"available_spaces": 70,
+	"max_vehicle_height": 2.1,
+	"schedule": [{
+		"monday": {
+			"24_7": true,
+			"open": null,
+			"close": null
+		},
+		"tuesday": {
+			"24_7": true,
+			"open": null,
+			"close": null
+		},
+		"wednesday": {
+			"24_7": true,
+			"open": null,
+			"close": null
+		},
+		"thursday": {
+			"24_7": true,
+			"open": null,
+			"close": null
+		},
+		"friday": {
+			"24_7": true,
+			"open": null,
+			"close": null
+		},
+		"saturday": {
+			"24_7": true,
+			"open": null,
+			"close": null
+		},
+		"sunday": {
+			"24_7": true,
+			"open": null,
+			"close": null
+		}
+	}],
+	"pricing": [{
+		"24_7": true,
+		"schedule": {
+			"day": {
+				"hourly_rate": 3.00,
+				"start_time": "8:00",
+				"end_time": "19:00"
+			},
+			"night": {
+				"hourly_rate": 4.50,
+				"start_time": "8:00",
+				"end_time": "19:00"
+			}
+		},
+		"24_7_pass": 18.00,
+		"day_pass": null,
+		"night_pass": null
+	}],
+	"free_until": 0,
+	"disabled_access": true,
+	"city_picker": "belfast",
+	"sponsor": false,
+	"location": ""
+}
