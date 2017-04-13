@@ -4,13 +4,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    // declare button
-    TextView m_MessageView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,17 +49,5 @@ public class MainActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
-        // Button connect
-        m_MessageView = (TextView)findViewById(R.id.carpark_name);
-        m_MessageView.setText("STRING");
     }
-
-//    protected void onStart() {
-//        super.onStart();
-//
-//        //instantiate FirebasePost
-//        FirebasePost postFirebase = new FirebasePost();
-//        //call main method
-//        postFirebase.run(m_MessageView);
-//    }
 }
