@@ -18,12 +18,13 @@ import java.util.List;
 public class BookingsActivity extends AppCompatActivity {
     Toolbar tb1;
     TabLayout tabLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-         setContentView(R.layout.bookings);
+        setContentView(R.layout.bookings);
         tb1 = (Toolbar) findViewById(R.id.toolbar);
-       setSupportActionBar(tb1);
+        setSupportActionBar(tb1);
         getSupportActionBar().setTitle("My Bookings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -37,6 +38,31 @@ public class BookingsActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.booking_sliding_tabs);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.eucalyptus));
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+            // Method designed to change colours depending on selected fragment position
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.eucalyptus));
+                }
+                if (tab.getPosition() == 1) {
+                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.youtube_red));
+                }
+
+            }
+
+            // left empty as not needed
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // TODO Auto-generated method stub
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -45,7 +71,4 @@ public class BookingsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
 }

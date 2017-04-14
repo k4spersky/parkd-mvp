@@ -6,79 +6,168 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="2dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    <android.support.v7.widget.CardView
-        android:id="@+id/cv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true"
-        app:cardElevation="1dp">
-
-        <RelativeLayout
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:padding="4dp">
+            android:layout_height="wrap_content"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="1dp">
 
-            <ImageView
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/some_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp">
+
+                <ImageView
                 android:id="@+id/spacePhoto"
-                android:layout_width="150dp"
-                android:layout_height="96dp"
+                app:layout_widthPercent="45%"
+                android:layout_height="135dp"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="0dp"
-                android:layout_marginTop="20dp" />
+                app:layout_marginEndPercent="1%" />
 
-            <TextView
-                android:id="@+id/carpark_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="5dp"
-                android:text="Private Car Park"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/carpark_name"
+                    app:layout_widthPercent="48%"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    app:layout_marginStartPercent="1%"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/carpark_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/carpark_name"
-                android:layout_marginStart="5dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/carpark_address"
+                    android:paddingTop="10dp"
+                    app:layout_widthPercent="48%"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/carpark_name"
+                    app:layout_marginStartPercent="1%"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/carpark_postcode"
+                <TextView
+                    android:id="@+id/carpark_postcode"
+                    android:paddingTop="2dp"
+                    app:layout_widthPercent="48%"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/carpark_address"
+                    app:layout_marginStartPercent="1%"
+                    android:text="" />
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/bar1"
+                    app:layout_widthPercent="99%"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/booking_bar"
+                    android:layout_below="@+id/spacePhoto"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:paddingTop="2dp"
+                        app:layout_widthPercent="20%"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        app:layout_marginStartPercent="1%"
+                        android:textColor="@color/black"
+                        android:layout_centerVertical="true"
+                        android:textStyle="bold"
+                        android:text="Booked:  "
+                        android:textSize="11sp"/>
+
+                    <TextView
+                        android:id="@+id/carpark_bookedtimes"
+                        android:paddingTop="2dp"
+                        app:layout_widthPercent="38%"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        app:layout_marginStartPercent="14.5%"
+                        android:textColor="@color/black"
+                        android:layout_centerVertical="true"
+                        android:text=""
+                        android:textSize="11sp"/>
+
+                    <TextView
+                        android:id="@+id/carpark_bookeddate"
+                        android:paddingTop="2dp"
+                        app:layout_widthPercent="30%"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:textColor="@color/black"
+                        app:layout_marginStartPercent="37%"
+                        android:textSize="11sp"
+                        android:layout_centerVertical="true"
+                        android:text="" />
+                    <TextView
+                        android:id="@+id/carpark_cost"
+                        android:paddingTop="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        app:layout_marginEndPercent="1%"
+                        android:textSize="11sp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        />
+
+                    <TextView
+                        android:id="@+id/text2"
+                        android:paddingTop="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        app:layout_marginEndPercent="11.5%"
+                        android:textSize="11sp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:textStyle="bold"
+                        android:text="Fee:  " />
+
+                    <!-- divider -->
+                    <ImageView
+                        android:layout_width="0.5dp"
+                        android:layout_height="20dp"
+                        app:layout_marginStartPercent="34.2%"
+                        android:layout_centerVertical="true"
+                        android:background="#cdcdcd"
+                        />
+                </android.support.percent.PercentRelativeLayout>
+
+
+                <android.support.percent.PercentRelativeLayout
+                android:id="@+id/bar2"
+                android:layout_width="match_parent"
+                android:layout_marginTop="4dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/bar1">
+
+            <Button
+                    android:id="@+id/Cancel"
+                    app:layout_widthPercent="17.5%"
+                    android:layout_height="40dp"
+                    android:text="Cancel"
+                    android:background="@drawable/cancel_btn"
+                    android:bottomLeftRadius="2dp"
+                    android:bottomRightRadius="2dp"
+                    android:textColor="@color/white"
+                    app:layout_marginEndPercent="1%"
+                    android:layout_alignParentEnd="true"/>
+
+            <Button
+                android:id="@+id/GoogleMaps"
+                app:layout_widthPercent="80%"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/carpark_address"
-                android:layout_marginStart="5dp"
-                android:text="" />
-           
-            <TextView
-                android:id="@+id/carpark_bookeddate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/carpark_postcode"
-                android:layout_marginStart="5dp"
-                android:text="" />
-            
-            <TextView
-                android:id="@+id/carpark_bookedtimes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/carpark_bookeddate"
-                android:layout_marginStart="5dp"
-                android:text="Time: 9:00 - 10:00" />
-        </RelativeLayout>
+                android:layout_height="40dp"
+                android:text="get directions"
+                android:textColor="@color/white"
+                android:background="@drawable/maps_btn" />
+
+            </android.support.percent.PercentRelativeLayout>
+            </android.support.percent.PercentRelativeLayout>
     </android.support.v7.widget.CardView>
-    </LinearLayout>
 </LinearLayout>

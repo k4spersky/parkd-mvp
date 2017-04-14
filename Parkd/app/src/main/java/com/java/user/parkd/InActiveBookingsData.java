@@ -1,10 +1,10 @@
 package com.java.user.parkd;
 
 /**
- * Created by Paul on 11/04/2017.
+ * Created by Paul on 13/04/2017.
  */
 
-public class ActiveBookingsData {
+public class InActiveBookingsData {
     private String date;
     private String image_source;
     private String address;
@@ -78,7 +78,7 @@ public class ActiveBookingsData {
         this.postcode = postcode;
     }
 
-    public ActiveBookingsData(String date, String image_source, String address, String postcode, Double price, String starttime, String endtime, String type) {
+    public InActiveBookingsData(String date, String image_source, String address, String postcode, Double price, String starttime, String endtime, String type) {
 
         this.date = date;
         this.image_source = image_source;

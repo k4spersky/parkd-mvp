@@ -123,7 +123,7 @@ public class FragmentBookings1Activity extends Fragment {
             datalist = new ArrayList<>();
             for (int i = 0; i < AdminArrays.length(); i++) {
                 JSONObject object = AdminArrays.getJSONObject(i);
-                ActiveBookingsData data = new ActiveBookingsData(object.getString("bookingdate"), object.getString("image"), object.getString("address"), object.getString("postcode"));
+                ActiveBookingsData data = new ActiveBookingsData(object.getString("bookingdate"), object.getString("image"), object.getString("address"), object.getString("postcode"), object.getDouble("price"), object.getString("starttime"), object.getString("endtime"), object.getString("type"));
                 this.datalist.add(data);
             }
         } catch (JSONException e) {
