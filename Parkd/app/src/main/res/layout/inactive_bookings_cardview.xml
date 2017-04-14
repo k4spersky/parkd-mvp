@@ -20,15 +20,17 @@
             android:layout_height="match_parent"
             android:padding="4dp">
 
+
             <ImageView
-                android:id="@+id/spacePhoto"
+                android:id="@+id/InactivespacePhoto"
                 app:layout_widthPercent="45%"
                 android:layout_height="135dp"
                 android:layout_alignParentEnd="true"
                 app:layout_marginEndPercent="1%" />
 
+
             <TextView
-                android:id="@+id/carpark_name"
+                android:id="@+id/Inactivecarpark_name"
                 app:layout_widthPercent="48%"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -39,24 +41,34 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/carpark_address"
+                android:id="@+id/Inactivecarpark_address"
                 android:paddingTop="30dp"
                 app:layout_widthPercent="48%"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/carpark_name"
+                android:layout_below="@+id/Inactivecarpark_name"
                 app:layout_marginStartPercent="1%"
                 android:text="" />
 
             <TextView
-                android:id="@+id/carpark_postcode"
+                android:id="@+id/Inactivecarpark_postcode"
                 android:paddingTop="2dp"
                 app:layout_widthPercent="48%"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/carpark_address"
+                android:layout_below="@+id/Inactivecarpark_address"
                 app:layout_marginStartPercent="1%"
                 android:text="" />
+            <TextView
+                android:id="@+id/InactiveTag"
+                android:layout_height="wrap_content"
+                app:layout_widthPercent="12%"
+                android:textColor="@color/white"
+                android:background="@color/black"
+                app:layout_marginEndPercent="1%"
+                android:layout_alignParentEnd="true"
+                android:textSize="11sp"
+                android:text="Expired" />
 
             <android.support.percent.PercentRelativeLayout
                 android:id="@+id/bar1"
@@ -64,7 +76,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_height="40dp"
                 android:background="@drawable/booking_bar"
-                android:layout_below="@+id/spacePhoto"
+                android:layout_below="@+id/InactivespacePhoto"
                 android:padding="4dp">
 
                 <TextView
@@ -81,7 +93,7 @@
                     android:textSize="11sp"/>
 
                 <TextView
-                    android:id="@+id/carpark_bookedtimes"
+                    android:id="@+id/Inactivecarpark_bookedtimes"
                     android:paddingTop="2dp"
                     app:layout_widthPercent="38%"
                     android:layout_height="wrap_content"
@@ -93,7 +105,7 @@
                     android:textSize="11sp"/>
 
                 <TextView
-                    android:id="@+id/carpark_bookeddate"
+                    android:id="@+id/Inactivecarpark_bookeddate"
                     android:paddingTop="2dp"
                     app:layout_widthPercent="30%"
                     android:layout_height="wrap_content"
@@ -104,7 +116,7 @@
                     android:layout_centerVertical="true"
                     android:text="" />
                 <TextView
-                    android:id="@+id/carpark_cost"
+                    android:id="@+id/Inactivecarpark_cost"
                     android:paddingTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -132,7 +144,7 @@
                 <ImageView
                     android:layout_width="0.5dp"
                     android:layout_height="20dp"
-                    app:layout_marginStartPercent="35.5%"
+                    app:layout_marginStartPercent="36%"
                     android:layout_centerVertical="true"
                     android:background="#cdcdcd"
                     />
@@ -148,9 +160,8 @@
 
 
                 <Button
-                    android:id="@+id/GoogleMaps"
-                    app:layout_widthPercent="80%"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/BookAgain"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:text="Book Again"
                     android:textColor="@color/white"
