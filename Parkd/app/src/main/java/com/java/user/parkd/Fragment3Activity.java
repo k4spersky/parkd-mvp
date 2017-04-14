@@ -77,7 +77,6 @@ public class Fragment3Activity extends Fragment {
                 //The following code is standard for running a new activity, in this case it opens the register form
             }
         });
-
         return view;
     }
 

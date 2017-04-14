@@ -10,11 +10,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 /**
- * Created by kkuczkowski on 13/04/2017.
+ * This class is to be used in the future, only to PUT JSON object entries with push() into our
+ * Firebase db. Otherwise disable in {@link Fragment1Activity}. 
  */
-
 public class FirebasePost extends AppCompatActivity {
-
 
         public void run(final TextView m_MessageView) {
 
@@ -32,7 +31,7 @@ public class FirebasePost extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
+                    // TODO Auto-generated method stub
                 }
             });
         }

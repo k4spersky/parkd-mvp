@@ -18,9 +18,10 @@ public class Fragment1Activity extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_fragment1, container, false);
 
+        view = inflater.inflate(R.layout.activity_fragment1, container, false);
         m_MessageView = (TextView) view.findViewById(R.id.carpark_name);
+
         Spinner citySpinner = (Spinner) view.findViewById(R.id.spinner_frag1);
         String[] cities = new String[] {"Armagh", "Belfast", "Dublin"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, cities);
@@ -38,7 +39,6 @@ public class Fragment1Activity extends Fragment {
                 // TODO Auto-generated method stub
             }
         });
-
         return view;
     }
 
@@ -47,7 +47,7 @@ public class Fragment1Activity extends Fragment {
 
         //instantiate FirebasePost
         FirebasePost postFirebase = new FirebasePost();
-        //call main method
+        //call main method from FirebasePost class
         postFirebase.run(m_MessageView);
     }
 }
