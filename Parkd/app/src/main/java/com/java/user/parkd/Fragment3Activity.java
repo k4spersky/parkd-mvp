@@ -58,6 +58,8 @@ public class Fragment3Activity extends Fragment {
             public void onClick(View view) {
                 //This Listener listens for click on the register text link
                 //The following code is standard for running a new activity, in this case it opens the register form
+                Intent settings = new Intent(Fragment3Activity.this.getActivity(), PaymentActivity.class);
+                Fragment3Activity.this.startActivity(settings);
             }
         });
         //Listener for account
