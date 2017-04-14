@@ -112,8 +112,7 @@
                         app:layout_marginEndPercent="1%"
                         android:textSize="11sp"
                         android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
-                        />
+                        android:layout_alignParentEnd="true" />
 
                     <TextView
                         android:id="@+id/text2"
@@ -134,10 +133,8 @@
                         android:layout_height="20dp"
                         app:layout_marginStartPercent="34.2%"
                         android:layout_centerVertical="true"
-                        android:background="#cdcdcd"
-                        />
+                        android:background="#cdcdcd" />
                 </android.support.percent.PercentRelativeLayout>
-
 
                 <android.support.percent.PercentRelativeLayout
                 android:id="@+id/bar2"
@@ -147,16 +144,16 @@
                 android:layout_below="@+id/bar1">
 
             <Button
-                    android:id="@+id/Cancel"
-                    app:layout_widthPercent="17.5%"
-                    android:layout_height="40dp"
-                    android:text="Cancel"
-                    android:background="@drawable/cancel_btn"
-                    android:bottomLeftRadius="2dp"
-                    android:bottomRightRadius="2dp"
-                    android:textColor="@color/white"
-                    app:layout_marginEndPercent="1%"
-                    android:layout_alignParentEnd="true"/>
+                android:id="@+id/Cancel"
+                app:layout_widthPercent="17.5%"
+                android:layout_height="40dp"
+                android:text="Cancel"
+                android:background="@drawable/cancel_btn"
+                android:bottomLeftRadius="2dp"
+                android:bottomRightRadius="2dp"
+                android:textColor="@color/white"
+                app:layout_marginEndPercent="1%"
+                android:layout_alignParentEnd="true" />
 
             <Button
                 android:id="@+id/GoogleMaps"
@@ -166,7 +163,6 @@
                 android:text="get directions"
                 android:textColor="@color/white"
                 android:background="@drawable/maps_btn" />
-
             </android.support.percent.PercentRelativeLayout>
             </android.support.percent.PercentRelativeLayout>
     </android.support.v7.widget.CardView>

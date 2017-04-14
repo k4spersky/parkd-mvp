@@ -67,13 +67,13 @@ public class InActiveBookingsCustomAdapter extends RecyclerView.Adapter<InActive
 
         public ViewHolder(View itemView) {
             super(itemView);
-            address = (TextView) itemView.findViewById(R.id.Inactivecarpark_address);
-            imageView = (ImageView) itemView.findViewById(R.id.InactivespacePhoto);
-            postcode = (TextView) itemView.findViewById(R.id.Inactivecarpark_postcode);
-            datebooked = (TextView) itemView.findViewById(R.id.Inactivecarpark_bookeddate);
-            time = (TextView) itemView.findViewById(R.id.Inactivecarpark_bookedtimes);
-            price = (TextView) itemView.findViewById(R.id.Inactivecarpark_cost);
-            type = (TextView) itemView.findViewById(R.id.Inactivecarpark_name);
+            address = (TextView) itemView.findViewById(R.id.inactivecarpark_address);
+            imageView = (ImageView) itemView.findViewById(R.id.inactivespacePhoto);
+            postcode = (TextView) itemView.findViewById(R.id.inactivecarpark_postcode);
+            datebooked = (TextView) itemView.findViewById(R.id.inactivecarpark_bookeddate);
+            time = (TextView) itemView.findViewById(R.id.inactivecarpark_bookedtimes);
+            price = (TextView) itemView.findViewById(R.id.inactivecarpark_cost);
+            type = (TextView) itemView.findViewById(R.id.inactivecarpark_name);
         }
     }
 }
