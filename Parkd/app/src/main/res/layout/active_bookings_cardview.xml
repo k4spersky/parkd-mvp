@@ -40,7 +40,7 @@
 
                 <TextView
                     android:id="@+id/carpark_address"
-                    android:paddingTop="30dp"
+                    android:paddingTop="10dp"
                     app:layout_widthPercent="48%"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -86,7 +86,7 @@
                         app:layout_widthPercent="38%"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        app:layout_marginStartPercent="16%"
+                        app:layout_marginStartPercent="14.5%"
                         android:textColor="@color/black"
                         android:layout_centerVertical="true"
                         android:text=""
@@ -121,7 +121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        app:layout_marginEndPercent="12%"
+                        app:layout_marginEndPercent="11.5%"
                         android:textSize="11sp"
                         android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
@@ -132,7 +132,7 @@
                     <ImageView
                         android:layout_width="0.5dp"
                         android:layout_height="20dp"
-                        app:layout_marginStartPercent="35.5%"
+                        app:layout_marginStartPercent="34.2%"
                         android:layout_centerVertical="true"
                         android:background="#cdcdcd"
                         />
