@@ -28,9 +28,12 @@ android:layout_height="wrap_content">
                 android:layout_height="100dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:text=""
-                android:textColor="#FFF"
-                android:textSize="42sp" />
+                android:gravity="center"
+                android:text="20"
+                android:textStyle="bold"
+                android:textColor="@color/anti_flash_white"
+                android:background="@color/eucalyptus"
+                android:textSize="44sp" />
 
             <TextView
                 android:id="@+id/carpark_name"

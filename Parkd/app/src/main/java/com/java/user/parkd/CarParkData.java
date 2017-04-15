@@ -6,21 +6,12 @@ Retrieving CarPark object from Firebase db
 
 public class CarParkData {
 
-    private String mTitle;
-    private String mSponsor;
-    private String mAddress;
-    private String mDesc;
-    private String mLocation;
-    private String mOwner;
-    private String mPostcode;
-    private String mCity;
-
     // default parameters constructor required for Firebase for data retrieval
     public CarParkData() {
 
     }
     // constructor
-    public CarParkData(String title, String sponsor, Object schedule, Object pricing, int parking_capacity,
+    public CarParkData(String title, String sponsor, Object schedule, Object pricing, int availableSpaces,
                        String owner, String location, String image_url, String description, String city_picker,
                        String address1, String city, String postCode) {
 
@@ -32,6 +23,7 @@ public class CarParkData {
         mOwner = owner;
         mCity = city;
         mPostcode = postCode;
+        mAvailableSpaces = availableSpaces;
     }
 
     public String getTitle() {
@@ -96,4 +88,22 @@ public class CarParkData {
     public void setPostCode(String postCode) {
         mPostcode = postCode;
     }
+
+    public int getAvailableSpaces() {
+        return mAvailableSpaces;
+    }
+
+    public void setAvailableSpaces(int availableSpaces) {
+        mAvailableSpaces = availableSpaces;
+    }
+
+    private String mTitle;
+    private String mSponsor;
+    private String mAddress;
+    private String mDesc;
+    private String mLocation;
+    private String mOwner;
+    private String mPostcode;
+    private String mCity;
+    private int mAvailableSpaces;
 }

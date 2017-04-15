@@ -66,7 +66,7 @@ public class Fragment1Activity extends Fragment {
                 viewHolder.setAddress1(model.getAddress1());
                 viewHolder.setCity(model.getCity() + ",");
                 viewHolder.setPostCode(model.getPostCode());
-
+                viewHolder.setAvailableSpaces(Integer.toString(model.getAvailableSpaces()));
 
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
