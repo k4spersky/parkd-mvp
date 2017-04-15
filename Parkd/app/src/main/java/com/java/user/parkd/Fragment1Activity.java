@@ -67,7 +67,7 @@ public class Fragment1Activity extends Fragment {
                 viewHolder.setCity(model.getCity() + ",");
                 viewHolder.setPostCode(model.getPostCode());
 
-                // make america great again feature
+                // make android great again feature
                 View maga = viewHolder.magaView();
                 maga.setBackgroundResource(R.color.youtube_red);
 
