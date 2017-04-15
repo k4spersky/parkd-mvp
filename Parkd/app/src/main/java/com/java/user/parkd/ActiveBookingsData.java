@@ -5,14 +5,6 @@ package com.java.user.parkd;
  */
 
 public class ActiveBookingsData {
-    private String date;
-    private String image_source;
-    private String address;
-    private String postcode;
-    private String endtime;
-    private String starttime;
-    private Double price;
-    private String type;
 
     public String getType() {
         return type;
@@ -78,7 +70,8 @@ public class ActiveBookingsData {
         this.postcode = postcode;
     }
 
-    public ActiveBookingsData(String date, String image_source, String address, String postcode, Double price, String starttime, String endtime, String type) {
+    public ActiveBookingsData(String date, String image_source, String address, String postcode,
+                              Double price, String starttime, String endtime, String type) {
 
         this.date = date;
         this.image_source = image_source;
@@ -89,4 +82,13 @@ public class ActiveBookingsData {
         this.starttime = starttime;
         this.type = type;
     }
+
+    private String date;
+    private String image_source;
+    private String address;
+    private String postcode;
+    private String endtime;
+    private String starttime;
+    private Double price;
+    private String type;
 }

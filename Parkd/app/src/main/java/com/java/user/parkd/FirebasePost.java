@@ -9,13 +9,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This class is to be used in the future, only to PUT JSON object entries with push() into our
  * Firebase db. Otherwise disable in {@link Fragment1Activity}. 
  */
 public class FirebasePost extends AppCompatActivity {
 
+        // THIS IS A TEST ENV - do not use.
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference("car_parks");
+
         public void run(final TextView m_MessageView) {
+
+            // adding new object with uid
+            Map<String, Object> sendData = new HashMap<>();
+            sendData.put("title", "");
+
+            mRootRef.push().setValue(sendData);
 
             // Creating reference to root of the json tree in firebase
             DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();

@@ -21,4 +21,14 @@
             app:layout_widthPercent="90%"
             app:layout_marginStartPercent="5%" />
     </android.support.percent.PercentRelativeLayout>
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white_greyish">
+
+    </ListView>
+
 </RelativeLayout>
