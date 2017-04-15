@@ -12,6 +12,8 @@ public class CarParkData {
     private String mDesc;
     private String mLocation;
     private String mOwner;
+    private String mPostcode;
+    private String mCity;
 
     // default parameters constructor required for Firebase for data retrieval
     public CarParkData() {
@@ -20,7 +22,7 @@ public class CarParkData {
     // constructor
     public CarParkData(String title, String sponsor, Object schedule, Object pricing, int parking_capacity,
                        String owner, String location, String image_url, String description, String city_picker,
-                       String address1) {
+                       String address1, String city, String postCode) {
 
         mTitle = title;
         mSponsor = sponsor;
@@ -28,6 +30,8 @@ public class CarParkData {
         mDesc = description;
         mLocation = location;
         mOwner = owner;
+        mCity = city;
+        mPostcode = postCode;
     }
 
     public String getTitle() {
@@ -75,5 +79,21 @@ public class CarParkData {
 
     public void setOwner(String owner) {
         mOwner = owner;
+    }
+
+    public String getCity() {
+        return mCity;
+    }
+
+    public void setCity(String city) {
+        mCity = city;
+    }
+
+    public String getPostCode() {
+        return mPostcode;
+    }
+
+    public void setPostCode(String postCode) {
+        mPostcode = postCode;
     }
 }

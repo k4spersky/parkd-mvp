@@ -9,13 +9,18 @@ import android.widget.TextView;
  */
 
 public class Fragment1Holder extends RecyclerView.ViewHolder {
+    View mView;
     private final TextView mTitleField;
     private final TextView mAddressField;
+    private final TextView mCityField;
+    private final TextView mPostcodeField;
 
     public Fragment1Holder(View itemView) {
         super(itemView);
         mTitleField = (TextView) itemView.findViewById(R.id.carpark_name);
         mAddressField = (TextView) itemView.findViewById(R.id.carpark_detail1);
+        mCityField = (TextView) itemView.findViewById(R.id.carpark_city);
+        mPostcodeField = (TextView) itemView.findViewById(R.id.carpark_postcode);
     }
 
     public void setTitle(String title) {
@@ -24,5 +29,13 @@ public class Fragment1Holder extends RecyclerView.ViewHolder {
 
     public void setAddress1(String address1) {
         mAddressField.setText(address1);
+    }
+
+    public void setCity(String city) {
+        mCityField.setText(city);
+    }
+
+    public void setPostCode(String postCode) {
+        mPostcodeField.setText(postCode);
     }
 }

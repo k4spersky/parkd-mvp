@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -63,6 +64,17 @@ public class Fragment1Activity extends Fragment {
             protected void populateViewHolder(Fragment1Holder viewHolder, CarParkData model, int position) {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setAddress1(model.getAddress1());
+                viewHolder.setCity(model.getCity() + ",");
+                viewHolder.setPostCode(model.getPostCode());
+
+
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getActivity(), "Click", Toast.LENGTH_LONG).show();
+
+                    }
+                });
             }
         };
 
