@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class Fragment1Holder extends RecyclerView.ViewHolder {
 
-    public Fragment1Holder(View itemView) {
+    protected Fragment1Holder(View itemView) {
         super(itemView);
         mTitleField = (TextView) itemView.findViewById(R.id.carpark_name);
         mAddressField = (TextView) itemView.findViewById(R.id.carpark_detail1);
@@ -20,28 +20,28 @@ public class Fragment1Holder extends RecyclerView.ViewHolder {
     }
 
     // passing spaces view to be used in fragment1
-    public View magaView() {
+    protected View magaView() {
         //maga
     return itemView.findViewById(R.id.spaces);
     }
 
-    public void setTitle(String title) {
+    protected void setTitle(String title) {
         mTitleField.setText(title);
     }
 
-    public void setAddress1(String address1) {
+    protected void setAddress1(String address1) {
         mAddressField.setText(address1);
     }
 
-    public void setCity(String city) {
+    protected void setCity(String city) {
         mCityField.setText(city);
     }
 
-    public void setPostCode(String postCode) {
+    protected void setPostCode(String postCode) {
         mPostcodeField.setText(postCode);
     }
 
-    public void setAvailableSpaces(String availableSpaces) {
+    protected void setAvailableSpaces(String availableSpaces) {
         mAvailableSpacesField.setText(availableSpaces);
     }
 

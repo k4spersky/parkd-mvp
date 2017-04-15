@@ -20,4 +20,6 @@
     <color name="button_selectorcolor">#9E9E9E</color>
     <color name="regbutton">#66a3ff</color>
     <color name="anti_flash_white">#F2F3F4</color>
+    <color name="pastel_red">#FF6961</color>
+    <color name="pastel_orange">#FFB347</color>
 </resources>

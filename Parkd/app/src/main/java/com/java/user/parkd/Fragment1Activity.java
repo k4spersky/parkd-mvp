@@ -32,7 +32,7 @@ public class Fragment1Activity extends Fragment {
 
         // blue spinner (city picker)
         Spinner citySpinner = (Spinner) view.findViewById(R.id.spinner_frag1);
-        String[] cities = new String[] {"Armagh", "Belfast", "Dublin"};
+        String[] cities = new String[] {"Belfast", "Armagh", "Dublin"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item, cities);
 
@@ -70,13 +70,12 @@ public class Fragment1Activity extends Fragment {
                 // make america great again feature
                 View maga = viewHolder.magaView();
                 maga.setBackgroundResource(R.color.youtube_red);
-                //final TextView space_box = (TextView) viewHolder
 
                 if (model.getAvailableSpaces() < 5)
                 {
-                    maga.setBackgroundResource(R.color.youtube_red);
+                    maga.setBackgroundResource(R.color.pastel_red);
                 } else if (model.getAvailableSpaces() > 5 && model.getAvailableSpaces() < 20) {
-                    maga.setBackgroundResource(R.color.nap_yellow);
+                    maga.setBackgroundResource(R.color.pastel_orange);
                 } else {
                     maga.setBackgroundResource(R.color.eucalyptus);
                 }
