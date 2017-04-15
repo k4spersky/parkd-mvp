@@ -9,7 +9,6 @@ import android.widget.TextView;
  */
 
 public class Fragment1Holder extends RecyclerView.ViewHolder {
-    View mView;
 
     public Fragment1Holder(View itemView) {
         super(itemView);
@@ -18,6 +17,12 @@ public class Fragment1Holder extends RecyclerView.ViewHolder {
         mCityField = (TextView) itemView.findViewById(R.id.carpark_city);
         mPostcodeField = (TextView) itemView.findViewById(R.id.carpark_postcode);
         mAvailableSpacesField = (TextView) itemView.findViewById(R.id.spaces);
+    }
+
+    // passing spaces view to be used in fragment1
+    public View magaView() {
+        //maga
+    return itemView.findViewById(R.id.spaces);
     }
 
     public void setTitle(String title) {

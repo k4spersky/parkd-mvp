@@ -22,19 +22,19 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Fragment1Activity extends Fragment {
     FirebaseRecyclerAdapter mAdapter;
     View view;
+    View view2;
     TextView m_MessageView;
-    //private List<CarParkData> m_carParks;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.activity_fragment1, container, false);
-        //m_MessageView = (TextView) view.findViewById(R.id.carpark_name);
 
         // blue spinner (city picker)
         Spinner citySpinner = (Spinner) view.findViewById(R.id.spinner_frag1);
         String[] cities = new String[] {"Armagh", "Belfast", "Dublin"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, cities);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_dropdown_item, cities);
 
         citySpinner.setAdapter(adapter);
         citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -66,6 +66,21 @@ public class Fragment1Activity extends Fragment {
                 viewHolder.setAddress1(model.getAddress1());
                 viewHolder.setCity(model.getCity() + ",");
                 viewHolder.setPostCode(model.getPostCode());
+
+                // make america great again feature
+                View maga = viewHolder.magaView();
+                maga.setBackgroundResource(R.color.youtube_red);
+                //final TextView space_box = (TextView) viewHolder
+
+                if (model.getAvailableSpaces() < 5)
+                {
+                    maga.setBackgroundResource(R.color.youtube_red);
+                } else if (model.getAvailableSpaces() > 5 && model.getAvailableSpaces() < 20) {
+                    maga.setBackgroundResource(R.color.nap_yellow);
+                } else {
+                    maga.setBackgroundResource(R.color.eucalyptus);
+                }
+
                 viewHolder.setAvailableSpaces(Integer.toString(model.getAvailableSpaces()));
 
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
