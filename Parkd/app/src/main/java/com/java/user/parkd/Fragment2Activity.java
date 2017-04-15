@@ -2,13 +2,12 @@ package com.java.user.parkd;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Fragment2Activity extends Fragment {
 
+public class Fragment2Activity extends Fragment {
     View view;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -22,6 +21,7 @@ public class Fragment2Activity extends Fragment {
                 searchView.setIconified(false);
             }
         });
+
         return view;
     }
 }

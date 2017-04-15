@@ -18,32 +18,33 @@ import java.util.Map;
  */
 public class FirebasePost extends AppCompatActivity {
 
+        // THIS IS A TEST ENV - do not use.
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference("car_parks");
+
         public void run(final TextView m_MessageView) {
 
+            // adding new object with uid
+            Map<String, Object> sendData = new HashMap<>();
+            sendData.put("title", "");
 
-//            DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference("car_parks");
-//            Map<String, Object> sendData = new HashMap<>();
-//            sendData.put("title", "");
-//
-//            mRootRef.push().setValue(sendData);
-
+            mRootRef.push().setValue(sendData);
 
             // Creating reference to root of the json tree in firebase
-//            DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-//            DatabaseReference m_ConditionRef = mRootRef.child("type");
-//
-//            m_ConditionRef.addValueEventListener(new ValueEventListener() {
-//
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    String text = dataSnapshot.getValue(String.class);
-//                    m_MessageView.setText(text);
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//                    // TODO Auto-generated method stub
-//                }
-//            });
+            DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference m_ConditionRef = mRootRef.child("type");
+
+            m_ConditionRef.addValueEventListener(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String text = dataSnapshot.getValue(String.class);
+                    m_MessageView.setText(text);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // TODO Auto-generated method stub
+                }
+            });
         }
 }
