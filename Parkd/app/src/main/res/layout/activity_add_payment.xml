@@ -18,8 +18,8 @@
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/cardLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/editCardNumber"
             app:layout_widthPercent="94%"
@@ -27,7 +27,7 @@
             android:layout_alignParentStart="true"
             app:layout_marginStartPercent="3%"
             app:layout_marginTopPercent="5%"
-            android:text="Card Number" />
+            android:hint="Card Number" />
 
         <EditText
             android:id="@+id/editExpireDate"
@@ -36,7 +36,7 @@
             android:layout_below="@+id/editCardNumber"
             app:layout_marginStartPercent="3%"
             app:layout_marginTopPercent="3%"
-            android:text="Expiry Date" />
+            android:hint="Expiry Date" />
 
         <EditText
             android:id="@+id/editCVV"
@@ -46,19 +46,20 @@
             android:layout_alignParentEnd="true"
             app:layout_marginEndPercent="3%"
             app:layout_marginTopPercent="3%"
-            android:text="CVV" />
+            android:hint="CVV" />
 
         <Button
             android:id="@+id/addCardBT"
-            app:layout_widthPercent="30%"
             android:layout_height="wrap_content"
-            android:background="@drawable/add_card_btn"
             android:layout_below="@+id/editExpireDate"
-            app:layout_marginTopPercent="2%"
+            android:background="@drawable/add_card_btn"
+            android:text="Save Card"
             android:textColor="@color/white"
-            app:layout_marginStartPercent="35%"
-            android:textSize="14sp"
-            android:text="Save" />
+            android:textSize="20sp"
+            app:layout_marginStartPercent="25%"
+            app:layout_marginTopPercent="4%"
+            android:textStyle="bold"
+            app:layout_widthPercent="50%" />
 
         <ImageButton
             android:id="@+id/cameraImage"
@@ -67,12 +68,8 @@
             app:layout_marginEndPercent="5%"
             app:layout_marginTopPercent="6.5%"
             android:layout_alignParentEnd="true"
-            app:srcCompat="@drawable/camera"
-            />
+            app:srcCompat="@drawable/camera" />
 
     </android.support.percent.PercentRelativeLayout>
-
-
-
 
 </LinearLayout>
