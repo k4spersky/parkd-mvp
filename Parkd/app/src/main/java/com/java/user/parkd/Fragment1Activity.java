@@ -71,10 +71,10 @@ public class Fragment1Activity extends Fragment {
                 View maga = viewHolder.magaView();
                 maga.setBackgroundResource(R.color.youtube_red);
 
-                if (model.getAvailableSpaces() < 5)
+                if (model.getAvailableSpaces() <= 10)
                 {
                     maga.setBackgroundResource(R.color.pastel_red);
-                } else if (model.getAvailableSpaces() > 5 && model.getAvailableSpaces() < 20) {
+                } else if (model.getAvailableSpaces() > 10 && model.getAvailableSpaces() <= 20) {
                     maga.setBackgroundResource(R.color.pastel_orange);
                 } else {
                     maga.setBackgroundResource(R.color.eucalyptus);
