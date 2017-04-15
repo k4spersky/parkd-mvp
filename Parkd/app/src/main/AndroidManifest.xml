@@ -27,6 +27,8 @@
         <activity android:name="com.java.user.parkd.RegisterActivity" />
         <activity android:name="com.java.user.parkd.BookingsActivity" />
         <activity android:name="com.java.user.parkd.RentActivity" />
+        <activity android:name="com.java.user.parkd.PaymentActivity" />
+        <activity android:name="com.java.user.parkd.AddPaymentActivity" />
         <activity
             android:name="com.java.user.parkd.UserAreaActivity" />
         <activity android:name="com.java.user.parkd.PopTermsCon"
