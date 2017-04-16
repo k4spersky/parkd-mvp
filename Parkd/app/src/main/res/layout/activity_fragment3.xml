@@ -14,16 +14,14 @@
         android:id="@+id/acc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
         android:background="@color/dark_grey"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:layout_height="90dp"
+            android:layout_height="75dp"
             android:layout_gravity="center"
-            android:paddingTop="5dp"
             app:srcCompat="@drawable/account" />
 
         <TextView
@@ -42,8 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/acc"
+        android:layout_marginTop="35dp"
         android:orientation="vertical"
-        android:layout_marginTop="25dp"
         android:background="@color/white">
 
         <View
@@ -54,6 +52,7 @@
 
         <TextView
             android:id="@+id/rentSpace"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -76,6 +75,7 @@
             android:id="@+id/accBooking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:paddingLeft="8dp"
             android:text="My Bookings"
             android:textSize="16sp"
@@ -96,6 +96,7 @@
             android:id="@+id/payDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:paddingLeft="8dp"
             android:text="Payment Methods"
             android:textSize="16sp"
@@ -107,15 +108,30 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="#9e9e9e"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="45dp"/>
+            android:background="#9e9e9e" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/options2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/options"
+        android:layout_marginTop="35dp"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#9e9e9e"
+            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:id="@+id/accnt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:paddingLeft="8dp"
             android:text="Account"
             android:textSize="16sp"
@@ -136,6 +152,7 @@
             android:id="@+id/accAbout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:paddingLeft="8dp"
             android:text="About"
             android:textSize="16sp"
@@ -149,7 +166,7 @@
             android:layout_height="0.5dp"
             android:layout_marginTop="8dp"
             android:background="#9e9e9e" />
-    </LinearLayout>
+        </LinearLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
