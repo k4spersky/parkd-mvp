@@ -15,11 +15,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+
+import io.card.payment.CardIOActivity;
+import io.card.payment.CardType;
+import io.card.payment.CreditCard;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +37,12 @@ public class AddPaymentActivity extends AppCompatActivity{
     Button add;
     ImageButton cam;
     Toolbar tb1;
+    private static final int REQUEST_SCAN = 100;
+    private static final int REQUEST_AUTOTEST = 200;
+    private EditText etCard;
+    private String card_type;
+    private String digits;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_payment);
@@ -42,11 +53,24 @@ public class AddPaymentActivity extends AppCompatActivity{
         getSupportActionBar().setTitle("Add Payment Card");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final EditText etCard = (EditText) findViewById(R.id.editCardNumber);
+        etCard = (EditText) findViewById(R.id.editCardNumber);
         final EditText etExpire = (EditText) findViewById(R.id.editExpireDate);
         final EditText etCvv = (EditText) findViewById(R.id.editCVV);
 
         cam.setColorFilter(this.getResources().getColor(R.color.google_blue));
+
+        cam.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Intent scanIntent = new Intent(AddPaymentActivity.this, CardIOActivity.class);
+
+                // customize these values to suit your needs.
+
+
+                // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
+                startActivityForResult(scanIntent, REQUEST_SCAN);
+
+            }
+        });
 
         add.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -67,13 +91,13 @@ public class AddPaymentActivity extends AppCompatActivity{
                         try {
                             //Receives response from the php
                             JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            if (success = true) {
+                            String success = jsonResponse.getString("success");
+
+                            if (success.equals("true")) {
+                                Toast.makeText(AddPaymentActivity.this, "Card Added", Toast.LENGTH_LONG).show();
+                                finish();
                                 //Opens up login form if successful
-                                AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
-                                builder.setMessage("Card Added")
-                                        .create()
-                                        .show();
+
 
                             }else
                             {
@@ -91,7 +115,7 @@ public class AddPaymentActivity extends AppCompatActivity{
 
 
                 // Sends request to the php
-                AddPaymentRequest addPaymentRequest = new AddPaymentRequest(card_number, expire_date, cvv, email, responseListener);
+                AddPaymentRequest addPaymentRequest = new AddPaymentRequest(card_number, expire_date, cvv, email, card_type, digits, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(AddPaymentActivity.this);
                 queue.add(addPaymentRequest);
 
@@ -112,7 +136,7 @@ public class AddPaymentActivity extends AppCompatActivity{
     private String getEmail()
     {
         SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-        return sharedpref.getString("name", "").toString();
+        return sharedpref.getString("email", "").toString();
 
     }
     //Checks if there are any empty strings
@@ -145,5 +169,34 @@ public class AddPaymentActivity extends AppCompatActivity{
         } else {
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_SCAN) {
+            String resultDisplayStr;
+            if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
+                CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
+
+                // Never log a raw card number. Avoid displaying it, but if necessary use getFormattedCardNumber()
+                etCard.setText(scanResult.getFormattedCardNumber());
+                digits = scanResult.getLastFourDigitsOfCardNumber();
+                CardType cardType = scanResult.getCardType();
+                card_type = cardType.name();
+            }
+            else {
+                resultDisplayStr = "Scan was canceled.";
+            }
+            // do something with resultDisplayStr, maybe display it in a textView
+            // resultTextView.setText(resultDisplayStr);
+        }
+        // else handle other activity results
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        ;
     }
 }

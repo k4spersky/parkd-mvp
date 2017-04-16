@@ -13,13 +13,15 @@ public class AddPaymentRequest extends StringRequest {
     private Map<String, String> params;
 
     //Constructor for the request
-    public AddPaymentRequest(String card_number, String expire_date, String cvv, String email, Response.Listener<String> listener) {
+    public AddPaymentRequest(String card_number, String expire_date, String cvv, String email, String card_type, String digits, Response.Listener<String> listener) {
         super(Method.POST, ADDPAYMENT_REQUEST_URL, listener, null);
         params = new HashMap<>();
         params.put("card_number", card_number);
         params.put("expire_date", expire_date);
         params.put("cvv", cvv);
         params.put("email", email);
+        params.put("type", card_type);
+        params.put("digits", digits);
     }
 
     @Override
