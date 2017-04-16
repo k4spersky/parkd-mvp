@@ -61,7 +61,7 @@ public class Fragment1Activity extends Fragment {
                 R.layout.fragment1_cardview, Fragment1Holder.class, ref) {
 
             @Override
-            protected void populateViewHolder(Fragment1Holder viewHolder, CarParkData model, int position) {
+            public void populateViewHolder(Fragment1Holder viewHolder, CarParkData model, int position) {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setAddress1(model.getAddress1());
                 viewHolder.setCity(model.getCity() + ",");
