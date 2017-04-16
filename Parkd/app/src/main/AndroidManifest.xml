@@ -23,14 +23,21 @@
         <activity
             android:name="com.java.user.parkd.LoginActivity">
         </activity>
-        <activity android:name="com.java.user.parkd.MainActivity" />
-        <activity android:name="com.java.user.parkd.RegisterActivity" />
-        <activity android:name="com.java.user.parkd.BookingsActivity" />
-        <activity android:name="com.java.user.parkd.RentActivity" />
-        <activity android:name="com.java.user.parkd.PaymentActivity" />
-        <activity android:name="com.java.user.parkd.AddPaymentActivity" />
+        <activity android:name="com.java.user.parkd.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.java.user.parkd.RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.java.user.parkd.BookingsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.java.user.parkd.RentActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.java.user.parkd.PaymentActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.java.user.parkd.AddPaymentActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.java.user.parkd.UserAreaActivity" />
+            android:name="com.java.user.parkd.UserAreaActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.java.user.parkd.PopTermsCon"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
