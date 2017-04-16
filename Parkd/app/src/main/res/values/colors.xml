@@ -22,4 +22,11 @@
     <color name="anti_flash_white">#F2F3F4</color>
     <color name="pastel_red">#FF6961</color>
     <color name="pastel_orange">#FFB347</color>
+    <color name="prussian_blue">#003153</color>
+    <color name="midnight_blue">#003366</color>
+    <color name="cancel_red">#FD5E53</color>
+    <color name="bd_blue">#2E5894</color>
+    <color name="yale_blue">#0F4D92</color>
+    <color name="kandy_red">#FF2448</color>
+    <color name="dark_grey">#34495E</color>
 </resources>

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                     tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.eucalyptus));
                 }
                 if (tab.getPosition() == 2) {
-                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.cadet_grey));
+                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.kandy_red));
                 }
             }
             // left empty as not needed
