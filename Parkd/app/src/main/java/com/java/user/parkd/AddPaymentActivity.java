@@ -161,7 +161,7 @@ public class AddPaymentActivity extends AppCompatActivity {
                 if (checkCvv(cvv)) {
                     return;
                 }
-                if (checkExpire(card_number)) {
+                if (checkCardFormat(card_number)) {
                     return;
                 }
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -213,6 +213,21 @@ public class AddPaymentActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private boolean checkCardFormat(String card_number) {
+        if (card_number.length() == 19) {
+
+            return false;
+
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
+            builder.setMessage("Make sure the card number is the correct length")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return true;
+        }
     }
 
     private boolean checkExpire(String expire) {
