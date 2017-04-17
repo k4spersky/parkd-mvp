@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -37,7 +38,7 @@ import static java.lang.Integer.parseInt;
  * Created by Paul on 14/04/2017.
  */
 
-public class AddPaymentActivity extends AppCompatActivity{
+public class AddPaymentActivity extends AppCompatActivity {
     Button add;
     ImageButton cam;
     Toolbar tb1;
@@ -48,7 +49,7 @@ public class AddPaymentActivity extends AppCompatActivity{
     private String digits = "";
     private String manual = "Yes";
     private String current;
-    private  int len=0;
+    private int len = 0;
     private boolean del = false;
     //Visa Cards Start with 4, Master Cards start with 51-55, American Express 34 or 37
 
@@ -56,7 +57,7 @@ public class AddPaymentActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_payment);
         add = (Button) findViewById(R.id.addCardBT);
-        cam= (ImageButton) findViewById(R.id.cameraImage);
+        cam = (ImageButton) findViewById(R.id.cameraImage);
         tb1 = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(tb1);
         getSupportActionBar().setTitle("Add Payment Card");
@@ -69,108 +70,71 @@ public class AddPaymentActivity extends AppCompatActivity{
         cam.setColorFilter(this.getResources().getColor(R.color.google_blue));
 
         etExpire.addTextChangedListener(new TextWatcher() {
-                                            @Override
-                                            public void afterTextChanged(Editable mEdit) {
-                                                int len=0;
-                                                current = mEdit.toString();
-                                               if (del == true)
-                                               {}else {
-                                                   if (current.length() == 2 && len < current.length()) {
-                                                       mEdit.append("/");
-                                                   }
-                                               }
+            @Override
+            public void afterTextChanged(Editable mEdit) {
+                int len = 0;
+                current = mEdit.toString();
+                if (del == true) {
+                } else {
+                    if (current.length() == 2 && len < current.length()) {
+                        mEdit.append("/");
+                    }
+                }
 
-                                            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){
-                String str = etExpire.getText().toString();
-                if(str.contains("/"))
-                {del = true;}
-                else{del = false;}
             }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                String str = etExpire.getText().toString();
+                if (str.contains("/")) {
+                    del = true;
+                } else {
+                    del = false;
+                }
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
 
-       etCard.addTextChangedListener(new TextWatcher()
-        {
+        etCard.addTextChangedListener(new TextWatcher() {
+            private static final int TOTAL_SYMBOLS = 19; // size of pattern 0000-0000-0000-0000
+            private static final int TOTAL_DIGITS = 16; // max numbers of digits in pattern: 0000 x 4
+            private static final int DIVIDER_MODULO = 5; // means divider position is every 5th symbol beginning with 1
+            private static final int DIVIDER_POSITION = DIVIDER_MODULO - 1; // means divider position is every 4th symbol beginning with 0
+            private static final char DIVIDER = ' ';
+
+
             @Override
             public void afterTextChanged(Editable mEdit) {
                 current = mEdit.toString();
-                String substring = "";
-                int number = 0;
-                if (current.length() == 1) {
-                    substring = current.substring(0, 1);
-                    number = parseInt(substring);
-
-                    if (number == 4) {
-                        card_type = "VISA";
-                        cam.setImageResource(R.drawable.visa);
-                        cam.setColorFilter(null);
-                    }
-                }
-                if (current.length() == 2) {
-                    substring = current.substring(0, 2);
-                    number = parseInt(substring);
-                     if (number == 34) {
-                        card_type = "American Express";
-                        cam.setImageResource(R.drawable.americanexpress);
-                        cam.setColorFilter(null);
-                    } else if (number == 37) {
-                        card_type = "American Express";
-                        cam.setImageResource(R.drawable.americanexpress);
-                        cam.setColorFilter(null);
-                    } else if (number == 51) {
-                        card_type = "MASTERCARD";
-                        cam.setImageResource(R.drawable.mastercard);
-                        cam.setColorFilter(null);
-                    } else if (number == 52) {
-                        card_type = "MASTERCARD";
-                        cam.setImageResource(R.drawable.mastercard);
-                        cam.setColorFilter(null);
-                    } else if (number == 53) {
-                        card_type = "MASTERCARD";
-                        cam.setImageResource(R.drawable.mastercard);
-                        cam.setColorFilter(null);
-                    } else if (number == 54) {
-                        card_type = "MASTERCARD";
-                        cam.setImageResource(R.drawable.mastercard);
-                        cam.setColorFilter(null);
-                    } else if (number == 55) {
-                        card_type = "MASTERCARD";
-                        cam.setImageResource(R.drawable.mastercard);
-                        cam.setColorFilter(null);
-                    }
-                }else{}
+                camImg();
 
 
-                if(current.length() == 4 && len < current.length())
-                {
-                    mEdit.append(" ");
-                }
-                else if(current.length() == 9 &&len < current.length()){
-                    mEdit.append(" ");
-
-                }else if (current.length() == 14 &&len < current.length()) {
-                    mEdit.append(" ");
-                }
                 if (current.equals("")) {
-                card_type = "";
-                cam.setImageResource(R.drawable.camera);
-                cam.setColorFilter(AddPaymentActivity.this.getResources().getColor(R.color.google_blue));
-            }
+                    card_type = "";
+                    cam.setImageResource(R.drawable.camera);
+                    cam.setColorFilter(AddPaymentActivity.this.getResources().getColor(R.color.google_blue));
+
+                }
+                if (!isInputCorrect(mEdit, TOTAL_SYMBOLS, DIVIDER_MODULO, DIVIDER)) {
+                    mEdit.replace(0, mEdit.length(), buildCorrecntString(getDigitArray(mEdit, TOTAL_DIGITS), DIVIDER_POSITION, DIVIDER));
+                }
+
+
             }
 
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 String str = etCard.getText().toString();
                 len = str.length();
             }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
 
-        cam.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
+        cam.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 Intent scanIntent = new Intent(AddPaymentActivity.this, CardIOActivity.class);
 
                 // customize these values to suit your needs.
@@ -182,27 +146,23 @@ public class AddPaymentActivity extends AppCompatActivity{
             }
         });
 
-        add.setOnClickListener(new View.OnClickListener(){
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String card_number = etCard.getText().toString();
                 final String expire_date = etExpire.getText().toString();
                 final String cvv = etCvv.getText().toString();
                 final String email = getEmail();
-                if (emptyData(card_number, expire_date, cvv))
-                {
+                if (emptyData(card_number, expire_date, cvv)) {
                     return;
                 }
-                if (checkExpire(expire_date))
-                {
+                if (checkExpire(expire_date)) {
                     return;
                 }
-                if (checkCvv(cvv))
-                {
+                if (checkCvv(cvv)) {
                     return;
                 }
-                if (checkExpire(card_number))
-                {
+                if (checkExpire(card_number)) {
                     return;
                 }
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -221,8 +181,7 @@ public class AddPaymentActivity extends AppCompatActivity{
                                 //Opens up login form if successful
 
 
-                            }else if(success.equals("false"))
-                            {
+                            } else if (success.equals("false")) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
                                 builder.setMessage("This card has already been added to this account. Please choose another.")
                                         .setNegativeButton("Retry", null)
@@ -232,15 +191,15 @@ public class AddPaymentActivity extends AppCompatActivity{
                                 etCvv.setText("");
                                 etCard.setText("");
 
-                            }else
-                            {
+                            } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
                                 builder.setMessage("Unable to add card at this time. Please try again.")
                                         .setNegativeButton("Retry", null)
                                         .create()
                                         .show();
 
-                            } }catch (JSONException e) {
+                            }
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -257,29 +216,27 @@ public class AddPaymentActivity extends AppCompatActivity{
         });
     }
 
-private boolean checkExpire(String expire) {
-    if (expire.length() == 5) {
-
-        return false;
-
-    } else {
-        AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
-        builder.setMessage("Make sure the expire date is the correct length")
-                .setNegativeButton("Retry", null)
-                .create()
-                .show();
-        return true;
-    }
-}
-
-    private boolean checkCvv(String cvv)
-    {
-        if (cvv.length() == 3)
-        {
+    private boolean checkExpire(String expire) {
+        if (expire.length() == 5) {
 
             return false;
 
-        }else{
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
+            builder.setMessage("Make sure the expire date is the correct length")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return true;
+        }
+    }
+
+    private boolean checkCvv(String cvv) {
+        if (cvv.length() == 3) {
+
+            return false;
+
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
             builder.setMessage("Make sure the cvv number is the correct length")
                     .setNegativeButton("Retry", null)
@@ -288,16 +245,14 @@ private boolean checkExpire(String expire) {
             return true;
         }
 
-}
+    }
 
-    private boolean checkCardNumber(String card)
-    {
-        if (card.length() == 19)
-        {
+    private boolean checkCardNumber(String card) {
+        if (card.length() == 19) {
 
             return false;
 
-        }else{
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
             builder.setMessage("Make sure your card number is the correct length")
                     .setNegativeButton("Retry", null)
@@ -307,6 +262,7 @@ private boolean checkExpire(String expire) {
         }
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
@@ -315,12 +271,12 @@ private boolean checkExpire(String expire) {
         return super.onOptionsItemSelected(item);
     }
 
-    private String getEmail()
-    {
+    private String getEmail() {
         SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         return sharedpref.getString("email", "").toString();
 
     }
+
     //Checks if there are any empty strings
     public boolean emptyData(String cardnumber, String expire, String cvv) {
         if (cardnumber.equals("")) {
@@ -368,8 +324,7 @@ private boolean checkExpire(String expire) {
                 CardType cardType = scanResult.getCardType();
                 card_type = cardType.name();
                 manual = "No";
-            }
-            else {
+            } else {
                 resultDisplayStr = "Scan was canceled.";
             }
             // do something with resultDisplayStr, maybe display it in a textView
@@ -377,10 +332,102 @@ private boolean checkExpire(String expire) {
         }
         // else handle other activity results
     }
+
     @Override
     public void onStop() {
         super.onStop();
         ;
     }
 
+    private void camImg() {
+        String substring = "";
+        int number = 0;
+        if (current.length() == 1) {
+            substring = current.substring(0, 1);
+            number = parseInt(substring);
+
+            if (number == 4) {
+                card_type = "VISA";
+                cam.setImageResource(R.drawable.visa);
+                cam.setColorFilter(null);
+            }
+        }
+        if (current.length() == 2) {
+            substring = current.substring(0, 2);
+            number = parseInt(substring);
+            if (number == 34) {
+                card_type = "American Express";
+                cam.setImageResource(R.drawable.americanexpress);
+                cam.setColorFilter(null);
+            } else if (number == 37) {
+                card_type = "American Express";
+                cam.setImageResource(R.drawable.americanexpress);
+                cam.setColorFilter(null);
+            } else if (number == 51) {
+                card_type = "MASTERCARD";
+                cam.setImageResource(R.drawable.mastercard);
+                cam.setColorFilter(null);
+            } else if (number == 52) {
+                card_type = "MASTERCARD";
+                cam.setImageResource(R.drawable.mastercard);
+                cam.setColorFilter(null);
+            } else if (number == 53) {
+                card_type = "MASTERCARD";
+                cam.setImageResource(R.drawable.mastercard);
+                cam.setColorFilter(null);
+            } else if (number == 54) {
+                card_type = "MASTERCARD";
+                cam.setImageResource(R.drawable.mastercard);
+                cam.setColorFilter(null);
+            } else if (number == 55) {
+                card_type = "MASTERCARD";
+                cam.setImageResource(R.drawable.mastercard);
+                cam.setColorFilter(null);
+            }
+        } else {
+        }
+
+
+    }
+
+    private boolean isInputCorrect(Editable s, int totalSymbols, int dividerModulo, char divider) {
+        boolean isCorrect = s.length() <= totalSymbols; // check size of entered string
+        for (int i = 0; i < s.length(); i++) { // chech that every element is right
+            if (i > 0 && (i + 1) % dividerModulo == 0) {
+                isCorrect &= divider == s.charAt(i);
+            } else {
+                isCorrect &= Character.isDigit(s.charAt(i));
+            }
+        }
+        return isCorrect;
+
+    }
+
+    private String buildCorrecntString(char[] digits, int dividerPosition, char divider) {
+        final StringBuilder formatted = new StringBuilder();
+
+        for (int i = 0; i < digits.length; i++) {
+            if (digits[i] != 0) {
+                formatted.append(digits[i]);
+                if ((i > 0) && (i < (digits.length - 1)) && (((i + 1) % dividerPosition) == 0)) {
+                    formatted.append(divider);
+                }
+            }
+        }
+
+        return formatted.toString();
+    }
+
+    private char[] getDigitArray(final Editable s, final int size) {
+        char[] digits = new char[size];
+        int index = 0;
+        for (int i = 0; i < s.length() && index < size; i++) {
+            char current = s.charAt(i);
+            if (Character.isDigit(current)) {
+                digits[index] = current;
+                index++;
+            }
+        }
+        return digits;
+    }
 }

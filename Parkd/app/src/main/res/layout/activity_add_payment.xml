@@ -28,7 +28,7 @@
             app:layout_marginStartPercent="3%"
             app:layout_marginTopPercent="5%"
             android:maxLength="19"
-            android:inputType="number"
+            android:inputType="phone"
             android:hint="Card Number" />
 
         <EditText
