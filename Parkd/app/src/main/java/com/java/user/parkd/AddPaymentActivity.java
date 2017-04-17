@@ -192,6 +192,18 @@ public class AddPaymentActivity extends AppCompatActivity{
                 {
                     return;
                 }
+                if (checkExpire(expire_date))
+                {
+                    return;
+                }
+                if (checkCvv(cvv))
+                {
+                    return;
+                }
+                if (checkExpire(card_number))
+                {
+                    return;
+                }
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
 
                     @Override
@@ -244,7 +256,56 @@ public class AddPaymentActivity extends AppCompatActivity{
         });
     }
 
+private boolean checkExpire(String expire) {
+    if (expire.length() == 5) {
 
+        return false;
+
+    } else {
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
+        builder.setMessage("Make sure the expire date is the correct length")
+                .setNegativeButton("Retry", null)
+                .create()
+                .show();
+        return true;
+    }
+}
+
+    private boolean checkCvv(String cvv)
+    {
+        if (cvv.length() == 3)
+        {
+
+            return false;
+
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
+            builder.setMessage("Make sure the cvv number is the correct length")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return true;
+        }
+
+}
+
+    private boolean checkCardNumber(String card)
+    {
+        if (card.length() == 19)
+        {
+
+            return false;
+
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
+            builder.setMessage("Make sure your card number is the correct length")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return true;
+        }
+
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
