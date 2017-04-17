@@ -17,19 +17,81 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
-    <LinearLayout
-        android:id="@+id/options"
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/some_id"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/acc"
-        android:orientation="vertical"
-        android:layout_marginTop="0dp">
+        android:layout_height="match_parent"
+        app:layout_marginStartPercent="5%"
+        app:layout_marginTopPercent="10%">
 
+        <TextView
+            android:id="@+id/firstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="First Name"
+            android:textSize="14sp"
+            android:drawableStart="@drawable/accountblack"
+            android:drawablePadding="8dp" />
+
+        <TextView
+            android:id="@+id/fName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_marginStartPercent="10%"
+            android:text="Paul"
+            android:layout_alignParentStart="true"
+            android:textSize="16sp"
+            android:layout_below="@+id/firstName"/>
+
+        <TextView
+            android:id="@+id/lastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_marginTopPercent="2%"
+            app:layout_marginStartPercent="10%"
+            android:text="Last Name"
+            android:textSize="14sp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/fName"/>
+        <TextView
+            android:id="@+id/lName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_marginTopPercent="2%"
+            app:layout_marginStartPercent="10%"
+            android:text="Johnston"
+            android:textSize="16sp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lastName"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#9e9e9e"
+            android:layout_marginBottom="8dp"
+            android:layout_below="@+id/lName"
+            app:layout_marginStartPercent="10%"/>
+
+        <TextView
+            android:id="@+id/phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:layout_marginTop="20dp"
+            android:drawableStart="@drawable/smartphone"
+            android:drawablePadding="8dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lName"/>
         <TextView
             android:id="@+id/logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_marginTopPercent="10%"
             android:text="Sign Out"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:drawableStart="@drawable/exit"
+            android:drawablePadding="8dp"
+            android:textSize="16sp"
+            android:layout_below="@+id/phoneNumber"/>
+    </android.support.percent.PercentRelativeLayout>
+
+
 </LinearLayout>
