@@ -94,54 +94,54 @@ public class AddPaymentActivity extends AppCompatActivity{
        etCard.addTextChangedListener(new TextWatcher()
         {
             @Override
-            public void afterTextChanged(Editable mEdit)
-            {
-                 current= mEdit.toString();
-                if(current.length() == 1) {
-                    String substring;
+            public void afterTextChanged(Editable mEdit) {
+                current = mEdit.toString();
+                String substring = "";
+                int number = 0;
+                if (current.length() == 1) {
                     substring = current.substring(0, 1);
-                    int number = parseInt(substring);
+                    number = parseInt(substring);
+
                     if (number == 4) {
                         card_type = "VISA";
                         cam.setImageResource(R.drawable.visa);
                         cam.setColorFilter(null);
                     }
-                    else if(current.length() == 2)
-                    {
-                        substring = current.substring(0, 2);
-                         number = parseInt(substring);
-                        if (number == 34) {
-                            card_type = "American Express";
-                            cam.setImageResource(R.drawable.americanexpress);
-                            cam.setColorFilter(null);
-                        } else if (number == 37) {
-                            card_type = "American Express";
-                            cam.setImageResource(R.drawable.americanexpress);
-                            cam.setColorFilter(null);
-                        } else if (number == 51) {
-                            card_type = "MASTERCARD";
-                            cam.setImageResource(R.drawable.mastercard);
-                            cam.setColorFilter(null);
-                        } else if (number == 52) {
-                            card_type = "MASTERCARD";
-                            cam.setImageResource(R.drawable.mastercard);
-                            cam.setColorFilter(null);
-                        } else if (number == 53) {
-                            card_type = "MASTERCARD";
-                            cam.setImageResource(R.drawable.mastercard);
-                            cam.setColorFilter(null);
-                        } else if (number == 54) {
-                            card_type = "MASTERCARD";
-                            cam.setImageResource(R.drawable.mastercard);
-                            cam.setColorFilter(null);
-                        } else if (number == 55) {
-                            card_type = "MASTERCARD";
-                            cam.setImageResource(R.drawable.mastercard);
-                            cam.setColorFilter(null);
-                        }
+                }
+                if (current.length() == 2) {
+                    substring = current.substring(0, 2);
+                    number = parseInt(substring);
+                     if (number == 34) {
+                        card_type = "American Express";
+                        cam.setImageResource(R.drawable.americanexpress);
+                        cam.setColorFilter(null);
+                    } else if (number == 37) {
+                        card_type = "American Express";
+                        cam.setImageResource(R.drawable.americanexpress);
+                        cam.setColorFilter(null);
+                    } else if (number == 51) {
+                        card_type = "MASTERCARD";
+                        cam.setImageResource(R.drawable.mastercard);
+                        cam.setColorFilter(null);
+                    } else if (number == 52) {
+                        card_type = "MASTERCARD";
+                        cam.setImageResource(R.drawable.mastercard);
+                        cam.setColorFilter(null);
+                    } else if (number == 53) {
+                        card_type = "MASTERCARD";
+                        cam.setImageResource(R.drawable.mastercard);
+                        cam.setColorFilter(null);
+                    } else if (number == 54) {
+                        card_type = "MASTERCARD";
+                        cam.setImageResource(R.drawable.mastercard);
+                        cam.setColorFilter(null);
+                    } else if (number == 55) {
+                        card_type = "MASTERCARD";
+                        cam.setImageResource(R.drawable.mastercard);
+                        cam.setColorFilter(null);
                     }
-
                 }else{}
+
 
                 if(current.length() == 4 && len < current.length())
                 {
@@ -159,6 +159,7 @@ public class AddPaymentActivity extends AppCompatActivity{
                 cam.setColorFilter(AddPaymentActivity.this.getResources().getColor(R.color.google_blue));
             }
             }
+
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after){
                 String str = etCard.getText().toString();
