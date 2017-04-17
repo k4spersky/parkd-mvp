@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="2dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:cardBackgroundColor="#F2F3F4"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <android.support.percent.PercentRelativeLayout
+            android:id="@+id/some_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/cardIcon"
+                android:layout_alignParentStart="true"
+                app:layout_marginStartPercent="5%"
+                app:layout_widthPercent="20%"
+                android:layout_height="50dp"/>
+
+            <TextView
+                android:id="@+id/cardType"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text=""
+                android:textSize="18sp"
+                app:layout_marginStartPercent="30%"
+                app:layout_widthPercent="48%" />
+
+            <TextView
+                android:id="@+id/cardDigits"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/cardType"
+                android:layout_marginTop="5dp"
+                android:text=""
+                android:textSize="18sp"
+                app:layout_marginStartPercent="30%"
+                app:layout_widthPercent="48%" />
+
+        </android.support.percent.PercentRelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

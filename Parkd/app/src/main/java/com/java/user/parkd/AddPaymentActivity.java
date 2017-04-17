@@ -9,6 +9,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,8 +42,11 @@ public class AddPaymentActivity extends AppCompatActivity{
     private static final int REQUEST_SCAN = 100;
     private static final int REQUEST_AUTOTEST = 200;
     private EditText etCard;
-    private String card_type;
-    private String digits;
+    private String card_type = "";
+    private String digits = "";
+    private String manual = "Yes";
+    private String current;
+    //Visa Cards Start with 4, Master Cards start with 51-55, American Express 34 or 37
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +63,60 @@ public class AddPaymentActivity extends AppCompatActivity{
         final EditText etCvv = (EditText) findViewById(R.id.editCVV);
 
         cam.setColorFilter(this.getResources().getColor(R.color.google_blue));
+
+       etCard.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void afterTextChanged(Editable mEdit)
+            {
+                 current= mEdit.toString();
+                if(current.length() >=1 && current.length() < 19) {
+                    int number = Integer.parseInt(current);
+                    if (number == 4) {
+                        card_type = "VISA";
+                        cam.setImageResource(R.drawable.visa);
+                        cam.setColorFilter(null);
+                    } else if (number == 34) {
+                        card_type = "American Express";
+                        cam.setImageResource(R.drawable.americanexpress);
+                        cam.setColorFilter(null);
+                    } else if (number == 37) {
+                        card_type = "American Express";
+                        cam.setImageResource(R.drawable.americanexpress);
+                        cam.setColorFilter(null);
+                    } else if (number == 51) {
+                        card_type = "MASTERCARD";
+                        cam.setImageResource(R.drawable.mastercard);
+                        cam.setColorFilter(null);
+                    } else if (number == 52) {
+                        card_type = "MASTERCARD";
+                        cam.setImageResource(R.drawable.mastercard);
+                        cam.setColorFilter(null);
+                    } else if (number == 53) {
+                        card_type = "MASTERCARD";
+                        cam.setImageResource(R.drawable.mastercard);
+                        cam.setColorFilter(null);
+                    } else if (number == 54) {
+                        card_type = "MASTERCARD";
+                        cam.setImageResource(R.drawable.mastercard);
+                        cam.setColorFilter(null);
+                    } else if (number == 55) {
+                        card_type = "MASTERCARD";
+                        cam.setImageResource(R.drawable.mastercard);
+                        cam.setColorFilter(null);
+                    }
+                }else{}
+                if (current.equals("")) {
+                card_type = "";
+                cam.setImageResource(R.drawable.camera);
+                cam.setColorFilter(AddPaymentActivity.this.getResources().getColor(R.color.google_blue));
+            }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count){}
+        });
 
         cam.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -99,6 +158,17 @@ public class AddPaymentActivity extends AppCompatActivity{
                                 //Opens up login form if successful
 
 
+                            }else if(success.equals("false"))
+                            {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
+                                builder.setMessage("This card has already been added to this account. Please choose another.")
+                                        .setNegativeButton("Retry", null)
+                                        .create()
+                                        .show();
+                                etExpire.setText("");
+                                etCvv.setText("");
+                                etCard.setText("");
+
                             }else
                             {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
@@ -115,7 +185,7 @@ public class AddPaymentActivity extends AppCompatActivity{
 
 
                 // Sends request to the php
-                AddPaymentRequest addPaymentRequest = new AddPaymentRequest(card_number, expire_date, cvv, email, card_type, digits, responseListener);
+                AddPaymentRequest addPaymentRequest = new AddPaymentRequest(card_number, expire_date, cvv, email, card_type, digits, manual, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(AddPaymentActivity.this);
                 queue.add(addPaymentRequest);
 
@@ -185,6 +255,7 @@ public class AddPaymentActivity extends AppCompatActivity{
                 digits = scanResult.getLastFourDigitsOfCardNumber();
                 CardType cardType = scanResult.getCardType();
                 card_type = cardType.name();
+                manual = "No";
             }
             else {
                 resultDisplayStr = "Scan was canceled.";
@@ -199,4 +270,5 @@ public class AddPaymentActivity extends AppCompatActivity{
         super.onStop();
         ;
     }
+
 }
