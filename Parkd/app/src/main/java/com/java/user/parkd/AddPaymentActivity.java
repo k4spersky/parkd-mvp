@@ -80,7 +80,6 @@ public class AddPaymentActivity extends AppCompatActivity {
                         mEdit.append("/");
                     }
                 }
-
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

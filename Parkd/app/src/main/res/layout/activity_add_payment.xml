@@ -36,6 +36,8 @@
             app:layout_widthPercent="45%"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editCardNumber"
+            android:inputType="date"
+            android:maxLength="5"
             app:layout_marginStartPercent="3%"
             app:layout_marginTopPercent="3%"
             android:hint="Expiry Date" />
