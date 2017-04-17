@@ -27,6 +27,7 @@
             android:layout_alignParentStart="true"
             app:layout_marginStartPercent="3%"
             app:layout_marginTopPercent="5%"
+            android:maxLength="19"
             android:inputType="number"
             android:hint="Card Number" />
 
@@ -46,6 +47,7 @@
             android:layout_below="@+id/editCardNumber"
             android:layout_alignParentEnd="true"
             android:inputType="number"
+            android:maxLength="3"
             app:layout_marginEndPercent="3%"
             app:layout_marginTopPercent="3%"
             android:hint="CVV" />
@@ -60,6 +62,7 @@
             android:textSize="20sp"
             app:layout_marginStartPercent="25%"
             app:layout_marginTopPercent="4%"
+            android:maxLength="5"
             android:textStyle="bold"
             app:layout_widthPercent="50%" />
 
