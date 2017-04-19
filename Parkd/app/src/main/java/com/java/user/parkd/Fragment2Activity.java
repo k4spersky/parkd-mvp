@@ -2,32 +2,36 @@ package com.java.user.parkd;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import static android.R.attr.fragment;
+import static android.content.ContentValues.TAG;
 
 
 public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
+
     View view;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_fragment2, container, false);
-        final android.widget.SearchView searchView = (android.widget.SearchView) view.findViewById(R.id.search_frag2);
-
-        searchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchView.setIconified(false);
-            }
-        });
 
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
@@ -35,8 +39,29 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
 
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        EditText attributeText = (EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
+        attributeText.setHint("        find your space!");
+        autocompleteFragment.getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_search));
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                Log.i(TAG, "Place: " + place.getName());
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
         return view;
     }
+
 
     /**
      * Manipulates the map when it's available.
@@ -49,11 +74,19 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+
+        // Customise the styling of the base map using a JSON object defined
+        // in a raw resource file.
+        googleMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                        getContext(), R.raw.style_json));
+
         // and move the map's camera to the same location. 54.606549, -5.931456
         LatLng belfast = new LatLng(54.606549, -5.931456);
         googleMap.addMarker(new MarkerOptions().position(belfast)
                 .title("Belfast City Centre"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(belfast));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 12));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 16));
     }
 }
