@@ -42,7 +42,7 @@
             app:layout_marginTopPercent="2%"
             android:maxLength="30"
             android:text="" />
-        #
+
         <TextView
             android:id="@+id/lastName"
             android:layout_width="match_parent"

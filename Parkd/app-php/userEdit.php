@@ -4,12 +4,13 @@
     $lastname = $_POST["ln"];
     $number = $_POST["pn"];
     $email = $_POST["user"];
+	$newemail = $_POST["em"];
 	
 	/*$firstname = "f";
     $lastname = "l";
     $number = "06347";
     $email = "pjohnston37@qub.ac.uk";*/
-	$sql = "Update user set first_name = '$firstname', last_name = '$lastname', phone_number = '$number' where email = '$email'";
+	$sql = "Update user set first_name = '$firstname', last_name = '$lastname', phone_number = '$number', email = '$newemail' where email = '$email'";
         $result = $con->query($sql);
         //$result->close();
         $con->close();

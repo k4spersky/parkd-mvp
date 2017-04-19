@@ -3,11 +3,11 @@
 	
 	$email = $_POST["user"];
 	//$email = "pjohnston37@qub.ac.uk";
-	$sql = "Select first_name, last_name, phone_number from user where email = '$email'";
+	$sql = "Select first_name, last_name, phone_number, email from user where email = '$email'";
 	$statement = mysqli_prepare($con, $sql);
     mysqli_stmt_execute($statement);
     mysqli_stmt_store_result($statement);
-    mysqli_stmt_bind_result($statement, $firstname, $lastname, $number);
+    mysqli_stmt_bind_result($statement, $firstname, $lastname, $number, $email);
 	
 	$response = array();
     $response["success"] = true;
@@ -17,6 +17,7 @@
 		$response["firstname"] = $firstname;
 		$response["lastname"] = $lastname;
 		$response["phone"] = $number;
+		$response["email"] = $email;
            
     }
 

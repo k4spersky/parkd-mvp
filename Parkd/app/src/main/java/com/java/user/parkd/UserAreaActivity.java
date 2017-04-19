@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Intent;
 import android.widget.Toast;
@@ -22,94 +24,54 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class UserAreaActivity extends AppCompatActivity
 
 {
     Toolbar tb1;
-    TextView userFirstName;
-    TextView userLastName;
-    TextView userPhoneNumber;
+    EditText userFirstName;
+    EditText userLastName;
+    EditText userPhoneNumber;
+    EditText userEmail;
+    Button save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.java.user.parkd.R.layout.activity_register_ua);
         //The following code is used for assigning variables to the controls located on the login page
-        final TextView logOut = (TextView) findViewById(R.id.logout);
-        final TextView user = (TextView) findViewById(R.id.accName);
-        userFirstName = (TextView) findViewById(R.id.fName);
-        userLastName = (TextView) findViewById(R.id.lName);
-        userPhoneNumber = (TextView) findViewById(R.id.phoneNumber);
+
+        userFirstName = (EditText) findViewById(R.id.editFN);
+        userLastName = (EditText) findViewById(R.id.editLN);
+        userPhoneNumber = (EditText) findViewById(R.id.editpN);
+        userEmail = (EditText) findViewById(R.id.editEmail);
+        save = (Button) findViewById(R.id.saveData);
 
         tb1 = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(tb1);
-        getSupportActionBar().setTitle("My Account");
+        getSupportActionBar().setTitle("My Account Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        loadData();
 
-        logOut.setOnClickListener(new View.OnClickListener(){
+        loadData();
+        userFirstName.setSelection(userFirstName.getText().length());
+        save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //This Listener listens for click on the register text link
-                //The following code is standard for running a new activity, in this case it opens the register form
-                removeData();
-                //user.setText("");
-                Intent intent = new Intent(UserAreaActivity.this, LoginActivity.class);
-                //login = true;
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                finishAffinity();
-                startActivity(intent);
-                finish();
-
+                postData();
             }
         });
 
-
-    }
-
-    public void removeData()
-    {
-        SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpref.edit();
-        editor.remove("name");
-        switchStatus = sharedpref.getString("Saveemail", "");
-        if(switchStatus.matches("No"))
-        {
-            editor.remove("email");
-        }
-        editor.apply();
-
-        Toast.makeText(this, "Logged Out", Toast.LENGTH_LONG).show();
-
     }
 
 
-
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater mi = getMenuInflater();
-        mi.inflate(R.menu.actionbar1, menu);
-        return super.onCreateOptionsMenu(menu);
-    }*/
-
-
-    private String name;
-    private String switchStatus;
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
                 this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
                 break;
-            case R.id.action_edit:
-                createEdit();
-                break;
-
-
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -132,13 +94,12 @@ public class UserAreaActivity extends AppCompatActivity
                         String firstname = jsonResponse.getString("firstname");
                         String lastname = jsonResponse.getString("lastname");
                         String number = jsonResponse.getString("phone");
+                        String email = jsonResponse.getString("email");
                         userFirstName.setText(firstname);
                         userLastName.setText(lastname);
-                        if(number.equals("")) {
-                            userPhoneNumber.setText("Add Phone Number");
-                        }else {
-                         userPhoneNumber.setText(number);
-                        }
+                        userEmail.setText(email);
+                        userPhoneNumber.setText(number);
+
                     }else{
                         //Alerts the user of failure and asks for them retry
                         Toast.makeText(UserAreaActivity.this, "Unable to load data", Toast.LENGTH_LONG).show();
@@ -167,23 +128,111 @@ public class UserAreaActivity extends AppCompatActivity
             loadData();
      }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.edit_item, menu);
-        return true;
-    }
-
-
-
-    private void createEdit()
+    private boolean emptyData(String first, String last, String email)
     {
-        Intent settings = new Intent(UserAreaActivity.this, UserEditActivity.class);
-        settings.putExtra("firstname", userFirstName.getText());
-        settings.putExtra("lastname", userLastName.getText());
-        settings.putExtra("number", userPhoneNumber.getText());
-        UserAreaActivity.this.startActivity(settings);
+        if (first.equals("")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(UserAreaActivity.this);
+            builder.setMessage("Please enter your first name.")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return true;
+        }else
+        {
+        }
 
+        if (last.equals("")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(UserAreaActivity.this);
+            builder.setMessage("Please enter your last name.")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return true;
+        }else
+        {
+        }
+
+        if (email.equals("")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(UserAreaActivity.this);
+            builder.setMessage("Please enter your email address.")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return true;
+        }else
+        {
+        }
+
+        return false;
     }
+
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
+    }
+
+    private void postData()
+    {
+        String fn = userFirstName.getText().toString();
+        String ln = userLastName.getText().toString();
+        String pn = userPhoneNumber.getText().toString();
+        String em = userEmail.getText().toString();
+        if (emptyData(fn, ln, em))
+        {return;}
+        if(isEmailValid(em) == false)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(UserAreaActivity.this);
+            builder.setMessage("Email Address is not valid.")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+            return;
+        }
+        Response.Listener<String> responseListener = new Response.Listener<String>()
+        {
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    //Receives response from the php
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success)
+                    {
+                        //Opens up userActivity form if successful
+                        SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpref.edit();
+                        editor.putString("email", userEmail.getText().toString());
+                        editor.putString("name", userFirstName.getText().toString() + " " + userLastName.getText().toString() );
+                        editor.apply();
+                        Toast.makeText(UserAreaActivity.this, "Changes saved", Toast.LENGTH_LONG).show();
+                        finish();
+                    }else{
+                        //Alerts the user of failure and asks for them retry
+                        Toast.makeText(UserAreaActivity.this, "Unable to update data", Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        useremail = sharedpref.getString("email", "");
+        UserEditRequest ua = new UserEditRequest(useremail, fn, ln, pn, em, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
+        queue.add(ua);
+    }
+
 
 }

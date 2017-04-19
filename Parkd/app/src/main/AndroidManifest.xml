@@ -32,8 +32,6 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.java.user.parkd.BookingsActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.java.user.parkd.UserEditActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name="com.java.user.parkd.RentActivity"
             android:screenOrientation="portrait"/>
         <activity android:name="com.java.user.parkd.PaymentActivity"

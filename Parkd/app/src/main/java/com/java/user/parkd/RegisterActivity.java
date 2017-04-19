@@ -1,5 +1,7 @@
 package com.java.user.parkd;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -101,6 +103,10 @@ public class RegisterActivity extends AppCompatActivity {
                             boolean success = jsonResponse.getBoolean("success");
                             if (success = true) {
                                 //Opens up login form if successful
+                                SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedpref.edit();
+                                editor.putString("name", etFirstName.getText().toString() + " " + etLastName.getText().toString());
+                                editor.apply();
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                 builder.setMessage("Account Created")
                                         .create()
