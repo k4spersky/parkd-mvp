@@ -64,7 +64,6 @@
             android:textSize="20sp"
             app:layout_marginStartPercent="25%"
             app:layout_marginTopPercent="4%"
-            android:maxLength="5"
             android:textStyle="bold"
             app:layout_widthPercent="50%" />
 

@@ -29,17 +29,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="First Name"
-            app:layout_marginStartPercent="15%"
+            app:layout_marginStartPercent="10%"
             app:layout_marginTopPercent="6%"
             android:textSize="14sp" />
 
         <EditText
             android:id="@+id/editFN"
-            android:layout_width="wrap_content"
+            app:layout_widthPercent="80%"
             android:layout_height="wrap_content"
             android:layout_below="@+id/firstName"
             app:layout_marginStartPercent="10%"
             app:layout_marginTopPercent="2%"
+            android:maxLength="30"
             android:text="" />
         #
         <TextView
@@ -54,10 +55,11 @@
 
         <EditText
             android:id="@+id/editLN"
-            android:layout_width="wrap_content"
+            app:layout_widthPercent="80%"
             android:layout_height="wrap_content"
             app:layout_marginTopPercent="2%"
             app:layout_marginStartPercent="10%"
+            android:maxLength="30"
             android:inputType="textPersonName"
             android:layout_below="@+id/lastName"
             android:text="" />
@@ -74,11 +76,12 @@
 
         <EditText
             android:id="@+id/editPN"
-            android:layout_width="wrap_content"
+            app:layout_widthPercent="80%"
             android:layout_height="wrap_content"
             app:layout_marginTopPercent="2%"
             app:layout_marginStartPercent="10%"
             android:layout_below="@+id/phoneNumber"
+            android:maxLength="11"
             android:inputType="phone" />
 
         <Button
@@ -86,8 +89,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editPN"
-            android:background=""
-            android:text="Save Changes" />
+            android:background="@drawable/add_card_btn"
+            android:text="Save Changes"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_marginStartPercent="25%"
+            app:layout_marginTopPercent="4%"
+            android:textStyle="bold"
+            app:layout_widthPercent="50%"/>
 
 
     </android.support.percent.PercentRelativeLayout>

@@ -179,6 +179,9 @@ public class UserAreaActivity extends AppCompatActivity
     private void createEdit()
     {
         Intent settings = new Intent(UserAreaActivity.this, UserEditActivity.class);
+        settings.putExtra("firstname", userFirstName.getText());
+        settings.putExtra("lastname", userLastName.getText());
+        settings.putExtra("number", userPhoneNumber.getText());
         UserAreaActivity.this.startActivity(settings);
 
     }
