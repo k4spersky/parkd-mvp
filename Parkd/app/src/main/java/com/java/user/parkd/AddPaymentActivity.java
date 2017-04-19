@@ -32,6 +32,10 @@ import io.card.payment.CreditCard;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static java.lang.Integer.parseInt;
 
 /**
@@ -163,6 +167,15 @@ public class AddPaymentActivity extends AppCompatActivity {
                 }
                 if (checkCardFormat(card_number)) {
                     return;
+                }
+                try {
+                    if (dateValid(expire_date))
+                    {
+                        return;
+                    }
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
 
@@ -443,5 +456,22 @@ public class AddPaymentActivity extends AppCompatActivity {
             }
         }
         return digits;
+    }
+
+    private boolean dateValid(String dateEntered) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yy");
+        simpleDateFormat.setLenient(false);
+        Date expiry = simpleDateFormat.parse(dateEntered);
+        boolean expired = expiry.before(new Date());
+        if (expired == true){
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
+            builder.setMessage("Expiry date entered is not valid.")
+                    .setNegativeButton("Retry", null)
+                    .create()
+                    .show();
+        return true;}
+        {
+            return false;
+            }
     }
 }
