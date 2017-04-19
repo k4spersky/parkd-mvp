@@ -24,21 +24,30 @@
         app:layout_marginStartPercent="5%"
         app:layout_marginTopPercent="10%">
 
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_marginStartPercent="5%"
+            app:layout_marginTopPercent="5%"
+            app:srcCompat="@drawable/accountblack" />
+
         <TextView
             android:id="@+id/firstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="First Name"
-            android:textSize="14sp"
-            android:drawableStart="@drawable/accountblack"
-            android:drawablePadding="8dp" />
+            app:layout_marginStartPercent="15%"
+            app:layout_marginTopPercent="6%"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/fName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_marginStartPercent="10%"
-            android:text="Paul"
+            app:layout_marginStartPercent="15%"
+            app:layout_marginTopPercent="2%"
+            android:text=""
             android:layout_alignParentStart="true"
             android:textSize="16sp"
             android:layout_below="@+id/firstName"/>
@@ -48,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_marginTopPercent="2%"
-            app:layout_marginStartPercent="10%"
+            app:layout_marginStartPercent="15%"
             android:text="Last Name"
             android:textSize="14sp"
             android:layout_alignParentStart="true"
@@ -58,8 +67,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_marginTopPercent="2%"
-            app:layout_marginStartPercent="10%"
-            android:text="Johnston"
+            app:layout_marginStartPercent="15%"
+            android:text=""
             android:textSize="16sp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/lastName"/>
@@ -69,28 +78,44 @@
             android:background="#9e9e9e"
             android:layout_marginBottom="8dp"
             android:layout_below="@+id/lName"
-            app:layout_marginStartPercent="10%"/>
+            app:layout_marginStartPercent="10%"
+            android:id="@+id/view" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_marginTopPercent="3%"
+            android:layout_below="@+id/lName"
+            app:layout_marginStartPercent="5%"
+            app:srcCompat="@drawable/smartphone" />
 
         <TextView
             android:id="@+id/phoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Phone Number"
-            android:layout_marginTop="20dp"
-            android:drawableStart="@drawable/smartphone"
-            android:drawablePadding="8dp"
-            android:layout_alignParentStart="true"
+            android:text=""
+            app:layout_marginTopPercent="4%"
+            app:layout_marginStartPercent="15%"
             android:layout_below="@+id/lName"/>
         <TextView
             android:id="@+id/logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_marginTopPercent="10%"
+            app:layout_marginTopPercent="11%"
+            app:layout_marginStartPercent="13%"
             android:text="Sign Out"
-            android:drawableStart="@drawable/exit"
-            android:drawablePadding="8dp"
             android:textSize="16sp"
             android:layout_below="@+id/phoneNumber"/>
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_marginStartPercent="5%"
+            app:layout_marginTopPercent = "10%"
+            android:layout_below="@+id/phoneNumber"
+            app:srcCompat="@drawable/exit" />
+
     </android.support.percent.PercentRelativeLayout>
 
 

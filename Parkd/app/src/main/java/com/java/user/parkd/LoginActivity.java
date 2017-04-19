@@ -163,5 +163,4 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    //public static boolean login = false;
 }
