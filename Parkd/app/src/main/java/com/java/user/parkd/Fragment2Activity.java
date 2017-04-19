@@ -2,12 +2,12 @@ package com.java.user.parkd;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
@@ -21,7 +21,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import static android.R.attr.fragment;
 import static android.content.ContentValues.TAG;
 
 
@@ -43,10 +42,12 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
         EditText attributeText = (EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
-        attributeText.setHint("        find your space!");
+        attributeText.setHintTextColor(getResources().getColor(R.color.dark_grey));
         autocompleteFragment.getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_search));
+        attributeText.setHint("        find your space!");
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+
             @Override
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
@@ -61,7 +62,6 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         });
         return view;
     }
-
 
     /**
      * Manipulates the map when it's available.
