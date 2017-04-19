@@ -16,6 +16,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -25,6 +26,7 @@ import static android.content.ContentValues.TAG;
 
 public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
+    GoogleMap mMap;
     View view;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +45,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         EditText attributeText = (EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
         attributeText.setHintTextColor(getResources().getColor(R.color.dark_grey));
         autocompleteFragment.getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_search));
-        attributeText.setHint("        find your space!");
+        attributeText.setHint("find your space!");
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
@@ -51,6 +53,19 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
+
+                String name = (String) place.getName();
+                LatLng latLng = place.getLatLng();
+
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(latLng);
+                markerOptions.title(name);
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                mMap.addMarker(markerOptions);
+
+                //move map camera
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
             }
 
             @Override
@@ -74,7 +89,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-
+        mMap = googleMap;
         // Customise the styling of the base map using a JSON object defined
         // in a raw resource file.
         googleMap.setMapStyle(
@@ -83,8 +98,6 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         // and move the map's camera to the same location. 54.606549, -5.931456
         LatLng belfast = new LatLng(54.606549, -5.931456);
-        googleMap.addMarker(new MarkerOptions().position(belfast)
-                .title("Belfast City Centre"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(belfast));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 16));
     }
