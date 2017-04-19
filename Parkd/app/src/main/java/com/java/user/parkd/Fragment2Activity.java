@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
