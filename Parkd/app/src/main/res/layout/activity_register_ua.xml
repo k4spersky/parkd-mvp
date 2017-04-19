@@ -50,7 +50,8 @@
             android:text=""
             android:layout_alignParentStart="true"
             android:textSize="16sp"
-            android:layout_below="@+id/firstName"/>
+            android:layout_below="@+id/firstName"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/lastName"
@@ -69,6 +70,7 @@
             app:layout_marginTopPercent="2%"
             app:layout_marginStartPercent="15%"
             android:text=""
+            android:textStyle="bold"
             android:textSize="16sp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/lastName"/>
@@ -97,7 +99,8 @@
             android:text=""
             app:layout_marginTopPercent="4%"
             app:layout_marginStartPercent="15%"
-            android:layout_below="@+id/lName"/>
+            android:layout_below="@+id/lName"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/logout"
             android:layout_width="match_parent"

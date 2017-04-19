@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_register_ua"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F3F4"
+    android:baselineAligned="false">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/some_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_marginStartPercent="5%"
+        app:layout_marginTopPercent="10%">
+
+
+        <TextView
+            android:id="@+id/firstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="First Name"
+            app:layout_marginStartPercent="15%"
+            app:layout_marginTopPercent="6%"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/editFN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/firstName"
+            app:layout_marginStartPercent="10%"
+            app:layout_marginTopPercent="2%"
+            android:text="" />
+        #
+        <TextView
+            android:id="@+id/lastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_marginTopPercent="4%"
+            app:layout_marginStartPercent="10%"
+            android:text="Last Name"
+            android:textSize="14sp"
+            android:layout_below="@+id/editFN"/>
+
+        <EditText
+            android:id="@+id/editLN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_marginTopPercent="2%"
+            app:layout_marginStartPercent="10%"
+            android:inputType="textPersonName"
+            android:layout_below="@+id/lastName"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_marginTopPercent="4%"
+            app:layout_marginStartPercent="10%"
+            android:text="Phone Number"
+            android:textSize="14sp"
+            android:layout_below="@+id/editLN"/>
+
+        <EditText
+            android:id="@+id/editPN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_marginTopPercent="2%"
+            app:layout_marginStartPercent="10%"
+            android:layout_below="@+id/phoneNumber"
+            android:inputType="phone" />
+
+        <Button
+            android:id="@+id/saveData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editPN"
+            android:background=""
+            android:text="Save Changes" />
+
+
+    </android.support.percent.PercentRelativeLayout>
+
+</LinearLayout>

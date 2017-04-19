@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -98,10 +99,18 @@ public class UserAreaActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+                this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+                break;
+            case R.id.action_edit:
+                createEdit();
+                break;
 
-        this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
+
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -157,5 +166,21 @@ public class UserAreaActivity extends AppCompatActivity
      super.onResume();
             loadData();
      }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.edit_item, menu);
+        return true;
+    }
+
+
+
+    private void createEdit()
+    {
+        Intent settings = new Intent(UserAreaActivity.this, UserEditActivity.class);
+        UserAreaActivity.this.startActivity(settings);
+
+    }
 
 }
