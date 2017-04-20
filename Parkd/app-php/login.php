@@ -3,12 +3,13 @@
     
     $email = $_POST["email"];
     $password = $_POST["password"];
-
+	
+  
     $statement = mysqli_prepare($con, "SELECT * FROM user WHERE email = ?");
     mysqli_stmt_bind_param($statement, "s", $email);
     mysqli_stmt_execute($statement);
     mysqli_stmt_store_result($statement);
-    mysqli_stmt_bind_result($statement, $userID, $firstname, $lastname, $colpassword, $email);
+    mysqli_stmt_bind_result($statement, $userID, $firstname, $lastname, $colpassword, $email, $number);
     
     $response = array();
     $response["success"] = false;
