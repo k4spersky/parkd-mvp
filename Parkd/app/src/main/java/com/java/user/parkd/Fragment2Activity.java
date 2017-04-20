@@ -77,12 +77,11 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
                 markerOptions.title(name);
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_pin));
                 mMap.addMarker(markerOptions);
 
                 //move map camera
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
             }
 
             @Override
@@ -187,7 +186,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         // and move the map's camera to the same location. 54.606549, -5.931456
         LatLng belfast = new LatLng(54.606549, -5.931456);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(belfast));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 16));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 15));
 
         //icon generator
         IconGenerator iconFactory = new IconGenerator(getContext());
@@ -195,7 +194,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         iconFactory.setTextAppearance(R.style.bubbleGeneratorText);
 
         // make icon
-        Bitmap icon = iconFactory.makeIcon("fee: £3.50");
+        Bitmap icon = iconFactory.makeIcon("£3.50");
 
         //make marker
         MarkerOptions belfast_marker = new MarkerOptions();
