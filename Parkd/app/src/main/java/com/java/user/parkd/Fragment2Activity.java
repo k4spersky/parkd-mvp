@@ -60,7 +60,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
         EditText attributeText = (EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
-        attributeText.setHintTextColor(getResources().getColor(R.color.dark_grey));
+        attributeText.setHintTextColor(getResources().getColor(R.color.cadet_grey));
         autocompleteFragment.getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_search));
         attributeText.setHint("find your space!");
 
