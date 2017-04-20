@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/acc"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
         android:background="@color/white">
 
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="#9e9e9e"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="45dp"/>
 
@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="#9e9e9e"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="45dp"/>
 
@@ -108,7 +108,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="#9e9e9e" />
     </LinearLayout>
 
@@ -117,7 +117,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/options"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
         android:background="@color/white">
 
@@ -144,7 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="#9e9e9e"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="45dp"/>
 
@@ -164,11 +164,10 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
+            android:layout_marginTop="4dp"
             android:background="#9e9e9e"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="45dp"/>
-
 
         <TextView
             android:id="@+id/signOut"
@@ -186,7 +185,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="#9e9e9e" />
         </LinearLayout>
 
