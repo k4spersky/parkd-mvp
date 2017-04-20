@@ -33,7 +33,6 @@ public class UserAreaActivity extends AppCompatActivity
 {
     Toolbar tb1;
     EditText userFirstName;
-    EditText userLastName;
     EditText userPhoneNumber;
     EditText userEmail;
     Button save;
@@ -44,7 +43,6 @@ public class UserAreaActivity extends AppCompatActivity
         //The following code is used for assigning variables to the controls located on the login page
 
         userFirstName = (EditText) findViewById(R.id.editFN);
-        userLastName = (EditText) findViewById(R.id.editLN);
         userPhoneNumber = (EditText) findViewById(R.id.editpN);
         userEmail = (EditText) findViewById(R.id.editEmail);
         save = (Button) findViewById(R.id.saveData);
@@ -95,8 +93,7 @@ public class UserAreaActivity extends AppCompatActivity
                         String lastname = jsonResponse.getString("lastname");
                         String number = jsonResponse.getString("phone");
                         String email = jsonResponse.getString("email");
-                        userFirstName.setText(firstname);
-                        userLastName.setText(lastname);
+                        userFirstName.setText(firstname + " " + lastname);
                         userEmail.setText(email);
                         userPhoneNumber.setText(number);
 
@@ -128,22 +125,11 @@ public class UserAreaActivity extends AppCompatActivity
             loadData();
      }
 
-    private boolean emptyData(String first, String last, String email)
+    private boolean emptyData(String first, String email)
     {
         if (first.equals("")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(UserAreaActivity.this);
             builder.setMessage("Please enter your first name.")
-                    .setNegativeButton("Retry", null)
-                    .create()
-                    .show();
-            return true;
-        }else
-        {
-        }
-
-        if (last.equals("")) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(UserAreaActivity.this);
-            builder.setMessage("Please enter your last name.")
                     .setNegativeButton("Retry", null)
                     .create()
                     .show();
@@ -182,11 +168,14 @@ public class UserAreaActivity extends AppCompatActivity
 
     private void postData()
     {
-        String fn = userFirstName.getText().toString();
-        String ln = userLastName.getText().toString();
+       String name = userFirstName.getText().toString();
+        String[] splited = name.split("\\s+");
         String pn = userPhoneNumber.getText().toString();
         String em = userEmail.getText().toString();
-        if (emptyData(fn, ln, em))
+        String ln = splited[1];
+        String fn = splited[0];
+
+        if (emptyData(fn, em))
         {return;}
         if(isEmailValid(em) == false)
         {
@@ -213,7 +202,7 @@ public class UserAreaActivity extends AppCompatActivity
                         SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpref.edit();
                         editor.putString("email", userEmail.getText().toString());
-                        editor.putString("name", userFirstName.getText().toString() + " " + userLastName.getText().toString() );
+                        editor.putString("name", userFirstName.getText().toString());
                         editor.apply();
                         Toast.makeText(UserAreaActivity.this, "Changes saved", Toast.LENGTH_LONG).show();
                         finish();

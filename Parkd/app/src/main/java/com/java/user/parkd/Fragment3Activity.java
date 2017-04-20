@@ -128,5 +128,5 @@ public class Fragment3Activity extends Fragment {
     private String switchStatus;
     private String name;
 
-    
+
 }
