@@ -1,12 +1,22 @@
 package com.java.user.parkd;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
@@ -19,13 +29,20 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import static android.content.ContentValues.TAG;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
+    private static final String TAG = "DemoActivity";
+    private SlidingUpPanelLayout mLayout;
+    private FrameLayout frameLayout;
     GoogleMap mMap;
     View view;
 
@@ -43,7 +60,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
         EditText attributeText = (EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
-        attributeText.setHintTextColor(getResources().getColor(R.color.dark_grey));
+        attributeText.setHintTextColor(getResources().getColor(R.color.cadet_grey));
         autocompleteFragment.getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_search));
         attributeText.setHint("find your space!");
 
@@ -74,6 +91,77 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
+
+        /*
+         *  SLIDING UP PANEL
+         */
+        ListView lv = (ListView) view.findViewById(R.id.list);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), "onItemClick", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        List<String> your_array_list = Arrays.asList(
+                "This",
+                "Is",
+                "An",
+                "Example",
+                "ListView"
+        );
+
+        // This is the array adapter, it takes the context of the activity as a
+        // first parameter, the type of list view as a second parameter and your
+        // array as a third parameter.
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                your_array_list );
+
+        lv.setAdapter(arrayAdapter);
+
+        mLayout = (SlidingUpPanelLayout) view.findViewById(R.id.sliding_layout);
+
+        //change layout state to hidden for marker on click, like below
+        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
+
+        mLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+                Log.i(TAG, "onPanelSlide, offset " + slideOffset);
+            }
+
+            @Override
+            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState,
+                                            SlidingUpPanelLayout.PanelState newState) {
+                //TODO do nothing
+            }
+        });
+
+        mLayout.setFadeOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                //TODO do nothing
+            }
+        });
+
+        TextView t = (TextView) view.findViewById(R.id.name);
+        t.setText("Car Park name");
+
+        Button f = (Button) view.findViewById(R.id.follow);
+        f.setMovementMethod(LinkMovementMethod.getInstance());
+        f.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO
+            }
+        });
+
         return view;
     }
 
@@ -92,13 +180,43 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
         // Customise the styling of the base map using a JSON object defined
         // in a raw resource file.
-        googleMap.setMapStyle(
+        mMap.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(
                         getContext(), R.raw.style_json));
 
         // and move the map's camera to the same location. 54.606549, -5.931456
         LatLng belfast = new LatLng(54.606549, -5.931456);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(belfast));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 16));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(belfast));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 16));
+
+        //icon generator
+        IconGenerator iconFactory = new IconGenerator(getContext());
+        iconFactory.setColor(getResources().getColor(R.color.eucalyptus));
+        iconFactory.setTextAppearance(R.style.bubbleGeneratorText);
+
+        // make icon
+        Bitmap icon = iconFactory.makeIcon("fee: £3.50");
+
+        //make marker
+        MarkerOptions belfast_marker = new MarkerOptions();
+            belfast_marker.position(belfast);
+            //belfast_marker.title("fee: £3.50").visible(true);
+            belfast_marker.icon(BitmapDescriptorFactory.fromBitmap(icon));
+            mMap.addMarker(belfast_marker);
+
+       mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+           @Override
+           public boolean onMarkerClick(Marker marker) {
+               mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+               return true;
+           }
+       });
+
+       mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+           @Override
+           public void onMapClick(LatLng latLng) {
+               mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
+           }
+       });
     }
 }
