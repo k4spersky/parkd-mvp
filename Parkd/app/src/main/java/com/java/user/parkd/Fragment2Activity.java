@@ -1,11 +1,9 @@
 package com.java.user.parkd;
 
-import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import android.support.v4.widget.SlidingPaneLayout;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +29,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.Arrays;
@@ -41,6 +42,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
     private static final String TAG = "DemoActivity";
     private SlidingUpPanelLayout mLayout;
+    private FrameLayout frameLayout;
     GoogleMap mMap;
     View view;
 
@@ -123,7 +125,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         mLayout = (SlidingUpPanelLayout) view.findViewById(R.id.sliding_layout);
 
         //change layout state to hidden for marker on click, like below
-        //mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
+        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
 
         mLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
 
@@ -135,7 +137,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
             @Override
             public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState,
                                             SlidingUpPanelLayout.PanelState newState) {
-                //TODO
+                //TODO do nothing
             }
         });
 
@@ -143,7 +145,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
             @Override
             public void onClick(View view) {
-                mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                //TODO do nothing
             }
         });
 
@@ -178,13 +180,43 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
         // Customise the styling of the base map using a JSON object defined
         // in a raw resource file.
-        googleMap.setMapStyle(
+        mMap.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(
                         getContext(), R.raw.style_json));
 
         // and move the map's camera to the same location. 54.606549, -5.931456
         LatLng belfast = new LatLng(54.606549, -5.931456);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(belfast));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 16));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(belfast));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 16));
+
+        //icon generator
+        IconGenerator iconFactory = new IconGenerator(getContext());
+        iconFactory.setColor(getResources().getColor(R.color.eucalyptus));
+        iconFactory.setTextAppearance(R.style.bubbleGeneratorText);
+
+        // make icon
+        Bitmap icon = iconFactory.makeIcon("fee: £3.50");
+
+        //make marker
+        MarkerOptions belfast_marker = new MarkerOptions();
+            belfast_marker.position(belfast);
+            //belfast_marker.title("fee: £3.50").visible(true);
+            belfast_marker.icon(BitmapDescriptorFactory.fromBitmap(icon));
+            mMap.addMarker(belfast_marker);
+
+       mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+           @Override
+           public boolean onMarkerClick(Marker marker) {
+               mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+               return true;
+           }
+       });
+
+       mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+           @Override
+           public void onMapClick(LatLng latLng) {
+               mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
+           }
+       });
     }
 }
