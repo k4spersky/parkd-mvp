@@ -30,6 +30,7 @@ dependencies {
 
     // VectorDrawableCompat
     // AnimatedVectorDrawableCompat
+    compile 'com.sothree.slidinguppanel:library:3.3.1'
     compile "com.android.support:recyclerview-v7:25.3.1"
     compile "com.android.support:percent:25.3.1"
     compile 'com.android.support:design:25.3.1'
