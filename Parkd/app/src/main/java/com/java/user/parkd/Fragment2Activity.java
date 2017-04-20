@@ -186,27 +186,62 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 MapStyleOptions.loadRawResourceStyle(
                         getContext(), R.raw.style_json));
 
-        // and move the map's camera to the same location. 54.606549, -5.931456
-        LatLng belfast = new LatLng(54.606549, -5.931456);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(belfast));
+        // and move the map's camera to the same location. 54.597263, -5.930134
+        LatLng belfast = new LatLng(54.597263, -5.930134);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(belfast);
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_pin));
+        mMap.addMarker(markerOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 15));
 
-        //icon generator
-        IconGenerator iconFactory = new IconGenerator(getContext());
-        iconFactory.setColor(getResources().getColor(R.color.eucalyptus));
-        iconFactory.setTextAppearance(R.style.bubbleGeneratorText);
+        //icon generator for low prices
+        IconGenerator iconFactory1 = new IconGenerator(getContext());
+        iconFactory1.setColor(getResources().getColor(R.color.eucalyptus));
+        iconFactory1.setTextAppearance(R.style.bubbleGeneratorText);
 
-        // make icon
-        Bitmap icon = iconFactory.makeIcon("£3.50");
+        //icon generator for medium prices
+        IconGenerator iconFactory2 = new IconGenerator(getContext());
+        iconFactory2.setColor(getResources().getColor(R.color.pastel_orange));
+        iconFactory2.setTextAppearance(R.style.bubbleGeneratorText);
 
-        //make marker
+        //icon generator for high prices
+        IconGenerator iconFactory3 = new IconGenerator(getContext());
+        iconFactory3.setColor(getResources().getColor(R.color.pastel_red));
+        iconFactory3.setTextAppearance(R.style.bubbleGeneratorText);
+
+        // make icons
+        Bitmap iconLow = iconFactory1.makeIcon("£1.85");
+        Bitmap iconMed = iconFactory2.makeIcon("£3.50");
+        Bitmap iconHigh = iconFactory3.makeIcon("£5.75");
+
+        // lat/longs around belfast for testing
+        LatLng belfast1 = new LatLng(54.595174, -5.928575);
+        LatLng belfast2 = new LatLng(54.596399, -5.934533);
+        LatLng belfast3 = new LatLng(54.598316, -5.933200);
+        LatLng belfast4 = new LatLng(54.599306, -5.924222);
+
+        //make markers for testing
         MarkerOptions belfast_marker = new MarkerOptions();
-            belfast_marker.position(belfast);
-            //belfast_marker.title("fee: £3.50").visible(true);
-            belfast_marker.icon(BitmapDescriptorFactory.fromBitmap(icon));
+            belfast_marker.position(belfast1);
+            belfast_marker.icon(BitmapDescriptorFactory.fromBitmap(iconLow));
             mMap.addMarker(belfast_marker);
 
-       mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+        MarkerOptions belfast_marker2 = new MarkerOptions();
+            belfast_marker2.position(belfast2);
+            belfast_marker2.icon(BitmapDescriptorFactory.fromBitmap(iconLow));
+            mMap.addMarker(belfast_marker2);
+
+        MarkerOptions belfast_marker3 = new MarkerOptions();
+            belfast_marker3.position(belfast3);
+            belfast_marker3.icon(BitmapDescriptorFactory.fromBitmap(iconMed));
+            mMap.addMarker(belfast_marker3);
+
+        MarkerOptions belfast_marker4 = new MarkerOptions();
+            belfast_marker4.position(belfast4);
+            belfast_marker4.icon(BitmapDescriptorFactory.fromBitmap(iconHigh));
+            mMap.addMarker(belfast_marker4);
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
            @Override
            public boolean onMarkerClick(Marker marker) {
                mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
