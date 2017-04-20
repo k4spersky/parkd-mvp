@@ -13,7 +13,7 @@
         {
         //Create User
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO user (first_name, last_name, password, email) VALUES ('$firstname', '$lastname', '$password', '$email')";
+        $sql = "INSERT INTO user (first_name, last_name, password, email, phone_number) VALUES ('$firstname', '$lastname', '$password', '$email', '')";
         $result = $mysqli->query($sql);
         //$result->close();
         $mysqli->close();

@@ -108,10 +108,12 @@ public class FragmentBookings1Activity extends Fragment {
                 adapter = new ActiveBookingsCustomAdapter(getActivity(), datalist);
                 //Setting the adapter
                 recyclerView.setAdapter(adapter);
+                linlaHeaderProgress.setVisibility(View.GONE);
             } else {
                 Toast.makeText(getActivity(), "Failed to fetch data!", Toast.LENGTH_SHORT).show();
+                linlaHeaderProgress.setVisibility(View.GONE);
             }
-            linlaHeaderProgress.setVisibility(View.GONE);
+
         }
     }
 

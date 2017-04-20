@@ -27,6 +27,8 @@
             android:layout_alignParentStart="true"
             app:layout_marginStartPercent="3%"
             app:layout_marginTopPercent="5%"
+            android:maxLength="19"
+            android:inputType="phone"
             android:hint="Card Number" />
 
         <EditText
@@ -34,6 +36,8 @@
             app:layout_widthPercent="45%"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editCardNumber"
+            android:inputType="date"
+            android:maxLength="5"
             app:layout_marginStartPercent="3%"
             app:layout_marginTopPercent="3%"
             android:hint="Expiry Date" />
@@ -44,6 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/editCardNumber"
             android:layout_alignParentEnd="true"
+            android:inputType="number"
+            android:maxLength="3"
             app:layout_marginEndPercent="3%"
             app:layout_marginTopPercent="3%"
             android:hint="CVV" />
@@ -63,10 +69,10 @@
 
         <ImageButton
             android:id="@+id/cameraImage"
-            app:layout_widthPercent="9%"
-            app:layout_heightPercent="5%"
+            app:layout_widthPercent="14%"
+            app:layout_heightPercent="6%"
             app:layout_marginEndPercent="5%"
-            app:layout_marginTopPercent="6.5%"
+            app:layout_marginTopPercent="5%"
             android:layout_alignParentEnd="true"
             app:srcCompat="@drawable/camera" />
 
