@@ -307,7 +307,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                             Double lng = Double.parseDouble(listdata.get(i).getString("lng"));
                             Double price = Double.parseDouble(listdata.get(i).getString("price"));
                             Toast.makeText(getActivity(), lat + " " + lng + " " + price, Toast.LENGTH_SHORT).show();
-                            makeIcon(lat, lng, price);
+                            generateMarkers(lat, lng, price);
                         }
 
                     }else{
@@ -331,7 +331,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         queue.add(request);
     }
 
-    private void makeIcon(Double lat, Double lng, Double price)
+    private void generateMarkers(Double lat, Double lng, Double price)
     {
         Bitmap icon;
 
