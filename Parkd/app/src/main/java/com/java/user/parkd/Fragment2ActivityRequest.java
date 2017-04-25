@@ -17,7 +17,7 @@ public class Fragment2ActivityRequest extends StringRequest {
     private Map<String, String> params;
 
     //Constructor for the request
-    public Fragment2ActivityRequest(String location, Response.Listener<String> listener) {
+    protected Fragment2ActivityRequest(String location, Response.Listener<String> listener) {
         super(Request.Method.POST, map_REQUEST_URL, listener, null);
         params = new HashMap<>();
         params.put("loc", location);
