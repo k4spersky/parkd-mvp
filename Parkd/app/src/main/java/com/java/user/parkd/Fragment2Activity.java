@@ -91,19 +91,17 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
                  name = (String) place.getName();
-                getLocs();
                 LatLng latLng = place.getLatLng();
 
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                markerOptions.title(name);
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_pin));
-                mMap.addMarker(markerOptions);
+//                MarkerOptions markerOptions = new MarkerOptions();
+//                markerOptions.position(latLng);
+//                markerOptions.title(name);
+//                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_pin));
+//                mMap.addMarker(markerOptions);
 
                 //move map camera
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-
-
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+                getLocs();
             }
 
             @Override
@@ -211,10 +209,10 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         // and move the map's camera to the same location. 54.597263, -5.930134
         LatLng belfast = new LatLng(54.597263, -5.930134);
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(belfast);
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_pin));
-        mMap.addMarker(markerOptions);
+//        MarkerOptions markerOptions = new MarkerOptions();
+//        markerOptions.position(belfast);
+//        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_pin));
+//        mMap.addMarker(markerOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 15));
 
         /*//icon generator for low prices
@@ -305,9 +303,9 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
                         for(int i = 0; i<listdata.size(); i++ ){
 
-                            Double lat = Double.parseDouble(listdata.get(i).getString("lat").toString());
-                            Double lng = Double.parseDouble(listdata.get(i).getString("lng").toString());
-                            Double price = Double.parseDouble(listdata.get(i).getString("price").toString());
+                            Double lat = Double.parseDouble(listdata.get(i).getString("lat"));
+                            Double lng = Double.parseDouble(listdata.get(i).getString("lng"));
+                            Double price = Double.parseDouble(listdata.get(i).getString("price"));
                             Toast.makeText(getActivity(), lat + " " + lng + " " + price, Toast.LENGTH_SHORT).show();
                             makeIcon(lat, lng, price);
                         }
@@ -335,6 +333,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
     private void makeIcon(Double lat, Double lng, Double price)
     {
+        Bitmap icon;
+
         IconGenerator iconFactory1 = new IconGenerator(getContext());
         iconFactory1.setColor(getResources().getColor(R.color.eucalyptus));
         iconFactory1.setTextAppearance(R.style.bubbleGeneratorText);
@@ -348,24 +348,21 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         IconGenerator iconFactory3 = new IconGenerator(getContext());
         iconFactory3.setColor(getResources().getColor(R.color.pastel_red));
         iconFactory3.setTextAppearance(R.style.bubbleGeneratorText);
-        Bitmap icon;
-       ;
 
         if (price < 2.00)
         {
-             icon = iconFactory1.makeIcon("£"+price);
+             icon = iconFactory1.makeIcon("£" + price.toString());
         }
         else if(price > 2.00 && price < 4.00)
         {
-            icon = iconFactory2.makeIcon("£"+price);
+            icon = iconFactory2.makeIcon("£" + price.toString());
         }
         else
         {
-            icon = iconFactory3.makeIcon("£"+price);
+            icon = iconFactory3.makeIcon("£" + price.toString());
         }
 
         LatLng loc = new LatLng(lat, lng);
-
 
         MarkerOptions belfast_marker = new MarkerOptions();
         belfast_marker.position(loc);
