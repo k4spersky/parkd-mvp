@@ -48,6 +48,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -92,7 +93,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 Log.i(TAG, "Place: " + place.getName());
                  name = (String) place.getName();
                 LatLng latLng = place.getLatLng();
-
+                mMap.clear();
 //                MarkerOptions markerOptions = new MarkerOptions();
 //                markerOptions.position(latLng);
 //                markerOptions.title(name);
@@ -280,7 +281,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
     public void getLocs()
     {
-        Toast.makeText(getActivity(), "Here", Toast.LENGTH_SHORT).show();
+
         Response.Listener<String> responseListener = new Response.Listener<String>()
         {
 
@@ -288,7 +289,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
             public void onResponse(String response) {
 
                 try {
-                    Toast.makeText(getActivity(), "HEre", Toast.LENGTH_SHORT).show();
+
                     //Receives response from the php
                     JSONArray jsonResponse = new JSONArray(response);
 
@@ -306,7 +307,6 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                             Double lat = Double.parseDouble(listdata.get(i).getString("lat"));
                             Double lng = Double.parseDouble(listdata.get(i).getString("lng"));
                             Double price = Double.parseDouble(listdata.get(i).getString("price"));
-                            Toast.makeText(getActivity(), lat + " " + lng + " " + price, Toast.LENGTH_SHORT).show();
                             generateMarkers(lat, lng, price);
                         }
 
@@ -325,7 +325,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         };
 
         // Sends request to the php
-        Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+
         Fragment2ActivityRequest request = new Fragment2ActivityRequest(name, responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(request);
@@ -348,18 +348,19 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         IconGenerator iconFactory3 = new IconGenerator(getContext());
         iconFactory3.setColor(getResources().getColor(R.color.pastel_red));
         iconFactory3.setTextAppearance(R.style.bubbleGeneratorText);
+        DecimalFormat df = new DecimalFormat("#.00");
 
         if (price < 2.00)
         {
-             icon = iconFactory1.makeIcon("£" + price.toString());
+             icon = iconFactory1.makeIcon("£" + String.format( "%.2f", price ));
         }
         else if(price > 2.00 && price < 4.00)
         {
-            icon = iconFactory2.makeIcon("£" + price.toString());
+            icon = iconFactory2.makeIcon("£" + String.format( "%.2f", price ));
         }
         else
         {
-            icon = iconFactory3.makeIcon("£" + price.toString());
+            icon = iconFactory3.makeIcon("£" + String.format( "%.2f", price ));
         }
 
         LatLng loc = new LatLng(lat, lng);
