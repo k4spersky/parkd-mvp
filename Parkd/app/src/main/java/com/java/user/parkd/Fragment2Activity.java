@@ -4,20 +4,22 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import android.support.v7.app.AlertDialog;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -29,11 +31,16 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,7 +49,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
     private static final String TAG = "DemoActivity";
     private SlidingUpPanelLayout mLayout;
-    private FrameLayout frameLayout;
+    EditText attributeText;
+    private String name = "";
     GoogleMap mMap;
     View view;
 
@@ -59,7 +67,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
-        EditText attributeText = (EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
+        attributeText = (EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
         attributeText.setHintTextColor(getResources().getColor(R.color.cadet_grey));
         autocompleteFragment.getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_search));
         attributeText.setHint("find your space!");
@@ -70,18 +78,13 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
-
-                String name = (String) place.getName();
+                 name = (String) place.getName();
                 LatLng latLng = place.getLatLng();
-
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                markerOptions.title(name);
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_pin));
-                mMap.addMarker(markerOptions);
+                mMap.clear();
 
                 //move map camera
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                getMarkerParams();
             }
 
             @Override
@@ -95,13 +98,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
          *  SLIDING UP PANEL
          */
         ListView lv = (ListView) view.findViewById(R.id.list);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "onItemClick", Toast.LENGTH_SHORT).show();
-            }
-        });
+        lv.setOnItemClickListener((parent, view1, position, id) -> Toast.makeText(getActivity(), "onItemClick", Toast.LENGTH_SHORT).show());
 
         List<String> your_array_list = Arrays.asList(
                 "This",
@@ -143,12 +140,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        mLayout.setFadeOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                //TODO do nothing
-            }
+        mLayout.setFadeOnClickListener(view12 -> {
+            //TODO do nothing
         });
 
         TextView t = (TextView) view.findViewById(R.id.name);
@@ -156,14 +149,9 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         Button f = (Button) view.findViewById(R.id.follow);
         f.setMovementMethod(LinkMovementMethod.getInstance());
-        f.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO
-            }
+        f.setOnClickListener(view13 -> {
+            // TODO
         });
-
         return view;
     }
 
@@ -179,6 +167,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+
         mMap = googleMap;
         // Customise the styling of the base map using a JSON object defined
         // in a raw resource file.
@@ -188,13 +177,69 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         // and move the map's camera to the same location. 54.597263, -5.930134
         LatLng belfast = new LatLng(54.597263, -5.930134);
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(belfast);
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_pin));
-        mMap.addMarker(markerOptions);
+//        MarkerOptions markerOptions = new MarkerOptions();
+//        markerOptions.position(belfast);
+//        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_pin));
+//        mMap.addMarker(markerOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 15));
 
-        //icon generator for low prices
+        // lat/longs around belfast for testing
+//        LatLng belfast1 = new LatLng(54.595174, -5.928575);
+//        LatLng belfast2 = new LatLng(54.596399, -5.934533);
+//        LatLng belfast3 = new LatLng(54.598316, -5.933200);
+//        LatLng belfast4 = new LatLng(54.599306, -5.924222);
+
+        mMap.setOnMarkerClickListener(marker -> {
+            mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            return true;
+        });
+
+       mMap.setOnMapClickListener(latLng -> mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN));
+    }
+
+    public void getMarkerParams() {
+        Response.Listener<String> responseListener = response -> {
+
+            try {
+                //Receives response from the php
+                JSONArray jsonResponse = new JSONArray(response);
+
+                if (jsonResponse.length() >0) {
+                    ArrayList<JSONObject> listdata = new ArrayList<>();
+
+                    for (int i = 0; i < jsonResponse.length(); i++) {
+                        JSONObject object = jsonResponse.getJSONObject(i);
+                        listdata.add(object);
+                    }
+
+                    for (int i = 0; i<listdata.size(); i++ ) {
+                        Double lat = Double.parseDouble(listdata.get(i).getString("lat"));
+                        Double lng = Double.parseDouble(listdata.get(i).getString("lng"));
+                        Double price = Double.parseDouble(listdata.get(i).getString("price"));
+                        generateMarkers(lat, lng, price);
+                    }
+                } else {
+                    //Alerts the user of failure and asks for them retry
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("No Spaces found")
+                            .setNegativeButton("Retry", null)
+                            .create()
+                            .show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        };
+
+        // Sends request to the php
+        Fragment2ActivityRequest request = new Fragment2ActivityRequest(name, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(request);
+    }
+
+    private void generateMarkers(Double lat, Double lng, Double price) {
+        Bitmap icon;
+
         IconGenerator iconFactory1 = new IconGenerator(getContext());
         iconFactory1.setColor(getResources().getColor(R.color.eucalyptus));
         iconFactory1.setTextAppearance(R.style.bubbleGeneratorText);
@@ -209,51 +254,21 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         iconFactory3.setColor(getResources().getColor(R.color.pastel_red));
         iconFactory3.setTextAppearance(R.style.bubbleGeneratorText);
 
-        // make icons
-        Bitmap iconLow = iconFactory1.makeIcon("£1.85");
-        Bitmap iconMed = iconFactory2.makeIcon("£3.50");
-        Bitmap iconHigh = iconFactory3.makeIcon("£5.75");
+        DecimalFormat df = new DecimalFormat("#.00");
 
-        // lat/longs around belfast for testing
-        LatLng belfast1 = new LatLng(54.595174, -5.928575);
-        LatLng belfast2 = new LatLng(54.596399, -5.934533);
-        LatLng belfast3 = new LatLng(54.598316, -5.933200);
-        LatLng belfast4 = new LatLng(54.599306, -5.924222);
+        if (price < 2.00) {
+             icon = iconFactory1.makeIcon("£" + String.format( "%.2f", price ));
+        } else if (price > 2.00 && price < 4.00) {
+            icon = iconFactory2.makeIcon("£" + String.format( "%.2f", price ));
+        } else {
+            icon = iconFactory3.makeIcon("£" + String.format( "%.2f", price ));
+        }
 
-        //make markers for testing
+        LatLng location = new LatLng(lat, lng);
+
         MarkerOptions belfast_marker = new MarkerOptions();
-            belfast_marker.position(belfast1);
-            belfast_marker.icon(BitmapDescriptorFactory.fromBitmap(iconLow));
-            mMap.addMarker(belfast_marker);
-
-        MarkerOptions belfast_marker2 = new MarkerOptions();
-            belfast_marker2.position(belfast2);
-            belfast_marker2.icon(BitmapDescriptorFactory.fromBitmap(iconLow));
-            mMap.addMarker(belfast_marker2);
-
-        MarkerOptions belfast_marker3 = new MarkerOptions();
-            belfast_marker3.position(belfast3);
-            belfast_marker3.icon(BitmapDescriptorFactory.fromBitmap(iconMed));
-            mMap.addMarker(belfast_marker3);
-
-        MarkerOptions belfast_marker4 = new MarkerOptions();
-            belfast_marker4.position(belfast4);
-            belfast_marker4.icon(BitmapDescriptorFactory.fromBitmap(iconHigh));
-            mMap.addMarker(belfast_marker4);
-
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-           @Override
-           public boolean onMarkerClick(Marker marker) {
-               mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-               return true;
-           }
-       });
-
-       mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-           @Override
-           public void onMapClick(LatLng latLng) {
-               mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
-           }
-       });
+        belfast_marker.position(location);
+        belfast_marker.icon(BitmapDescriptorFactory.fromBitmap(icon));
+        mMap.addMarker(belfast_marker);
     }
 }
