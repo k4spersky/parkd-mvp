@@ -1,9 +1,12 @@
 package com.java.user.parkd;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import android.support.v7.app.AlertDialog;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +21,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -34,8 +40,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.java.user.parkd.R.drawable.email;
 
 
 public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
@@ -43,6 +60,9 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     private static final String TAG = "DemoActivity";
     private SlidingUpPanelLayout mLayout;
     private FrameLayout frameLayout;
+    private ArrayList<String> datalist;
+    EditText attributeText;
+    private String name = "";
     GoogleMap mMap;
     View view;
 
@@ -59,7 +79,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
-        EditText attributeText = (EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
+         attributeText = (EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
         attributeText.setHintTextColor(getResources().getColor(R.color.cadet_grey));
         autocompleteFragment.getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_search));
         attributeText.setHint("find your space!");
@@ -70,8 +90,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
-
-                String name = (String) place.getName();
+                 name = (String) place.getName();
+                getLocs();
                 LatLng latLng = place.getLatLng();
 
                 MarkerOptions markerOptions = new MarkerOptions();
@@ -82,6 +102,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
                 //move map camera
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
+
             }
 
             @Override
@@ -179,6 +201,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+
         mMap = googleMap;
         // Customise the styling of the base map using a JSON object defined
         // in a raw resource file.
@@ -194,7 +217,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         mMap.addMarker(markerOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 15));
 
-        //icon generator for low prices
+        /*//icon generator for low prices
         IconGenerator iconFactory1 = new IconGenerator(getContext());
         iconFactory1.setColor(getResources().getColor(R.color.eucalyptus));
         iconFactory1.setTextAppearance(R.style.bubbleGeneratorText);
@@ -218,10 +241,10 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         LatLng belfast1 = new LatLng(54.595174, -5.928575);
         LatLng belfast2 = new LatLng(54.596399, -5.934533);
         LatLng belfast3 = new LatLng(54.598316, -5.933200);
-        LatLng belfast4 = new LatLng(54.599306, -5.924222);
+        LatLng belfast4 = new LatLng(54.599306, -5.924222);*/
 
         //make markers for testing
-        MarkerOptions belfast_marker = new MarkerOptions();
+       /* MarkerOptions belfast_marker = new MarkerOptions();
             belfast_marker.position(belfast1);
             belfast_marker.icon(BitmapDescriptorFactory.fromBitmap(iconLow));
             mMap.addMarker(belfast_marker);
@@ -239,7 +262,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         MarkerOptions belfast_marker4 = new MarkerOptions();
             belfast_marker4.position(belfast4);
             belfast_marker4.icon(BitmapDescriptorFactory.fromBitmap(iconHigh));
-            mMap.addMarker(belfast_marker4);
+            mMap.addMarker(belfast_marker4);*/
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
            @Override
@@ -255,5 +278,99 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
            }
        });
+    }
+
+    public void getLocs()
+    {
+        Toast.makeText(getActivity(), "Here", Toast.LENGTH_SHORT).show();
+        Response.Listener<String> responseListener = new Response.Listener<String>()
+        {
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    Toast.makeText(getActivity(), "HEre", Toast.LENGTH_SHORT).show();
+                    //Receives response from the php
+                    JSONArray jsonResponse = new JSONArray(response);
+
+                    if (jsonResponse.length() >0)
+                    {
+                        ArrayList<JSONObject> listdata = new ArrayList<JSONObject>();
+                        for (int i = 0; i < jsonResponse.length(); i++) {
+                            JSONObject object = jsonResponse.getJSONObject(i);
+                            listdata.add(object);
+                        }
+
+
+                        for(int i = 0; i<listdata.size(); i++ ){
+
+                            Double lat = Double.parseDouble(listdata.get(i).getString("lat").toString());
+                            Double lng = Double.parseDouble(listdata.get(i).getString("lng").toString());
+                            Double price = Double.parseDouble(listdata.get(i).getString("price").toString());
+                            Toast.makeText(getActivity(), lat + " " + lng + " " + price, Toast.LENGTH_SHORT).show();
+                            makeIcon(lat, lng, price);
+                        }
+
+                    }else{
+                        //Alerts the user of failure and asks for them retry
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("No Spaces found")
+                                .setNegativeButton("Retry", null)
+                                .create()
+                                .show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        // Sends request to the php
+        Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+        Fragment2ActivityRequest request = new Fragment2ActivityRequest(name, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(request);
+    }
+
+    private void makeIcon(Double lat, Double lng, Double price)
+    {
+        IconGenerator iconFactory1 = new IconGenerator(getContext());
+        iconFactory1.setColor(getResources().getColor(R.color.eucalyptus));
+        iconFactory1.setTextAppearance(R.style.bubbleGeneratorText);
+
+        //icon generator for medium prices
+        IconGenerator iconFactory2 = new IconGenerator(getContext());
+        iconFactory2.setColor(getResources().getColor(R.color.pastel_orange));
+        iconFactory2.setTextAppearance(R.style.bubbleGeneratorText);
+
+        //icon generator for high prices
+        IconGenerator iconFactory3 = new IconGenerator(getContext());
+        iconFactory3.setColor(getResources().getColor(R.color.pastel_red));
+        iconFactory3.setTextAppearance(R.style.bubbleGeneratorText);
+        Bitmap icon;
+       ;
+
+        if (price < 2.00)
+        {
+             icon = iconFactory1.makeIcon("£"+price);
+        }
+        else if(price > 2.00 && price < 4.00)
+        {
+            icon = iconFactory2.makeIcon("£"+price);
+        }
+        else
+        {
+            icon = iconFactory3.makeIcon("£"+price);
+        }
+
+        LatLng loc = new LatLng(lat, lng);
+
+
+        MarkerOptions belfast_marker = new MarkerOptions();
+        belfast_marker.position(loc);
+        belfast_marker.icon(BitmapDescriptorFactory.fromBitmap(icon));
+        mMap.addMarker(belfast_marker);
+
     }
 }
