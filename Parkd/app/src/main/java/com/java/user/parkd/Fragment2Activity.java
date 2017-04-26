@@ -53,6 +53,15 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     private String name = "";
     GoogleMap mMap;
     View view;
+    private double price = 0;
+    private String space_id ="";
+    private String address="";
+    private String postcode ="";
+    private String location ="";
+    private String image_address ="";
+    private String num_of_spaces ="";
+    private String type ="";
+    private String description ="";
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,11 +110,11 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         lv.setOnItemClickListener((parent, view1, position, id) -> Toast.makeText(getActivity(), "onItemClick", Toast.LENGTH_SHORT).show());
 
         List<String> your_array_list = Arrays.asList(
-                "This",
-                "Is",
-                "An",
-                "Example",
-                "ListView"
+                description,
+                address,
+                postcode,
+                location,
+                String.format( "%.2f", price )
         );
 
         // This is the array adapter, it takes the context of the activity as a
@@ -145,7 +154,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         });
 
         TextView t = (TextView) view.findViewById(R.id.name);
-        t.setText("Car Park name");
+        t.setText(type + " Car Park");
 
         Button f = (Button) view.findViewById(R.id.follow);
         f.setMovementMethod(LinkMovementMethod.getInstance());
@@ -190,6 +199,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 //        LatLng belfast4 = new LatLng(54.599306, -5.924222);
 
         mMap.setOnMarkerClickListener(marker -> {
+            String id = marker.getTitle();
+            getSpaceDetails(id);
             mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
             return true;
         });
@@ -216,7 +227,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                         Double lat = Double.parseDouble(listdata.get(i).getString("lat"));
                         Double lng = Double.parseDouble(listdata.get(i).getString("lng"));
                         Double price = Double.parseDouble(listdata.get(i).getString("price"));
-                        generateMarkers(lat, lng, price);
+                        String id = listdata.get(i).getString("id");
+                        generateMarkers(lat, lng, price, id);
                     }
                 } else {
                     //Alerts the user of failure and asks for them retry
@@ -237,7 +249,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         queue.add(request);
     }
 
-    private void generateMarkers(Double lat, Double lng, Double price) {
+    private void generateMarkers(Double lat, Double lng, Double price, String id) {
         Bitmap icon;
 
         IconGenerator iconFactory1 = new IconGenerator(getContext());
@@ -269,6 +281,52 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         MarkerOptions belfast_marker = new MarkerOptions();
         belfast_marker.position(location);
         belfast_marker.icon(BitmapDescriptorFactory.fromBitmap(icon));
+        belfast_marker.title(id);
         mMap.addMarker(belfast_marker);
+    }
+
+    public void getSpaceDetails(String id) {
+        Response.Listener<String> responseListener = response -> {
+
+            try {
+                //Receives response from the php
+                JSONArray jsonResponse = new JSONArray(response);
+
+                if (jsonResponse.length() >0) {
+                    ArrayList<JSONObject> listdata = new ArrayList<>();
+
+                    for (int i = 0; i < jsonResponse.length(); i++) {
+                        JSONObject object = jsonResponse.getJSONObject(i);
+                        listdata.add(object);
+                    }
+
+                    for (int i = 0; i<listdata.size(); i++ ) {
+                        price = Double.parseDouble(listdata.get(i).getString("price"));
+                        type = listdata.get(i).getString("type");
+                        description = listdata.get(i).getString("desc");
+                        space_id = id;
+                        image_address = listdata.get(i).getString("image");
+                        address = listdata.get(i).getString("address");
+                        num_of_spaces = listdata.get(i).getString("num");
+                        postcode = listdata.get(i).getString("postcode");
+                    }
+
+                } else {
+                    //Alerts the user of failure and asks for them retry
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Error Retrieving space data")
+                            .setNegativeButton("Retry", null)
+                            .create()
+                            .show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        };
+
+        // Sends request to the php
+        SpaceDetailsRequest request = new SpaceDetailsRequest(id, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(request);
     }
 }
