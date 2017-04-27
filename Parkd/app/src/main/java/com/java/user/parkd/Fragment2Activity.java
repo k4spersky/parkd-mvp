@@ -53,15 +53,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     private String name = "";
     GoogleMap mMap;
     View view;
-    private double price = 0;
-    private String space_id ="";
-    private String address="";
-    private String postcode ="";
-    private String location ="";
-    private String image_address ="";
-    private String num_of_spaces ="";
-    private String type ="";
-    private String description ="";
+
+    private List<String> mSpaceList;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -106,16 +99,11 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         /*
          *  SLIDING UP PANEL
          */
+
+        List<String> testList = Arrays.asList("test", "test2");
+
         ListView lv = (ListView) view.findViewById(R.id.list);
         lv.setOnItemClickListener((parent, view1, position, id) -> Toast.makeText(getActivity(), "onItemClick", Toast.LENGTH_SHORT).show());
-
-        List<String> your_array_list = Arrays.asList(
-                description,
-                address,
-                postcode,
-                location,
-                String.format( "%.2f", price )
-        );
 
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
@@ -123,7 +111,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
-                your_array_list );
+                testList);
 
         lv.setAdapter(arrayAdapter);
 
@@ -154,7 +142,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         });
 
         TextView t = (TextView) view.findViewById(R.id.name);
-        t.setText(type + " Car Park");
+        t.setText("Car Park");
 
         Button f = (Button) view.findViewById(R.id.follow);
         f.setMovementMethod(LinkMovementMethod.getInstance());
@@ -200,7 +188,10 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         mMap.setOnMarkerClickListener(marker -> {
             String id = marker.getTitle();
-            getSpaceDetails(id);
+            mSpaceList = getSpaceDetails(id);
+
+            System.out.println("break");
+
             mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
             return true;
         });
@@ -285,14 +276,24 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         mMap.addMarker(belfast_marker);
     }
 
-    public void getSpaceDetails(String id) {
+    public List<String> getSpaceDetails(String id) {
+        final double[] price = {0};
+        final String[] space_id = new String[1];
+        final String[] address = new String[1];
+        final String[] postcode = new String[1];
+        String location;
+        final String[] image_address = new String[1];
+        final String[] num_of_spaces = new String[1];
+        final String[] type = new String[1];
+        final String[] description = new String[1];
+
         Response.Listener<String> responseListener = response -> {
 
             try {
                 //Receives response from the php
                 JSONArray jsonResponse = new JSONArray(response);
 
-                if (jsonResponse.length() >0) {
+                if (jsonResponse.length() > 0) {
                     ArrayList<JSONObject> listdata = new ArrayList<>();
 
                     for (int i = 0; i < jsonResponse.length(); i++) {
@@ -300,21 +301,21 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                         listdata.add(object);
                     }
 
-                    for (int i = 0; i<listdata.size(); i++ ) {
-                        price = Double.parseDouble(listdata.get(i).getString("price"));
-                        type = listdata.get(i).getString("type");
-                        description = listdata.get(i).getString("desc");
-                        space_id = id;
-                        image_address = listdata.get(i).getString("image");
-                        address = listdata.get(i).getString("address");
-                        num_of_spaces = listdata.get(i).getString("num");
-                        postcode = listdata.get(i).getString("postcode");
+                    for (int i = 0; i < listdata.size(); i++ ) {
+                        price[0] = Double.parseDouble(listdata.get(i).getString("price"));
+                        type[0] = listdata.get(i).getString("type");
+                        description[0] = listdata.get(i).getString("desc");
+                        space_id[0] = id;
+                        image_address[0] = listdata.get(i).getString("image");
+                        address[0] = listdata.get(i).getString("address");
+                        num_of_spaces[0] = listdata.get(i).getString("num");
+                        postcode[0] = listdata.get(i).getString("postcode");
                     }
 
                 } else {
                     //Alerts the user of failure and asks for them retry
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setMessage("Error Retrieving space data")
+                    builder.setMessage("Error retrieving space data")
                             .setNegativeButton("Retry", null)
                             .create()
                             .show();
@@ -328,5 +329,16 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         SpaceDetailsRequest request = new SpaceDetailsRequest(id, responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(request);
+
+        // populate the list with data
+        List<String> your_array_list = Arrays.asList(
+                type[0],
+                address[0],
+                postcode[0],
+                description[0],
+                num_of_spaces[0]
+        );
+        return your_array_list;
     }
+
 }
