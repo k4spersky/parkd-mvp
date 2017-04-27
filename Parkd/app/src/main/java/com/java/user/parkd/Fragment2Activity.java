@@ -54,6 +54,16 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     GoogleMap mMap;
     View view;
 
+    double m_price;
+    String m_spaceId;
+    String m_address;
+    String m_postcode;
+    String location;
+    String m_imageAddress;
+    String m_numOfSpaces;
+    String m_type;
+    String m_description;
+
     private List<String> mSpaceList;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -277,18 +287,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     }
 
     public List<String> getSpaceDetails(String id) {
-        final double[] price = {0};
-        final String[] space_id = new String[1];
-        final String[] address = new String[1];
-        final String[] postcode = new String[1];
-        String location;
-        final String[] image_address = new String[1];
-        final String[] num_of_spaces = new String[1];
-        final String[] type = new String[1];
-        final String[] description = new String[1];
 
         Response.Listener<String> responseListener = response -> {
-
             try {
                 //Receives response from the php
                 JSONArray jsonResponse = new JSONArray(response);
@@ -300,25 +300,16 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                         JSONObject object = jsonResponse.getJSONObject(i);
                         listdata.add(object);
                     }
-
-                    for (int i = 0; i < listdata.size(); i++ ) {
-                        price[0] = Double.parseDouble(listdata.get(i).getString("price"));
-                        type[0] = listdata.get(i).getString("type");
-                        description[0] = listdata.get(i).getString("desc");
-                        space_id[0] = id;
-                        image_address[0] = listdata.get(i).getString("image");
-                        address[0] = listdata.get(i).getString("address");
-                        num_of_spaces[0] = listdata.get(i).getString("num");
-                        postcode[0] = listdata.get(i).getString("postcode");
+                    for (JSONObject ldata: listdata) {
+                        m_price = ldata.getDouble("price");
+                        m_type = ldata.getString("type");
+                        m_description = ldata.getString("desc");
+                        m_spaceId = id;
+                        m_imageAddress = ldata.getString("image");
+                        m_address = ldata.getString("address");
+                        m_numOfSpaces = ldata.getString("num");
+                        m_postcode = ldata.getString("postcode");
                     }
-
-                } else {
-                    //Alerts the user of failure and asks for them retry
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setMessage("Error retrieving space data")
-                            .setNegativeButton("Retry", null)
-                            .create()
-                            .show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -331,14 +322,9 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         queue.add(request);
 
         // populate the list with data
-        List<String> your_array_list = Arrays.asList(
-                type[0],
-                address[0],
-                postcode[0],
-                description[0],
-                num_of_spaces[0]
+        return Arrays.asList(
+                "test",
+                "test2"
         );
-        return your_array_list;
     }
-
 }
