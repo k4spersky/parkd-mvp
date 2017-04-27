@@ -54,6 +54,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     GoogleMap mMap;
     View view;
 
+    ListView listView;
+
     double m_price;
     String m_spaceId;
     String m_address;
@@ -64,7 +66,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     String m_type;
     String m_description;
 
-    private List<String> mSpaceList;
+    public List<String> mSpaceList = Arrays.asList("","");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -109,21 +111,6 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         /*
          *  SLIDING UP PANEL
          */
-
-        List<String> testList = Arrays.asList("test", "test2");
-
-        ListView lv = (ListView) view.findViewById(R.id.list);
-        lv.setOnItemClickListener((parent, view1, position, id) -> Toast.makeText(getActivity(), "onItemClick", Toast.LENGTH_SHORT).show());
-
-        // This is the array adapter, it takes the context of the activity as a
-        // first parameter, the type of list view as a second parameter and your
-        // array as a third parameter.
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                testList);
-
-        lv.setAdapter(arrayAdapter);
 
         mLayout = (SlidingUpPanelLayout) view.findViewById(R.id.sliding_layout);
 
@@ -184,10 +171,6 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         // and move the map's camera to the same location. 54.597263, -5.930134
         LatLng belfast = new LatLng(54.597263, -5.930134);
-//        MarkerOptions markerOptions = new MarkerOptions();
-//        markerOptions.position(belfast);
-//        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_pin));
-//        mMap.addMarker(markerOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 15));
 
         // lat/longs around belfast for testing
@@ -198,14 +181,23 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         mMap.setOnMarkerClickListener(marker -> {
             String id = marker.getTitle();
-            mSpaceList = getSpaceDetails(id);
-
-            System.out.println("break");
 
             mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+            listView = (ListView) view.findViewById(R.id.list);
+            listView.setOnItemClickListener((parent, view1, position, id1) -> Toast.makeText(getActivity(), "onItemClick", Toast.LENGTH_SHORT).show());
+
+            // This is the array adapter, it takes the context of the activity as a
+            // first parameter, the type of list view as a second parameter and your
+            // array as a third parameter.
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_1,
+                    getSpaceDetails(id));
+
+            listView.setAdapter(arrayAdapter);
             return true;
         });
-
        mMap.setOnMapClickListener(latLng -> mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN));
     }
 
@@ -300,6 +292,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                         JSONObject object = jsonResponse.getJSONObject(i);
                         listdata.add(object);
                     }
+
+                    // for each is cleaner than increments
                     for (JSONObject ldata: listdata) {
                         m_price = ldata.getDouble("price");
                         m_type = ldata.getString("type");
@@ -321,10 +315,16 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(request);
 
+
+        // here you construct a list of data and return it, then getSpaceData is called in onMapReady to create a list
+
+            // create list here
+
+
         // populate the list with data
         return Arrays.asList(
                 "test",
-                "test2"
+                "test3"
         );
     }
 }
