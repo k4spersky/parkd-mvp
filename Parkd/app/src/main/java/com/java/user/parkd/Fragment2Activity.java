@@ -1,9 +1,10 @@
 package com.java.user.parkd;
 
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
+import com.java.user.parkd.JSONParser;
 import android.support.v7.app.AlertDialog;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,9 +59,9 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     private String name = "";
     GoogleMap mMap;
     View view;
-
+    ProgressBar pb;
     ListView listView;
-
+    String url;
     double m_price;
     String m_spaceId;
     String m_address;
@@ -65,8 +71,10 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     String m_numOfSpaces;
     String m_type;
     String m_description;
+    String m_location;
+    JSONArray user = null;
 
-    public List<String> mSpaceList = Arrays.asList("","");
+    public List<String> mSpaceList = Arrays.asList("", "");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,7 +89,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
-        attributeText = (EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
+        attributeText = (EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
+        pb = (ProgressBar) view.findViewById(R.id.pbHeaderProgress);
         attributeText.setHintTextColor(getResources().getColor(R.color.cadet_grey));
         autocompleteFragment.getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_search));
         attributeText.setHint("find your space!");
@@ -92,7 +101,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
-                 name = (String) place.getName();
+                name = (String) place.getName();
                 LatLng latLng = place.getLatLng();
                 mMap.clear();
 
@@ -138,8 +147,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
             //TODO do nothing
         });
 
-        TextView t = (TextView) view.findViewById(R.id.name);
-        t.setText("Car Park");
+
 
         Button f = (Button) view.findViewById(R.id.follow);
         f.setMovementMethod(LinkMovementMethod.getInstance());
@@ -181,24 +189,15 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         mMap.setOnMarkerClickListener(marker -> {
             String id = marker.getTitle();
-
-            mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-
-            listView = (ListView) view.findViewById(R.id.list);
-            listView.setOnItemClickListener((parent, view1, position, id1) -> Toast.makeText(getActivity(), "onItemClick", Toast.LENGTH_SHORT).show());
-
             // This is the array adapter, it takes the context of the activity as a
             // first parameter, the type of list view as a second parameter and your
             // array as a third parameter.
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                    getActivity(),
-                    android.R.layout.simple_list_item_1,
-                    getSpaceDetails(id));
-
-            listView.setAdapter(arrayAdapter);
+            pb.setVisibility(View.VISIBLE);
+            getSpaceDetails(id);
             return true;
+
         });
-       mMap.setOnMapClickListener(latLng -> mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN));
+        mMap.setOnMapClickListener(latLng -> mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN));
     }
 
     public void getMarkerParams() {
@@ -208,7 +207,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 //Receives response from the php
                 JSONArray jsonResponse = new JSONArray(response);
 
-                if (jsonResponse.length() >0) {
+                if (jsonResponse.length() > 0) {
                     ArrayList<JSONObject> listdata = new ArrayList<>();
 
                     for (int i = 0; i < jsonResponse.length(); i++) {
@@ -216,7 +215,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                         listdata.add(object);
                     }
 
-                    for (int i = 0; i<listdata.size(); i++ ) {
+                    for (int i = 0; i < listdata.size(); i++) {
                         Double lat = Double.parseDouble(listdata.get(i).getString("lat"));
                         Double lng = Double.parseDouble(listdata.get(i).getString("lng"));
                         Double price = Double.parseDouble(listdata.get(i).getString("price"));
@@ -262,11 +261,11 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         DecimalFormat df = new DecimalFormat("#.00");
 
         if (price < 2.00) {
-             icon = iconFactory1.makeIcon("£" + String.format( "%.2f", price ));
+            icon = iconFactory1.makeIcon("£" + String.format("%.2f", price));
         } else if (price > 2.00 && price < 4.00) {
-            icon = iconFactory2.makeIcon("£" + String.format( "%.2f", price ));
+            icon = iconFactory2.makeIcon("£" + String.format("%.2f", price));
         } else {
-            icon = iconFactory3.makeIcon("£" + String.format( "%.2f", price ));
+            icon = iconFactory3.makeIcon("£" + String.format("%.2f", price));
         }
 
         LatLng location = new LatLng(lat, lng);
@@ -278,9 +277,11 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         mMap.addMarker(belfast_marker);
     }
 
-    public List<String> getSpaceDetails(String id) {
-
-        Response.Listener<String> responseListener = response -> {
+    public void getSpaceDetails(String id) {
+        m_spaceId = id;
+        url = "http://pjohnston37.students.cs.qub.ac.uk/Android/getSpaceDetails.php?id=" + id;
+        new JSONParse().execute();
+        /*Response.Listener<String> responseListener = response -> {
             try {
                 //Receives response from the php
                 JSONArray jsonResponse = new JSONArray(response);
@@ -304,27 +305,94 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                         m_numOfSpaces = ldata.getString("num");
                         m_postcode = ldata.getString("postcode");
                     }
+                    Toast.makeText(getActivity(), m_description, Toast.LENGTH_SHORT).show();
+                    Arrays.asList(m_description);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        };
+        };*/
 
         // Sends request to the php
-        SpaceDetailsRequest request = new SpaceDetailsRequest(id, responseListener);
+        /*SpaceDetailsRequest request = new SpaceDetailsRequest(id, responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        queue.add(request);
+        queue.add(request);*/
 
 
         // here you construct a list of data and return it, then getSpaceData is called in onMapReady to create a list
 
-            // create list here
+        // create list here
 
 
         // populate the list with data
-        return Arrays.asList(
-                "test",
-                "test3"
-        );
+
+    }
+
+    public class JSONParse extends AsyncTask<String, String, JSONArray> {
+
+        @Override
+        protected JSONArray doInBackground(String... args) {
+            JSONParser jParser = new JSONParser();
+
+            // Getting JSON from URL
+            JSONArray json = jParser.getJSONFromUrl(url);
+            return json;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // SHOW THE SPINNER WHILE LOADING FEEDS
+
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray json) {
+
+            try {
+                // Getting JSON Array
+                user = json;
+                JSONObject c = user.getJSONObject(0);
+
+                // Storing  JSON item in a Variable
+                m_price = c.getDouble("price");
+                m_type = c.getString("type");
+                m_description = c.getString("desc");
+                m_imageAddress = c.getString("image");
+                m_address = c.getString("address");
+                m_numOfSpaces = c.getString("num");
+                m_postcode = c.getString("postcode");
+                m_location = c.getString("location");
+
+                pb.setVisibility(View.GONE);
+                //Set JSON Data in TextView
+                TextView t = (TextView) view.findViewById(R.id.name);
+                t.setText(m_type + " Car Park");
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                        getActivity(),
+                        android.R.layout.simple_list_item_1,
+                        Arrays.asList(
+                                m_description,
+                                m_address,
+                                m_postcode,
+                                m_location
+
+                        ));
+
+                mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+                listView = (ListView) view.findViewById(R.id.list);
+                listView.setOnItemClickListener((parent, view1, position, id1) -> Toast.makeText(getActivity(), "onItemClick", Toast.LENGTH_SHORT).show());
+                listView.setAdapter(arrayAdapter);
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        //This method will parse the RAW data downloaded from the server
+
     }
 }
