@@ -69,17 +69,35 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     String m_description;
     String m_location;
     JSONArray user = null;
+    private TextView mArrivalText;
+    private TextView mDepartureText;
 
     private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd hh:mm aa");
-
-    private Button mButton;
 
     private SlideDateTimeListener listener = new SlideDateTimeListener() {
 
         @Override
         public void onDateTimeSet(Date date) {
+            String test = mFormatter.format(date);
+            System.out.print("break");
+            mArrivalText.setText(test);
+        }
+
+        // Optional cancel listener
+        @Override
+        public void onDateTimeCancel() {
             Toast.makeText(getActivity(),
-                    mFormatter.format(date), Toast.LENGTH_SHORT).show();
+                    "Canceled", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private SlideDateTimeListener listener2 = new SlideDateTimeListener() {
+
+        @Override
+        public void onDateTimeSet(Date date) {
+            String test = mFormatter.format(date);
+            System.out.print("break");
+            mDepartureText.setText(test);
         }
 
         // Optional cancel listener
@@ -335,16 +353,25 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 ImageView imageHeader = (ImageView) view.findViewById(R.id.image_header);
                 TextView imageText = (TextView) view.findViewById(R.id.text_header);
                 TextView description = (TextView) view.findViewById(R.id.space_description);
+                mArrivalText = (TextView) view.findViewById(R.id.arrival_date);
+                mDepartureText = (TextView) view.findViewById(R.id.depart_date);
+
 
                 barText.setText("@ " + m_address + ", " + m_postcode);
                 Glide.with(getActivity()).load(m_imageAddress).into(imageHeader);
                 imageText.setText(m_type);
                 description.setText(m_description);
 
-                mButton = (Button) view.findViewById(R.id.arrival_date);
-                mButton.setOnClickListener(v -> new SlideDateTimePicker.Builder(getActivity()
+                mArrivalText.setOnClickListener(v -> new SlideDateTimePicker.Builder(getActivity()
                         .getSupportFragmentManager())
                         .setListener(listener)
+                        .setInitialDate(new Date())
+                        .build()
+                        .show());
+
+                mDepartureText.setOnClickListener(v -> new SlideDateTimePicker.Builder(getActivity()
+                        .getSupportFragmentManager())
+                        .setListener(listener2)
                         .setInitialDate(new Date())
                         .build()
                         .show());
