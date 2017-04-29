@@ -156,9 +156,6 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
          */
         mLayout = (SlidingUpPanelLayout) view.findViewById(R.id.sliding_layout);
 
-        //set screen height
-        mLayout.setAnchorPoint(0.5f);
-
         //change layout state to hidden for marker on click, like below
         mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
 
