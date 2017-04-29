@@ -46,6 +46,7 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 @SuppressLint("SimpleDateFormat")
@@ -71,6 +72,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     JSONArray user = null;
     private TextView mArrivalText;
     private TextView mDepartureText;
+    private Date mMagicDate;
 
     private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd hh:mm aa");
 
@@ -78,9 +80,10 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         @Override
         public void onDateTimeSet(Date date) {
-            String test = mFormatter.format(date);
+            String strDate = mFormatter.format(date);
             System.out.print("break");
-            mArrivalText.setText(test);
+            mArrivalText.setText(strDate);
+            mMagicDate = date;
         }
 
         // Optional cancel listener
@@ -95,9 +98,9 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         @Override
         public void onDateTimeSet(Date date) {
-            String test = mFormatter.format(date);
+            String strDate = mFormatter.format(date);
             System.out.print("break");
-            mDepartureText.setText(test);
+            mDepartureText.setText(strDate);
         }
 
         // Optional cancel listener
@@ -366,13 +369,17 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                         .getSupportFragmentManager())
                         .setListener(listener)
                         .setInitialDate(new Date())
+                        .setMinDate(new Date())
+                        .setMaxDate(returnMaxDate())
                         .build()
                         .show());
 
                 mDepartureText.setOnClickListener(v -> new SlideDateTimePicker.Builder(getActivity()
                         .getSupportFragmentManager())
                         .setListener(listener2)
-                        .setInitialDate(new Date())
+                        .setInitialDate(mMagicDate)
+                        .setMinDate(mMagicDate)
+                        .setMaxDate(returnMaxDate())
                         .build()
                         .show());
 
@@ -382,5 +389,16 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
             }
         }
         //This method will parse the RAW data downloaded from the server
+    }
+
+    // this methods ensures user cannot perform bookings more than 4 months further in the future
+    private Date returnMaxDate() {
+        Date currentDate;
+        // get current date
+        Calendar cal = Calendar.getInstance();
+        // add 3 months to current date
+        cal.add(Calendar.MONTH, 3);
+
+        return currentDate = cal.getTime();
     }
 }
