@@ -122,6 +122,15 @@
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
                     android:layout_below="@id/text_header"/>
+
+                <Button
+                    android:id="@+id/arrival_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/space_description"
+                    android:background="@color/eucalyptus"
+                    android:text="Arrival Date" />
             </RelativeLayout>
         </LinearLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>

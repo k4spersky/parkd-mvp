@@ -55,11 +55,13 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:10.2.1'
     compile 'com.google.android.gms:play-services-places:10.2.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    //compile 'com.github.jjobes:slideDateTimePicker:1.+'
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.google.firebase:firebase-database:10.2.1'
     compile 'io.card:android-sdk:5.5.0'
     // FirebaseUI Database only
     compile 'com.firebaseui:firebase-ui-database:1.2.0'
     testCompile 'junit:junit:4.12'
+    compile project(path: ':SlideDateTimePicker:slideDateTimePicker')
 }
 apply plugin: 'com.google.gms.google-services'

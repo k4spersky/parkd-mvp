@@ -1,5 +1,6 @@
 package com.java.user.parkd;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,11 +16,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
+import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -40,9 +44,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-
+@SuppressLint("SimpleDateFormat")
 public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
     private static final String TAG = "AutocompleteActivity";
@@ -63,6 +69,26 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     String m_description;
     String m_location;
     JSONArray user = null;
+
+    private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd hh:mm aa");
+
+    private Button mButton;
+
+    private SlideDateTimeListener listener = new SlideDateTimeListener() {
+
+        @Override
+        public void onDateTimeSet(Date date) {
+            Toast.makeText(getActivity(),
+                    mFormatter.format(date), Toast.LENGTH_SHORT).show();
+        }
+
+        // Optional cancel listener
+        @Override
+        public void onDateTimeCancel() {
+            Toast.makeText(getActivity(),
+                    "Canceled", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -314,6 +340,14 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 Glide.with(getActivity()).load(m_imageAddress).into(imageHeader);
                 imageText.setText(m_type);
                 description.setText(m_description);
+
+                mButton = (Button) view.findViewById(R.id.arrival_date);
+                mButton.setOnClickListener(v -> new SlideDateTimePicker.Builder(getActivity()
+                        .getSupportFragmentManager())
+                        .setListener(listener)
+                        .setInitialDate(new Date())
+                        .build()
+                        .show());
 
                 mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
             } catch (JSONException e) {
