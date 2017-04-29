@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -22,8 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Fragment1Activity extends Fragment {
     FirebaseRecyclerAdapter mAdapter;
     View view;
-    View view2;
-    TextView m_MessageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

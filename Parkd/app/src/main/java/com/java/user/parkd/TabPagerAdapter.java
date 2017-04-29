@@ -34,6 +34,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
 
         return null;
     }
+
     @Override
     public CharSequence getPageTitle(int position){
         // Generate title based on item position

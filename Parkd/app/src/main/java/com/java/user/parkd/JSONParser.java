@@ -1,7 +1,6 @@
 package com.java.user.parkd;
 
 
-
 /**
  * Created by Paul on 28/04/2017.
  */
@@ -9,16 +8,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.util.Log;
 
@@ -45,10 +41,6 @@ public class JSONParser {
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
 
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,7 +51,7 @@ public class JSONParser {
             StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {
-                sb.append(line + "n");
+                sb.append(line).append("n");
             }
             is.close();
             json = sb.toString();
@@ -76,6 +68,5 @@ public class JSONParser {
 
         // return JSON String
         return jObj;
-
     }
 }

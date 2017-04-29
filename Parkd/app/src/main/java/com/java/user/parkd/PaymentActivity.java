@@ -15,7 +15,6 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -66,16 +65,12 @@ public class PaymentActivity extends AppCompatActivity {
         final String url = "http://pjohnston37.students.cs.qub.ac.uk/Android/getCardDetails.php?id=" +email;
         new AsyncHTTPTask().execute(url);
 
-        fb.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent settings = new Intent(PaymentActivity.this, AddPaymentActivity.class);
-                PaymentActivity.this.startActivity(settings);
+        fb.setOnClickListener(view -> {
+            Intent settings = new Intent(PaymentActivity.this, AddPaymentActivity.class);
+            PaymentActivity.this.startActivity(settings);
 
-            }
         });
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -84,6 +79,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public class AsyncHTTPTask extends AsyncTask<String, Void, Integer> {
 
         @Override
@@ -136,7 +132,6 @@ public class PaymentActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(PaymentActivity.this, "Failed to fetch data!", Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 
@@ -146,6 +141,7 @@ public class PaymentActivity extends AppCompatActivity {
         try {
             JSONArray AdminArrays = new JSONArray(jsonString);
             datalist = new ArrayList<>();
+
             for (int i = 0; i < AdminArrays.length(); i++) {
                 JSONObject object = AdminArrays.getJSONObject(i);
                 CardDetailsData data = new CardDetailsData(object.getString("type"),
@@ -159,16 +155,15 @@ public class PaymentActivity extends AppCompatActivity {
 
     public void onRestart(){
         super.onRestart();
-
-
     }
-    public void onResume()
-    {super.onResume();
+
+    public void onResume() {
+        super.onResume();
+
         SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         String email = sharedpref.getString("email", "");
         final String url = "http://pjohnston37.students.cs.qub.ac.uk/Android/getCardDetails.php?id=" +email;
+
         new AsyncHTTPTask().execute(url);
-
     }
-
 }

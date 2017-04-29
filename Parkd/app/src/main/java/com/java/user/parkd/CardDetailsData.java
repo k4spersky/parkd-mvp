@@ -41,4 +41,3 @@ public class CardDetailsData {
         this.url = url;
     }
 }
-

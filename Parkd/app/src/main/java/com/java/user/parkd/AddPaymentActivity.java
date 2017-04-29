@@ -5,16 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -74,11 +71,13 @@ public class AddPaymentActivity extends AppCompatActivity {
         cam.setColorFilter(this.getResources().getColor(R.color.google_blue));
 
         etExpire.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void afterTextChanged(Editable mEdit) {
                 int len = 0;
                 current = mEdit.toString();
-                if (del == true) {
+
+                if (del) {
                 } else {
                     if (current.length() == 2 && len < current.length()) {
                         mEdit.append("/");
@@ -88,6 +87,7 @@ public class AddPaymentActivity extends AppCompatActivity {
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 String str = etExpire.getText().toString();
+
                 if (str.contains("/")) {
                     del = true;
                 } else {
@@ -96,6 +96,7 @@ public class AddPaymentActivity extends AppCompatActivity {
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
             }
         });
 
@@ -105,7 +106,6 @@ public class AddPaymentActivity extends AppCompatActivity {
             private static final int DIVIDER_MODULO = 5; // means divider position is every 5th symbol beginning with 1
             private static final int DIVIDER_POSITION = DIVIDER_MODULO - 1; // means divider position is every 4th symbol beginning with 0
             private static final char DIVIDER = ' ';
-
 
             @Override
             public void afterTextChanged(Editable mEdit) {
@@ -119,13 +119,11 @@ public class AddPaymentActivity extends AppCompatActivity {
                     cam.setColorFilter(AddPaymentActivity.this.getResources().getColor(R.color.google_blue));
 
                 }
+
                 if (!isInputCorrect(mEdit, TOTAL_SYMBOLS, DIVIDER_MODULO, DIVIDER)) {
                     mEdit.replace(0, mEdit.length(), buildCorrecntString(getDigitArray(mEdit, TOTAL_DIGITS), DIVIDER_POSITION, DIVIDER));
                 }
-
-
             }
-
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 String str = etCard.getText().toString();
@@ -133,102 +131,99 @@ public class AddPaymentActivity extends AppCompatActivity {
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-        });
-
-        cam.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent scanIntent = new Intent(AddPaymentActivity.this, CardIOActivity.class);
-
-                // customize these values to suit your needs.
-
-
-                // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
-                startActivityForResult(scanIntent, REQUEST_SCAN);
 
             }
         });
 
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String card_number = etCard.getText().toString();
-                final String expire_date = etExpire.getText().toString();
-                final String cvv = etCvv.getText().toString();
-                final String email = getEmail();
-                if (emptyData(card_number, expire_date, cvv)) {
+        cam.setOnClickListener(view -> {
+            Intent scanIntent = new Intent(AddPaymentActivity.this, CardIOActivity.class);
+
+            // customize these values to suit your needs.
+
+            // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
+            startActivityForResult(scanIntent, REQUEST_SCAN);
+
+        });
+
+        add.setOnClickListener(view -> {
+            final String card_number = etCard.getText().toString();
+            final String expire_date = etExpire.getText().toString();
+            final String cvv = etCvv.getText().toString();
+            final String email = getEmail();
+
+            if (emptyData(card_number, expire_date, cvv)) {
+                return;
+            }
+
+            if (checkExpire(expire_date)) {
+                return;
+            }
+
+            if (checkCvv(cvv)) {
+                return;
+            }
+
+            if (checkCardFormat(card_number)) {
+                return;
+            }
+
+            try {
+
+                if (dateValid(expire_date))
+                {
                     return;
                 }
-                if (checkExpire(expire_date)) {
-                    return;
-                }
-                if (checkCvv(cvv)) {
-                    return;
-                }
-                if (checkCardFormat(card_number)) {
-                    return;
-                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            Response.Listener<String> responseListener = response -> {
+
                 try {
-                    if (dateValid(expire_date))
-                    {
-                        return;
-                    }
+                    //Receives response from the php
+                    JSONObject jsonResponse = new JSONObject(response);
+                    String success = jsonResponse.getString("success");
 
-                } catch (ParseException e) {
+                    if (success.equals("true")) {
+                        Toast.makeText(AddPaymentActivity.this, "Card Added", Toast.LENGTH_LONG).show();
+                        finish();
+                        //Opens up login form if successful
+
+
+                    } else if (success.equals("false")) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
+                        builder.setMessage("This card has already been added to this account. Please choose another.")
+                                .setNegativeButton("Retry", null)
+                                .create()
+                                .show();
+                        etExpire.setText("");
+                        etCvv.setText("");
+                        etCard.setText("");
+
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
+                        builder.setMessage("Unable to add card at this time. Please try again.")
+                                .setNegativeButton("Retry", null)
+                                .create()
+                                .show();
+
+                    }
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-
-                    @Override
-                    public void onResponse(String response) {
-
-                        try {
-                            //Receives response from the php
-                            JSONObject jsonResponse = new JSONObject(response);
-                            String success = jsonResponse.getString("success");
-
-                            if (success.equals("true")) {
-                                Toast.makeText(AddPaymentActivity.this, "Card Added", Toast.LENGTH_LONG).show();
-                                finish();
-                                //Opens up login form if successful
+            };
 
 
-                            } else if (success.equals("false")) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
-                                builder.setMessage("This card has already been added to this account. Please choose another.")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();
-                                etExpire.setText("");
-                                etCvv.setText("");
-                                etCard.setText("");
-
-                            } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
-                                builder.setMessage("Unable to add card at this time. Please try again.")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();
-
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-
-
-                // Sends request to the php
-                AddPaymentRequest addPaymentRequest = new AddPaymentRequest(card_number, expire_date, cvv, email, card_type, digits, manual, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(AddPaymentActivity.this);
-                queue.add(addPaymentRequest);
-
-
-            }
+            // Sends request to the php
+            AddPaymentRequest addPaymentRequest = new AddPaymentRequest(card_number, expire_date, cvv, email, card_type, digits, manual, responseListener);
+            RequestQueue queue = Volley.newRequestQueue(AddPaymentActivity.this);
+            queue.add(addPaymentRequest);
         });
     }
 
     private boolean checkCardFormat(String card_number) {
+
         if (card_number.length() == 19) {
 
             return false;
@@ -244,6 +239,7 @@ public class AddPaymentActivity extends AppCompatActivity {
     }
 
     private boolean checkExpire(String expire) {
+
         if (expire.length() == 5) {
 
             return false;
@@ -259,6 +255,7 @@ public class AddPaymentActivity extends AppCompatActivity {
     }
 
     private boolean checkCvv(String cvv) {
+
         if (cvv.length() == 3) {
 
             return false;
@@ -271,14 +268,12 @@ public class AddPaymentActivity extends AppCompatActivity {
                     .show();
             return true;
         }
-
     }
 
     private boolean checkCardNumber(String card) {
         if (card.length() == 19) {
 
             return false;
-
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
             builder.setMessage("Make sure your card number is the correct length")
@@ -287,7 +282,6 @@ public class AddPaymentActivity extends AppCompatActivity {
                     .show();
             return true;
         }
-
     }
 
     @Override
@@ -300,8 +294,7 @@ public class AddPaymentActivity extends AppCompatActivity {
 
     private String getEmail() {
         SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-        return sharedpref.getString("email", "").toString();
-
+        return sharedpref.getString("email", "");
     }
 
     //Checks if there are any empty strings
@@ -315,6 +308,7 @@ public class AddPaymentActivity extends AppCompatActivity {
             return true;
         } else {
         }
+
         if (expire.equals("")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
             builder.setMessage("Please the expire date for the card.")
@@ -324,6 +318,7 @@ public class AddPaymentActivity extends AppCompatActivity {
             return true;
         } else {
         }
+
         if (cvv.equals("")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(AddPaymentActivity.this);
             builder.setMessage("Please the cvv number for the card.")
@@ -333,6 +328,7 @@ public class AddPaymentActivity extends AppCompatActivity {
             return true;
         } else {
         }
+
         return false;
     }
 
@@ -379,6 +375,7 @@ public class AddPaymentActivity extends AppCompatActivity {
                 cam.setColorFilter(null);
             }
         }
+
         if (current.length() == 2) {
             substring = current.substring(0, 2);
             number = parseInt(substring);
@@ -413,8 +410,6 @@ public class AddPaymentActivity extends AppCompatActivity {
             }
         } else {
         }
-
-
     }
 
     private boolean isInputCorrect(Editable s, int totalSymbols, int dividerModulo, char divider) {
@@ -427,7 +422,6 @@ public class AddPaymentActivity extends AppCompatActivity {
             }
         }
         return isCorrect;
-
     }
 
     private String buildCorrecntString(char[] digits, int dividerPosition, char divider) {
@@ -455,6 +449,7 @@ public class AddPaymentActivity extends AppCompatActivity {
                 index++;
             }
         }
+
         return digits;
     }
 
@@ -469,7 +464,9 @@ public class AddPaymentActivity extends AppCompatActivity {
                     .setNegativeButton("Retry", null)
                     .create()
                     .show();
-        return true;}
+        return true;
+        }
+        // what is this?
         {
             return false;
             }

@@ -35,9 +35,9 @@ public class RegisterActivity extends AppCompatActivity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-
     private GoogleApiClient client;
     Toolbar tb1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,105 +45,101 @@ public class RegisterActivity extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //The following code is used for assigning variables to the controls located on the register page
 
-
         final EditText etEmail = (EditText) findViewById(R.id.etEmaily);
         final EditText etFirstName = (EditText) findViewById(R.id.etFirstName);
         final EditText etLastName = (EditText) findViewById(R.id.etLastName);
         final EditText etPassword = (EditText) findViewById(R.id.etPassword);
         final Button bRegister = (Button) findViewById(R.id.bRegister);
         final TextView termsLink = (TextView) findViewById(com.java.user.parkd.R.id.informtextView);
+
         tb1 = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(tb1);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        bRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Collects values from text boxes and put them into variables
-                final String firstName = etFirstName.getText().toString();
-                final String password = etPassword.getText().toString();
-                final String email = etEmail.getText().toString();
-                final String lastName = etLastName.getText().toString();
+        bRegister.setOnClickListener(view -> {
+            //Collects values from text boxes and put them into variables
+            final String firstName = etFirstName.getText().toString();
+            final String password = etPassword.getText().toString();
+            final String email = etEmail.getText().toString();
+            final String lastName = etLastName.getText().toString();
 
-                //Check if passwords match
-                //check if email is valid
-                if (emptyData(firstName, lastName, email, password ))
-                {
-                    return;
-                }
-                if (isEmailValid(email)) {
+            //Check if passwords match
+            //check if email is valid
+            if (emptyData(firstName, lastName, email, password )) {
+                return;
+            }
 
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setMessage("Email is not valid. Please enter a valid email address.")
-                            .setNegativeButton("Retry", null)
-                            .create()
-                            .show();
-                    return;
-                }
-                //check if passwords are right format
-                if (validate(password))
-                {}
-                else{AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setMessage("Password is not valid. Make sure it contains 6 to 20 characters with at least one digit, one upper case letter, one lower case letter. ")
-                            .setNegativeButton("Retry", null)
-                            .create()
-                            .show();
-                    return;}
+            if (isEmailValid(email)) {
+                //TODO
 
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                builder.setMessage("Email is not valid. Please enter a valid email address.")
+                        .setNegativeButton("Retry", null)
+                        .create()
+                        .show();
+                return;
+            }
 
-                    @Override
-                    public void onResponse(String response) {
+            //check if passwords are right format
+            if (validate(password)) {
+                //TODO
+            }
+            else{AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                builder.setMessage("Password is not valid. Make sure it contains 6 to 20 characters with at least one digit, one upper case letter, one lower case letter. ")
+                        .setNegativeButton("Retry", null)
+                        .create()
+                        .show();
+                return;}
 
-                        try {
-                            //Receives response from the php
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            if (success = true) {
-                                //Opens up login form if successful
-                                SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedpref.edit();
-                                editor.putString("name", etFirstName.getText().toString() + " " + etLastName.getText().toString());
-                                editor.apply();
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("Account Created")
-                                        .create()
-                                        .show();
-                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                RegisterActivity.this.startActivity(intent);
-                            }else
-                            {
-                                String resp = jsonResponse.getString("text");
-                                if(resp.equals("Email Exists"))
-                                {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                    builder.setMessage("Email has already been registered. Please choose another.")
-                                            .setNegativeButton("Retry", null)
-                                            .create()
-                                            .show();
-                                }
-                                else{
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("Registration Failed")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();}
-                        } }catch (JSONException e) {
-                            e.printStackTrace();
+            Response.Listener<String> responseListener = response -> {
+
+                try {
+                    //Receives response from the php
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success) {
+                        //Opens up login form if successful
+                        SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpref.edit();
+                        editor.putString("name", etFirstName.getText().toString() + " " + etLastName.getText().toString());
+                        editor.apply();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        builder.setMessage("Account Created")
+                                .create()
+                                .show();
+                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        RegisterActivity.this.startActivity(intent);
+                    } else {
+                        String resp = jsonResponse.getString("text");
+                        if(resp.equals("Email Exists"))
+                        {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                            builder.setMessage("Email has already been registered. Please choose another.")
+                                    .setNegativeButton("Retry", null)
+                                    .create()
+                                    .show();
+                        }
+                        else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        builder.setMessage("Registration Failed")
+                                .setNegativeButton("Retry", null)
+                                .create()
+                                .show();
                         }
                     }
-                };
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            };
+
+            // Sends request to the php
+            RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, email, password, responseListener);
+            RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+            queue.add(registerRequest);
 
 
-                // Sends request to the php
-                RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, email, password, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-                queue.add(registerRequest);
-
-
-            }
         });
         //Terms and Condtions popup
         termsLink.setOnClickListener(new View.OnClickListener() {
@@ -239,7 +235,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Pattern pattern;
     private Matcher matcher;
-    private static final String PASSWORD_PATTERN =
-            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{4,}$";
+    private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{4,}$";
 
 }

@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by Paul on 19/04/2017.
  */
 
-public class UserAreaRequest extends StringRequest{
+public class UserAreaRequest extends StringRequest {
     private static final String UA_REQUEST_URL = "http://pjohnston37.students.cs.qub.ac.uk/Android/userDetails.php";
     private Map<String, String> params;
 
