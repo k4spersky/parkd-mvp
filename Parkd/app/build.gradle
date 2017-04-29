@@ -62,6 +62,6 @@ dependencies {
     // FirebaseUI Database only
     compile 'com.firebaseui:firebase-ui-database:1.2.0'
     testCompile 'junit:junit:4.12'
-    compile project(path: ':SlideDateTimePicker:slideDateTimePicker')
+    compile project(path: ':slideDateTimePicker')
 }
 apply plugin: 'com.google.gms.google-services'
