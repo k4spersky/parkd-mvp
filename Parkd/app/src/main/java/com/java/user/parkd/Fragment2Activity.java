@@ -234,12 +234,6 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         LatLng belfast = new LatLng(54.597263, -5.930134);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 15));
 
-        // lat/longs around belfast for testing
-        //        LatLng belfast1 = new LatLng(54.595174, -5.928575);
-        //        LatLng belfast2 = new LatLng(54.596399, -5.934533);
-        //        LatLng belfast3 = new LatLng(54.598316, -5.933200);
-        //        LatLng belfast4 = new LatLng(54.599306, -5.924222);
-
         mMap.setOnMarkerClickListener(marker -> {
             String markerId;
 
