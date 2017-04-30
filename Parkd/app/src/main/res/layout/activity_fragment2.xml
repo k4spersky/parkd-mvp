@@ -76,22 +76,24 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@color/anti_flash_white"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:gravity="center_vertical"
                     android:paddingStart="10dp"/>
 
-                <Button
-                    android:id="@+id/follow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical|end"/>
+                <!--<Button-->
+                    <!--android:id="@+id/follow"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:gravity="center_vertical|end"/>-->
             </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/sliding_panel_fragment2"
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:orientation="vertical"
+                android:background="@color/prussian_blue"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -118,7 +120,12 @@
                     android:id="@+id/space_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:maxLines="3"
+                    android:textStyle="bold"
+                    android:background="@color/prussian_blue"
+                    android:textColor="@color/anti_flash_white"
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
                     android:layout_below="@id/text_header"/>
@@ -129,6 +136,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:textAlignment="center"
+                    android:background="@color/prussian_blue"
+                    android:textStyle="bold"
+                    android:textColor="@color/pastel_orange"
                     android:layout_below="@id/space_description"
                     android:text="Arrive at"/>
 
@@ -152,6 +162,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:background="@color/prussian_blue"
+                    android:textStyle="bold"
+                    android:textColor="@color/pastel_orange"
                     android:textAlignment="center"
                     android:layout_below="@id/arrival_date"
                     android:text="Stay until"/>

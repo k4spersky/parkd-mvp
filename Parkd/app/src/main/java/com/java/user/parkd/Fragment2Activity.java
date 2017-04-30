@@ -184,8 +184,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
             public void onPanelSlide(View panel, float slideOffset) {
 
                 // needed picker reset when switching space markers
-                mArrivalText.setText(null);
-                mDepartureText.setText(null);
+                resetPickerState();
                 Log.i(TAG, "onPanelSlide, offset " + slideOffset);
             }
 
@@ -201,11 +200,11 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         });
 
         // this should be get directions button, empty for now
-        Button f = (Button) view.findViewById(R.id.follow);
-        f.setMovementMethod(LinkMovementMethod.getInstance());
-        f.setOnClickListener(view13 -> {
-            // TODO
-        });
+//        Button f = (Button) view.findViewById(R.id.follow);
+//        f.setMovementMethod(LinkMovementMethod.getInstance());
+//        f.setOnClickListener(view13 -> {
+//            // TODO
+//        });
         return view;
     }
 
@@ -437,8 +436,15 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         double costPM = m_price / 60;
 
         // total price per booking
-        double bookingFee = elapsedMinutes * costPM;
+        return elapsedMinutes * costPM;
+    }
 
-        return bookingFee;
+    public void resetPickerState() {
+       // mArrivalText.setText(null);
+       // mDepartureText.setText(null);
+
+        mBookBtn.setClickable(false);
+        mBookBtn.setText("Book Now");
+        mBookBtn.setBackgroundResource(R.color.white_greyish);
     }
 }
