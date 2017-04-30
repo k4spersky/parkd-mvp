@@ -43,6 +43,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.PrintStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,7 +73,9 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     JSONArray user = null;
     private TextView mArrivalText;
     private TextView mDepartureText;
-    private Date mMagicDate;
+    private Button mBookBtn;
+    private Date ArrDate;
+    private Date DeptDate;
 
     private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd hh:mm aa");
 
@@ -80,10 +83,15 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         @Override
         public void onDateTimeSet(Date date) {
-            String strDate = mFormatter.format(date);
-            System.out.print("break");
+            ArrDate = date;
+
+            if (mDepartureText.getText() != null) {
+                mDepartureText.setText(null);
+                DeptDate = null;
+            }
+
+            String strDate = mFormatter.format(ArrDate);
             mArrivalText.setText(strDate);
-            mMagicDate = date;
         }
 
         // Optional cancel listener
@@ -98,9 +106,20 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         @Override
         public void onDateTimeSet(Date date) {
-            String strDate = mFormatter.format(date);
-            System.out.print("break");
+
+            double bookingCost;
+            String con = "Book for £";
+            DeptDate = date;
+            String strDate = mFormatter.format(DeptDate);
             mDepartureText.setText(strDate);
+            bookingCost = calculateBookingCost();
+
+            mBookBtn.setText(con + String.format("%.2f", bookingCost));
+
+            if (!mBookBtn.isClickable()) {
+                mBookBtn.setClickable(true);
+                mBookBtn.setBackgroundResource(R.color.google_blue);
+            }
         }
 
         // Optional cancel listener
@@ -163,6 +182,10 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
+
+                // needed picker reset when switching space markers
+                mArrivalText.setText(null);
+                mDepartureText.setText(null);
                 Log.i(TAG, "onPanelSlide, offset " + slideOffset);
             }
 
@@ -355,12 +378,16 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 TextView description = (TextView) view.findViewById(R.id.space_description);
                 mArrivalText = (TextView) view.findViewById(R.id.arrival_date);
                 mDepartureText = (TextView) view.findViewById(R.id.depart_date);
+                mBookBtn = (Button) view.findViewById(R.id.book_btn);
 
 
                 barText.setText("@ " + m_address + ", " + m_postcode);
                 Glide.with(getActivity()).load(m_imageAddress).into(imageHeader);
                 imageText.setText(m_type);
                 description.setText(m_description);
+                mBookBtn.setClickable(false);
+                mBookBtn.setText("Book Now");
+                mBookBtn.setBackgroundResource(R.color.white_greyish);
 
                 mArrivalText.setOnClickListener(v -> new SlideDateTimePicker.Builder(getActivity()
                         .getSupportFragmentManager())
@@ -374,13 +401,14 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 mDepartureText.setOnClickListener(v -> new SlideDateTimePicker.Builder(getActivity()
                         .getSupportFragmentManager())
                         .setListener(listener2)
-                        .setInitialDate(mMagicDate)
-                        .setMinDate(mMagicDate)
+                        .setInitialDate(new Date())
+                        .setMinDate(new Date())
                         .setMaxDate(returnMaxDate())
                         .build()
                         .show());
 
                 mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -397,5 +425,26 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         cal.add(Calendar.MONTH, 3);
 
         return currentDate = cal.getTime();
+    }
+
+    // 1 minute = 60 seconds
+    // 1 hour = 60 x 60 = 3600
+    // 1 day = 3600 x 24 = 86400
+    private double calculateBookingCost(){
+        //milliseconds
+        long different = DeptDate.getTime() - ArrDate.getTime();
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+
+        long elapsedMinutes = different / minutesInMilli;
+        // different = different % minutesInMilli;
+
+        // cost per minute
+        double costPM = m_price / 60;
+
+        // total price per booking
+        double bookingFee = elapsedMinutes * costPM;
+
+        return bookingFee;
     }
 }

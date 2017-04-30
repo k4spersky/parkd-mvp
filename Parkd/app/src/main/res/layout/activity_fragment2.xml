@@ -170,15 +170,15 @@
                     android:layout_below="@id/depart_header"
                     android:background="@color/kandy_red"
                     android:hint="select" />
+
                 <Button
+                    android:id="@+id/book_btn"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/google_blue"
                     android:textStyle="bold"
                     android:textSize="36sp"
-                    android:textColor="@color/white"
-                    android:text="Book for ?price"/>
+                    android:textColor="@color/white"/>
             </RelativeLayout>
         </LinearLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
