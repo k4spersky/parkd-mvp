@@ -440,8 +440,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     }
 
     public void resetPickerState() {
-       // mArrivalText.setText(null);
-       // mDepartureText.setText(null);
+        mArrivalText.setText(null);
+        //mDepartureText.setText(null);
 
         mBookBtn.setClickable(false);
         mBookBtn.setText("Book Now");
