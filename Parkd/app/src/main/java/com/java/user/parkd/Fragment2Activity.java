@@ -218,7 +218,6 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-
         mMap = googleMap;
         MarkerOptions mMarker = new MarkerOptions();
         // Customise the styling of the base map using a JSON object defined

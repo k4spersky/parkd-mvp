@@ -95,7 +95,8 @@
                 android:orientation="vertical"
                 android:background="@color/prussian_blue"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:isScrollContainer="true">
 
                 <ImageView
                     android:id="@+id/image_header"
@@ -123,7 +124,6 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="10dp"
                     android:maxLines="3"
-                    android:textStyle="bold"
                     android:background="@color/prussian_blue"
                     android:textColor="@color/anti_flash_white"
                     android:layout_marginTop="10dp"
