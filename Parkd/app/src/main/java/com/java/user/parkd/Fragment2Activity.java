@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +42,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.PrintStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -159,7 +157,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 mMap.clear();
 
                 //move map camera
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                 getMarkerParams();
             }
 
@@ -231,7 +229,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         // and move the map's camera to the same location. 54.597263, -5.930134
         LatLng belfast = new LatLng(54.597263, -5.930134);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 14));
 
         mMap.setOnMarkerClickListener(marker -> {
             String markerId;
