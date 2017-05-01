@@ -14,12 +14,11 @@ import android.widget.Toast;
 public class Fragment3Activity extends Fragment {
 
     View view;
-    TextView loggedinName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_fragment3, container, false);
-         TextView loggedinName = (TextView) view.findViewById(R.id.accName);
+         TextView loggedInName = (TextView) view.findViewById(R.id.accName);
         final TextView rent = (TextView) view.findViewById(R.id.rentSpace);
         final TextView mybook = (TextView) view.findViewById(R.id.accBooking);
         final TextView payments = (TextView) view.findViewById(R.id.payDetails);
@@ -28,94 +27,86 @@ public class Fragment3Activity extends Fragment {
         final TextView logOut = (TextView) view.findViewById(R.id.signOut);
         name = "";
         getData();
+
         if (name.length()==0) {
         } else {
-            loggedinName.setText(name);
+            loggedInName.setText(name);
         }
-        rent.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //This Listener listens for click on the register text link
-                //The following code is standard for running a new activity, in this case it opens the register form
-                Intent settings = new Intent(Fragment3Activity.this.getActivity(), RentActivity.class);
-                Fragment3Activity.this.startActivity(settings);
-            }
+
+        rent.setOnClickListener(view16 -> {
+
+            //This Listener listens for click on the register text link
+            //The following code is standard for running a new activity, in this case it opens the register form
+            Intent settings = new Intent(Fragment3Activity.this.getActivity(), RentActivity.class);
+            Fragment3Activity.this.startActivity(settings);
         });
 
         //Listener for rent a space
 
         //Listener for myBookings
-        mybook.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //This Listener listens for click on the register text link
-                //The following code is standard for running a new activity, in this case it opens the register form
-                Intent settings = new Intent(Fragment3Activity.this.getActivity(), BookingsActivity.class);
-                Fragment3Activity.this.startActivity(settings);
-            }
+        mybook.setOnClickListener(view1 -> {
+
+            //This Listener listens for click on the register text link
+            //The following code is standard for running a new activity, in this case it opens the register form
+            Intent settings = new Intent(Fragment3Activity.this.getActivity(), BookingsActivity.class);
+            Fragment3Activity.this.startActivity(settings);
         });
 
         //Listener for payments
-        payments.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //This Listener listens for click on the register text link
-                //The following code is standard for running a new activity, in this case it opens the register form
-                Intent settings = new Intent(Fragment3Activity.this.getActivity(), PaymentActivity.class);
-                Fragment3Activity.this.startActivity(settings);
-            }
+        payments.setOnClickListener(view12 -> {
+
+            //This Listener listens for click on the register text link
+            //The following code is standard for running a new activity, in this case it opens the register form
+            Intent settings = new Intent(Fragment3Activity.this.getActivity(), PaymentActivity.class);
+            Fragment3Activity.this.startActivity(settings);
         });
+
         //Listener for account
-        account.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //This Listener listens for click on the register text link
-                //The following code is standard for running a new activity, in this case it opens the register form
-                Intent settings = new Intent(Fragment3Activity.this.getActivity(), UserAreaActivity.class);
-                Fragment3Activity.this.startActivity(settings);
-            }
+        account.setOnClickListener(view13 -> {
+
+            //This Listener listens for click on the register text link
+            //The following code is standard for running a new activity, in this case it opens the register form
+            Intent settings = new Intent(Fragment3Activity.this.getActivity(), UserAreaActivity.class);
+            Fragment3Activity.this.startActivity(settings);
         });
 
         //Listener for help
-        help.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //This Listener listens for click on the register text link
-                //The following code is standard for running a new activity, in this case it opens the register form
-            }
+        help.setOnClickListener(view14 -> {
+
+            //This Listener listens for click on the register text link
+            //The following code is standard for running a new activity, in this case it opens the register form
         });
 
+        logOut.setOnClickListener(view15 -> {
 
-        logOut.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //This Listener listens for click on the register text link
-                //The following code is standard for running a new activity, in this case it opens the register form
-                removeData();
-                //user.setText("");
-                Intent intent = new Intent(Fragment3Activity.this.getActivity(), LoginActivity.class);
-                //login = true;
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                getActivity().finishAffinity();
-                Fragment3Activity.this.startActivity(intent);
-                getActivity().finish();
+            //This Listener listens for click on the register text link
+            //The following code is standard for running a new activity, in this case it opens the register form
+            removeData();
+            //user.setText("");
+            Intent intent = new Intent(Fragment3Activity.this.getActivity(), LoginActivity.class);
+            //login = true;
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            getActivity().finishAffinity();
+            Fragment3Activity.this.startActivity(intent);
+            getActivity().finish();
 
-            }
         });
         return view;
     }
 
     public void getData() {
+
         SharedPreferences sharedpref = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         name = sharedpref.getString("name", "");
     }
-    public void removeData()
-    {
-        SharedPreferences sharedpref = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpref.edit();
+
+    public void removeData() {
+        String switchStatus;
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove("name");
-        switchStatus = sharedpref.getString("Saveemail", "");
+        switchStatus = sharedPref.getString("Saveemail", "");
         if(switchStatus.matches("No"))
         {
             editor.remove("email");
@@ -125,8 +116,6 @@ public class Fragment3Activity extends Fragment {
         Toast.makeText(getActivity(), "Logged Out", Toast.LENGTH_LONG).show();
 
     }
-    private String switchStatus;
+
     private String name;
-
-
 }

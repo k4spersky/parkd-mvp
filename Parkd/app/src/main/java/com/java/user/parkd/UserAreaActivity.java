@@ -7,14 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.content.Intent;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -36,6 +32,7 @@ public class UserAreaActivity extends AppCompatActivity
     EditText userPhoneNumber;
     EditText userEmail;
     Button save;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,15 +51,9 @@ public class UserAreaActivity extends AppCompatActivity
 
         loadData();
         userFirstName.setSelection(userFirstName.getText().length());
-        save.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                postData();
-            }
-        });
+        save.setOnClickListener(view -> postData());
 
     }
-
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -71,51 +62,47 @@ public class UserAreaActivity extends AppCompatActivity
                 this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
                 break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
-    private void loadData()
-    {
-        Response.Listener<String> responseListener = new Response.Listener<String>()
-        {
+    private void loadData() {
+        Response.Listener<String> responseListener = response -> {
 
-            @Override
-            public void onResponse(String response) {
+            try {
+                //Receives response from the php
+                JSONObject jsonResponse = new JSONObject(response);
+                boolean success = jsonResponse.getBoolean("success");
 
-                try {
-                    //Receives response from the php
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-                    if (success)
-                    {
-                        //Opens up userActivity form if successful
-                        String firstname = jsonResponse.getString("firstname");
-                        String lastname = jsonResponse.getString("lastname");
-                        String number = jsonResponse.getString("phone");
-                        String email = jsonResponse.getString("email");
-                        userFirstName.setText(firstname + " " + lastname);
-                        userEmail.setText(email);
-                        userPhoneNumber.setText(number);
+                if (success) {
+                    //Opens up userActivity form if successful
+                    String firstname = jsonResponse.getString("firstname");
+                    String lastname = jsonResponse.getString("lastname");
+                    String number = jsonResponse.getString("phone");
+                    String email = jsonResponse.getString("email");
+                    userFirstName.setText(firstname + " " + lastname);
+                    userEmail.setText(email);
+                    userPhoneNumber.setText(number);
 
-                    }else{
-                        //Alerts the user of failure and asks for them retry
-                        Toast.makeText(UserAreaActivity.this, "Unable to load data", Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                } else {
+                    //Alerts the user of failure and asks for them retry
+                    Toast.makeText(UserAreaActivity.this, "Unable to load data", Toast.LENGTH_LONG).show();
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         };
 
-        SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-        useremail = sharedpref.getString("email", "");
+        SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        useremail = sharedPref.getString("email", "");
         UserAreaRequest ua = new UserAreaRequest(useremail, responseListener);
         RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
         queue.add(ua);
     }
+
     private static String useremail;
 
-    public void onRestart(){
+    public void onRestart() {
               super.onRestart();
         loadData();
     }
@@ -125,8 +112,8 @@ public class UserAreaActivity extends AppCompatActivity
             loadData();
      }
 
-    private boolean emptyData(String first, String email)
-    {
+    private boolean emptyData(String first, String email) {
+
         if (first.equals("")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(UserAreaActivity.this);
             builder.setMessage("Please enter your first name.")
@@ -134,8 +121,6 @@ public class UserAreaActivity extends AppCompatActivity
                     .create()
                     .show();
             return true;
-        }else
-        {
         }
 
         if (email.equals("")) {
@@ -145,8 +130,6 @@ public class UserAreaActivity extends AppCompatActivity
                     .create()
                     .show();
             return true;
-        }else
-        {
         }
 
         return false;
@@ -163,12 +146,12 @@ public class UserAreaActivity extends AppCompatActivity
         if (matcher.matches()) {
             isValid = true;
         }
+
         return isValid;
     }
 
-    private void postData()
-    {
-       String name = userFirstName.getText().toString();
+    private void postData() {
+        String name = userFirstName.getText().toString();
         String[] splited = name.split("\\s+");
         String pn = userPhoneNumber.getText().toString();
         String em = userEmail.getText().toString();
@@ -177,42 +160,38 @@ public class UserAreaActivity extends AppCompatActivity
 
         if (emptyData(fn, em))
         {return;}
-        if(isEmailValid(em) == false)
-        {
+        if(!isEmailValid(em)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(UserAreaActivity.this);
             builder.setMessage("Email Address is not valid.")
                     .setNegativeButton("Retry", null)
                     .create()
                     .show();
+
             return;
         }
-        Response.Listener<String> responseListener = new Response.Listener<String>()
-        {
 
-            @Override
-            public void onResponse(String response) {
+        Response.Listener<String> responseListener = response -> {
 
-                try {
-                    //Receives response from the php
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-                    if (success)
-                    {
-                        //Opens up userActivity form if successful
-                        SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedpref.edit();
-                        editor.putString("email", userEmail.getText().toString());
-                        editor.putString("name", userFirstName.getText().toString());
-                        editor.apply();
-                        Toast.makeText(UserAreaActivity.this, "Changes saved", Toast.LENGTH_LONG).show();
-                        finish();
-                    }else{
-                        //Alerts the user of failure and asks for them retry
-                        Toast.makeText(UserAreaActivity.this, "Unable to update data", Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            try {
+                //Receives response from the php
+                JSONObject jsonResponse = new JSONObject(response);
+                boolean success = jsonResponse.getBoolean("success");
+
+                if (success) {
+                    //Opens up userActivity form if successful
+                    SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpref.edit();
+                    editor.putString("email", userEmail.getText().toString());
+                    editor.putString("name", userFirstName.getText().toString());
+                    editor.apply();
+                    Toast.makeText(UserAreaActivity.this, "Changes saved", Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    //Alerts the user of failure and asks for them retry
+                    Toast.makeText(UserAreaActivity.this, "Unable to update data", Toast.LENGTH_LONG).show();
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         };
 
@@ -222,6 +201,4 @@ public class UserAreaActivity extends AppCompatActivity
         RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
         queue.add(ua);
     }
-
-
 }

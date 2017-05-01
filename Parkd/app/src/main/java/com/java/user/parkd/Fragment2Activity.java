@@ -1,25 +1,28 @@
 package com.java.user.parkd;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
 import android.support.v7.app.AlertDialog;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
+import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -40,19 +43,90 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 
-
+@SuppressLint("SimpleDateFormat")
 public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
-    private static final String TAG = "DemoActivity";
+    private static final String TAG = "AutocompleteActivity";
     private SlidingUpPanelLayout mLayout;
     EditText attributeText;
-    private String name = "";
+    private String name;
     GoogleMap mMap;
     View view;
+    String url;
+    double m_price;
+    String m_spaceId;
+    String m_address;
+    String m_postcode;
+    // String location;
+    String m_imageAddress;
+    String m_numOfSpaces;
+    String m_type;
+    String m_description;
+    String m_location;
+    JSONArray user = null;
+    private TextView mArrivalText;
+    private TextView mDepartureText;
+    private Button mBookBtn;
+    private Date ArrDate;
+    private Date DeptDate;
+
+    private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd hh:mm aa");
+
+    private SlideDateTimeListener listener = new SlideDateTimeListener() {
+
+        @Override
+        public void onDateTimeSet(Date date) {
+            ArrDate = date;
+
+            if (mDepartureText.getText() != null) {
+                mDepartureText.setText(null);
+                DeptDate = null;
+            }
+
+            String strDate = mFormatter.format(ArrDate);
+            mArrivalText.setText(strDate);
+        }
+
+        // Optional cancel listener
+        @Override
+        public void onDateTimeCancel() {
+            Toast.makeText(getActivity(),
+                    "Canceled", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private SlideDateTimeListener listener2 = new SlideDateTimeListener() {
+
+        @Override
+        public void onDateTimeSet(Date date) {
+
+            double bookingCost;
+            String con = "Book for £";
+            DeptDate = date;
+            String strDate = mFormatter.format(DeptDate);
+            mDepartureText.setText(strDate);
+            bookingCost = calculateBookingCost();
+
+            mBookBtn.setText(con + String.format("%.2f", bookingCost));
+
+            if (!mBookBtn.isClickable()) {
+                mBookBtn.setClickable(true);
+                mBookBtn.setBackgroundResource(R.color.google_blue);
+            }
+        }
+
+        // Optional cancel listener
+        @Override
+        public void onDateTimeCancel() {
+            Toast.makeText(getActivity(),
+                    "Canceled", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,7 +141,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
-        attributeText = (EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
+        attributeText = (EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
         attributeText.setHintTextColor(getResources().getColor(R.color.cadet_grey));
         autocompleteFragment.getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_search));
         attributeText.setHint("find your space!");
@@ -78,12 +152,12 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
-                 name = (String) place.getName();
+                name = (String) place.getName();
                 LatLng latLng = place.getLatLng();
                 mMap.clear();
 
                 //move map camera
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                 getMarkerParams();
             }
 
@@ -95,33 +169,9 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         });
 
         /*
-         *  SLIDING UP PANEL
+         *  Initialising sliding up panel widget
          */
-        ListView lv = (ListView) view.findViewById(R.id.list);
-        lv.setOnItemClickListener((parent, view1, position, id) -> Toast.makeText(getActivity(), "onItemClick", Toast.LENGTH_SHORT).show());
-
-        List<String> your_array_list = Arrays.asList(
-                "This",
-                "Is",
-                "An",
-                "Example",
-                "ListView"
-        );
-
-        // This is the array adapter, it takes the context of the activity as a
-        // first parameter, the type of list view as a second parameter and your
-        // array as a third parameter.
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                your_array_list );
-
-        lv.setAdapter(arrayAdapter);
-
         mLayout = (SlidingUpPanelLayout) view.findViewById(R.id.sliding_layout);
-
-        //set screen height
-        mLayout.setAnchorPoint(0.5f);
 
         //change layout state to hidden for marker on click, like below
         mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
@@ -130,6 +180,9 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
+
+                // needed picker reset when switching space markers
+                resetPickerState();
                 Log.i(TAG, "onPanelSlide, offset " + slideOffset);
             }
 
@@ -144,14 +197,12 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
             //TODO do nothing
         });
 
-        TextView t = (TextView) view.findViewById(R.id.name);
-        t.setText("Car Park name");
-
-        Button f = (Button) view.findViewById(R.id.follow);
-        f.setMovementMethod(LinkMovementMethod.getInstance());
-        f.setOnClickListener(view13 -> {
-            // TODO
-        });
+        // this should be get directions button, empty for now
+//        Button f = (Button) view.findViewById(R.id.follow);
+//        f.setMovementMethod(LinkMovementMethod.getInstance());
+//        f.setOnClickListener(view13 -> {
+//            // TODO
+//        });
         return view;
     }
 
@@ -167,8 +218,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-
         mMap = googleMap;
+        MarkerOptions mMarker = new MarkerOptions();
         // Customise the styling of the base map using a JSON object defined
         // in a raw resource file.
         mMap.setMapStyle(
@@ -177,24 +228,21 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
         // and move the map's camera to the same location. 54.597263, -5.930134
         LatLng belfast = new LatLng(54.597263, -5.930134);
-//        MarkerOptions markerOptions = new MarkerOptions();
-//        markerOptions.position(belfast);
-//        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_pin));
-//        mMap.addMarker(markerOptions);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 15));
-
-        // lat/longs around belfast for testing
-//        LatLng belfast1 = new LatLng(54.595174, -5.928575);
-//        LatLng belfast2 = new LatLng(54.596399, -5.934533);
-//        LatLng belfast3 = new LatLng(54.598316, -5.933200);
-//        LatLng belfast4 = new LatLng(54.599306, -5.924222);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(belfast, 14));
 
         mMap.setOnMarkerClickListener(marker -> {
-            mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            String markerId;
+
+            if (marker.getTag() != null) {
+                markerId = marker.getTag().toString();
+                Fragment2Activity.this.getSpaceDetails(markerId);
+            } else {
+                //TODO
+            }
             return true;
         });
 
-       mMap.setOnMapClickListener(latLng -> mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN));
+        mMap.setOnMapClickListener(latLng -> mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN));
     }
 
     public void getMarkerParams() {
@@ -204,7 +252,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 //Receives response from the php
                 JSONArray jsonResponse = new JSONArray(response);
 
-                if (jsonResponse.length() >0) {
+                if (jsonResponse.length() > 0) {
                     ArrayList<JSONObject> listdata = new ArrayList<>();
 
                     for (int i = 0; i < jsonResponse.length(); i++) {
@@ -212,11 +260,12 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                         listdata.add(object);
                     }
 
-                    for (int i = 0; i<listdata.size(); i++ ) {
+                    for (int i = 0; i < listdata.size(); i++) {
                         Double lat = Double.parseDouble(listdata.get(i).getString("lat"));
                         Double lng = Double.parseDouble(listdata.get(i).getString("lng"));
                         Double price = Double.parseDouble(listdata.get(i).getString("price"));
-                        generateMarkers(lat, lng, price);
+                        String id = listdata.get(i).getString("id");
+                        generateMarkers(lat, lng, price, id);
                     }
                 } else {
                     //Alerts the user of failure and asks for them retry
@@ -237,7 +286,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         queue.add(request);
     }
 
-    private void generateMarkers(Double lat, Double lng, Double price) {
+    private void generateMarkers(Double lat, Double lng, Double price, String id) {
         Bitmap icon;
 
         IconGenerator iconFactory1 = new IconGenerator(getContext());
@@ -257,11 +306,11 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         DecimalFormat df = new DecimalFormat("#.00");
 
         if (price < 2.00) {
-             icon = iconFactory1.makeIcon("£" + String.format( "%.2f", price ));
+            icon = iconFactory1.makeIcon("£" + String.format("%.2f", price));
         } else if (price > 2.00 && price < 4.00) {
-            icon = iconFactory2.makeIcon("£" + String.format( "%.2f", price ));
+            icon = iconFactory2.makeIcon("£" + String.format("%.2f", price));
         } else {
-            icon = iconFactory3.makeIcon("£" + String.format( "%.2f", price ));
+            icon = iconFactory3.makeIcon("£" + String.format("%.2f", price));
         }
 
         LatLng location = new LatLng(lat, lng);
@@ -269,6 +318,130 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         MarkerOptions belfast_marker = new MarkerOptions();
         belfast_marker.position(location);
         belfast_marker.icon(BitmapDescriptorFactory.fromBitmap(icon));
-        mMap.addMarker(belfast_marker);
+        belfast_marker.title(m_type);
+        mMap.addMarker(belfast_marker).setTag(id);
+    }
+
+    public void getSpaceDetails(String id) {
+        m_spaceId = id;
+        url = "http://pjohnston37.students.cs.qub.ac.uk/Android/getSpaceDetails.php?id=" + id;
+        new JSONParse().execute();
+    }
+
+    public class JSONParse extends AsyncTask<String, String, JSONArray> {
+
+        @Override
+        protected JSONArray doInBackground(String... args) {
+            JSONParser jParser = new JSONParser();
+
+            // Getting JSON from URL
+            return jParser.getJSONFromUrl(url);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // SHOW THE SPINNER WHILE LOADING FEEDS
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray json) {
+
+            try {
+                // Getting JSON Array
+                user = json;
+                JSONObject c = user.getJSONObject(0);
+
+                // Storing  JSON item in a Variable
+                m_price = c.getDouble("price");
+                m_type = c.getString("type");
+                m_description = c.getString("desc");
+                m_imageAddress = c.getString("image");
+                m_address = c.getString("address");
+                m_numOfSpaces = c.getString("num");
+                m_postcode = c.getString("postcode");
+                m_location = c.getString("location");
+
+                //Set JSON Data in TextView
+                TextView barText = (TextView) view.findViewById(R.id.name);
+                ImageView imageHeader = (ImageView) view.findViewById(R.id.image_header);
+                TextView imageText = (TextView) view.findViewById(R.id.text_header);
+                TextView description = (TextView) view.findViewById(R.id.space_description);
+                mArrivalText = (TextView) view.findViewById(R.id.arrival_date);
+                mDepartureText = (TextView) view.findViewById(R.id.depart_date);
+                mBookBtn = (Button) view.findViewById(R.id.book_btn);
+
+
+                barText.setText("@ " + m_address + ", " + m_postcode);
+                Glide.with(getActivity()).load(m_imageAddress).into(imageHeader);
+                imageText.setText(m_type);
+                description.setText(m_description);
+                mBookBtn.setClickable(false);
+                mBookBtn.setText("Book Now");
+                mBookBtn.setBackgroundResource(R.color.white_greyish);
+
+                mArrivalText.setOnClickListener(v -> new SlideDateTimePicker.Builder(getActivity()
+                        .getSupportFragmentManager())
+                        .setListener(listener)
+                        .setInitialDate(new Date())
+                        .setMinDate(new Date())
+                        .setMaxDate(returnMaxDate())
+                        .build()
+                        .show());
+
+                mDepartureText.setOnClickListener(v -> new SlideDateTimePicker.Builder(getActivity()
+                        .getSupportFragmentManager())
+                        .setListener(listener2)
+                        .setInitialDate(new Date())
+                        .setMinDate(new Date())
+                        .setMaxDate(returnMaxDate())
+                        .build()
+                        .show());
+
+                mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        //This method will parse the RAW data downloaded from the server
+    }
+
+    // this methods ensures user cannot perform bookings more than 4 months further in the future
+    private Date returnMaxDate() {
+        Date currentDate;
+        // get current date
+        Calendar cal = Calendar.getInstance();
+        // add 3 months to current date
+        cal.add(Calendar.MONTH, 3);
+
+        return currentDate = cal.getTime();
+    }
+
+    // 1 minute = 60 seconds
+    // 1 hour = 60 x 60 = 3600
+    // 1 day = 3600 x 24 = 86400
+    private double calculateBookingCost(){
+        //milliseconds
+        long different = DeptDate.getTime() - ArrDate.getTime();
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+
+        long elapsedMinutes = different / minutesInMilli;
+        // different = different % minutesInMilli;
+
+        // cost per minute
+        double costPM = m_price / 60;
+
+        // total price per booking
+        return elapsedMinutes * costPM;
+    }
+
+    public void resetPickerState() {
+        //mArrivalText.setText(null);
+        mDepartureText.setText(null);
+
+        mBookBtn.setClickable(false);
+        mBookBtn.setText("Book Now");
+        mBookBtn.setBackgroundResource(R.color.white_greyish);
     }
 }

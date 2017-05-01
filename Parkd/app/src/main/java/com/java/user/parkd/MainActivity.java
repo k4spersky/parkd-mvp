@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
                     tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.kandy_red));
                 }
             }
+
             // left empty as not needed
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {

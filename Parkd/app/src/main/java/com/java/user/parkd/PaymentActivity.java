@@ -13,9 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -36,6 +34,7 @@ import java.util.List;
 public class PaymentActivity extends AppCompatActivity {
 
     Toolbar tb1;
+
     FloatingActionButton fb;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
@@ -49,9 +48,10 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_methods);
         fb = (FloatingActionButton) findViewById(R.id.addNewCard);
-        tb1 = (Toolbar) findViewById(R.id.toolbar);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerPaymentView);
+        tb1 = (Toolbar) findViewById(R.id.toolbar_pm);
         setSupportActionBar(tb1);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerPaymentView);
         getSupportActionBar().setTitle("Payment Methods");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         datalist = new ArrayList<>();
@@ -60,22 +60,19 @@ public class PaymentActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new CardDetailsCustomAdapter(PaymentActivity.this, datalist);
         recyclerView.setAdapter(adapter);
+
         //Downloading data from below url (Universal Resource Locator) to obtain data from the Admin database
         SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         String email = sharedpref.getString("email", "");
-        final String url = "http://pjohnston37.students.cs.qub.ac.uk/Android/getCardDetails.php?id=" +email;
+        final String url = "http://pjohnston37.students.cs.qub.ac.uk/Android/getCardDetails.php?id=" + email;
         new AsyncHTTPTask().execute(url);
 
-        fb.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent settings = new Intent(PaymentActivity.this, AddPaymentActivity.class);
-                PaymentActivity.this.startActivity(settings);
+        fb.setOnClickListener(view -> {
+            Intent settings = new Intent(PaymentActivity.this, AddPaymentActivity.class);
+            PaymentActivity.this.startActivity(settings);
 
-            }
         });
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -84,6 +81,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public class AsyncHTTPTask extends AsyncTask<String, Void, Integer> {
 
         @Override
@@ -136,7 +134,6 @@ public class PaymentActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(PaymentActivity.this, "Failed to fetch data!", Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 
@@ -146,6 +143,7 @@ public class PaymentActivity extends AppCompatActivity {
         try {
             JSONArray AdminArrays = new JSONArray(jsonString);
             datalist = new ArrayList<>();
+
             for (int i = 0; i < AdminArrays.length(); i++) {
                 JSONObject object = AdminArrays.getJSONObject(i);
                 CardDetailsData data = new CardDetailsData(object.getString("type"),
@@ -159,16 +157,15 @@ public class PaymentActivity extends AppCompatActivity {
 
     public void onRestart(){
         super.onRestart();
-
-
     }
-    public void onResume()
-    {super.onResume();
+
+    public void onResume() {
+        super.onResume();
+
         SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         String email = sharedpref.getString("email", "");
         final String url = "http://pjohnston37.students.cs.qub.ac.uk/Android/getCardDetails.php?id=" +email;
+
         new AsyncHTTPTask().execute(url);
-
     }
-
 }
