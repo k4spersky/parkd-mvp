@@ -1,6 +1,12 @@
 package com.java.user.parkd;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,18 +54,24 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @SuppressLint("SimpleDateFormat")
 public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 
     private static final String TAG = "AutocompleteActivity";
+    private CharSequence[] payments={};
     private SlidingUpPanelLayout mLayout;
     EditText attributeText;
+    String email;
+    double bookingCost;
+    ProgressDialog ringProgressDialog;
     private String name;
     GoogleMap mMap;
     View view;
     String url;
     double m_price;
+    String payment_option;
     String m_spaceId;
     String m_address;
     String m_postcode;
@@ -75,7 +88,9 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     private Date ArrDate;
     private Date DeptDate;
 
-    private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd hh:mm aa");
+    private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd HH:mm aa");
+    private SimpleDateFormat dFormatter = new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat fFormatter = new SimpleDateFormat("HH:mm");
 
     private SlideDateTimeListener listener = new SlideDateTimeListener() {
 
@@ -105,7 +120,6 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         @Override
         public void onDateTimeSet(Date date) {
 
-            double bookingCost;
             String con = "Book for £";
             DeptDate = date;
             String strDate = mFormatter.format(DeptDate);
@@ -131,7 +145,6 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_fragment2, container, false);
-
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().
@@ -203,6 +216,8 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
 //        f.setOnClickListener(view13 -> {
 //            // TODO
 //        });
+
+
         return view;
     }
 
@@ -379,9 +394,20 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 mBookBtn.setText("Book Now");
                 mBookBtn.setBackgroundResource(R.color.white_greyish);
 
+                mBookBtn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        SharedPreferences sharedpref = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                        email = sharedpref.getString("email", "");
+                        checkCard(email);
+
+                    }
+                });
+
                 mArrivalText.setOnClickListener(v -> new SlideDateTimePicker.Builder(getActivity()
                         .getSupportFragmentManager())
                         .setListener(listener)
+                        .setIs24HourTime(true)
                         .setInitialDate(new Date())
                         .setMinDate(new Date())
                         .setMaxDate(returnMaxDate())
@@ -391,6 +417,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                 mDepartureText.setOnClickListener(v -> new SlideDateTimePicker.Builder(getActivity()
                         .getSupportFragmentManager())
                         .setListener(listener2)
+                        .setIs24HourTime(true)
                         .setInitialDate(new Date())
                         .setMinDate(new Date())
                         .setMaxDate(returnMaxDate())
@@ -444,4 +471,141 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         mBookBtn.setText("Book Now");
         mBookBtn.setBackgroundResource(R.color.white_greyish);
     }
+
+    public void checkCard(String id)
+    {
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+
+                    //Receives response from the php
+                    JSONArray jsonResponse = new JSONArray(response);
+
+                    if (jsonResponse.length() > 0) {
+                        ArrayList<JSONObject> carddata = new ArrayList<>();
+
+                        for (int i = 0; i < jsonResponse.length(); i++) {
+                            JSONObject object = jsonResponse.getJSONObject(i);
+                            carddata.add(object);
+                        }
+
+                        if (carddata.get(0).getBoolean("success")) {
+                            List<String> listItems = new ArrayList<String>();
+                            for (int i = 0; i < carddata.size(); i++) {
+                                listItems.add(carddata.get(i).getString("type") + " Ending in " + carddata.get(i).getString("digits"));
+                            }
+                            payments = listItems.toArray(new CharSequence[listItems.size()]);
+                            onCreateDialog();
+                        }
+
+
+                    } else {
+                        //Alerts the user of failure and asks for them retry
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("No payment methods have been added to your account yet. Would you like to add one now?")
+                                .setNegativeButton(android.R.string.cancel, null)
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do the acknowledged action, beware, this is run on UI thread
+                                        Intent intent = new Intent(getActivity(), AddPaymentActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .create()
+                                .show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        // Sends request to the php
+        CardDetailsRequest Request = new CardDetailsRequest(id, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(Request);
+
+    }
+    public void onCreateDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Which payment method would you like to use?")
+                .setSingleChoiceItems(payments, 0, new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                payment_option = payments[which].toString().trim();
+                dialog.dismiss();
+                //launchRingDialog(view);
+                bookRequest();
+            }
+        })
+                .setNegativeButton(android.R.string.cancel, null)
+                .create()
+                .show();
+    }
+    protected void onPrepareDialog(Dialog dialog) {
+        // TODO Auto-generated method stub
+                AlertDialog prepare_radio_dialog=(AlertDialog)dialog;
+                ListView list_radio=prepare_radio_dialog.getListView();
+                for(int i=0;i<list_radio.getCount();i++){
+                    list_radio.setItemChecked(i, false);
+                }
+    }
+
+    public void bookRequest() {
+        // Sends request to the php
+        ringProgressDialog= ProgressDialog.show(getActivity(), "Please wait ...", "Processing Booking ...", true);
+        //ringProgressDialog.setCancelable(false);
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                String rep = response;
+                ringProgressDialog.dismiss();
+
+                    if (rep.equals("success")) {
+                        //Opens up login form if successful
+                       //
+                        resetPickerState();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("Space has been booked. You will shortly receive an email to confrim details")
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do the acknowledged action, beware, this is run on UI thread
+                                        Intent intent = new Intent(getActivity(), BookingsActivity.class);
+                                        startActivity(intent);
+
+                                    }
+                                })
+                                .create()
+                                .show();
+
+                    } else {
+
+                        if(rep.equals("Booking_found"))
+                        {
+                            //ringProgressDialog.dismiss();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setMessage("Unfortunately there is already a booking during this time. Please select a different time or location.")
+                                    .setNegativeButton("Retry", null)
+                                    .create()
+                                    .show();
+                        }
+                    }
+
+            }
+        };
+        SendBookingConfirmation Request = new SendBookingConfirmation(email, fFormatter.format(ArrDate), fFormatter.format(DeptDate), m_spaceId, String.format("%.2f", bookingCost), payment_option, dFormatter.format(ArrDate), responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(Request);
+
+    }
+
 }
