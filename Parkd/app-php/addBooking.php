@@ -24,7 +24,7 @@
 	*/
 	$duration = $toTime - $fromTime;
 	$fee = $price * 0.80;
-	$fee = number_format((float)$fee, 2, '.', '')
+	$fee = number_format((float)$fee, 2, '.', '');
   $day = substr($datey, 8, 2);
   $month = substr($datey, 5, 2);
   $year = substr($datey, 0, 4);
