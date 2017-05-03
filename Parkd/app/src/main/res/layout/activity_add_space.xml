@@ -40,14 +40,14 @@
                 app:layout_marginEndPercent="3%"
                 android:background="@color/anti_flash_white">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/space_charge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:background="@android:color/transparent"
                     android:maxLength="5"
-                    android:hint="your charge e.g 1.85" />
+                    android:hint="your charge per hour e.g 1.85" />
             </android.support.design.widget.TextInputLayout>
 
             <EditText
@@ -73,13 +73,23 @@
                 android:maxLength="30"
                 android:inputType="textPostalAddress"
                 android:hint="postcode"/>
+            <EditText
+                android:id="@+id/space_city"
+                app:layout_widthPercent="94%"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/space_postcode"
+                android:layout_alignParentStart="true"
+                app:layout_marginStartPercent="3%"
+                app:layout_marginTopPercent="5%"
+                android:maxLength="30"
+                android:inputType="textPostalAddress"
+                android:hint="city"/>
 
             <EditText
                 android:id="@+id/space_latitude"
                 app:layout_widthPercent="45%"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/space_postcode"
-                android:inputType="numberDecimal"
+                android:layout_below="@+id/space_city"
                 android:maxLength="10"
                 app:layout_marginStartPercent="3%"
                 app:layout_marginTopPercent="3%"
@@ -89,27 +99,29 @@
                 android:id="@+id/longitude"
                 app:layout_widthPercent="45%"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/space_postcode"
+                android:layout_below="@+id/space_city"
                 android:layout_alignParentEnd="true"
-                android:inputType="numberDecimal"
                 android:maxLength="10"
                 app:layout_marginEndPercent="3%"
                 app:layout_marginTopPercent="3%"
                 android:hint="longitude" />
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/space_desc"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:id="@+id/space_desc"
                 android:background="@color/anti_flash_white"
                 android:layout_below="@id/longitude"
                 app:layout_marginTopPercent="5%"
                 app:layout_marginStartPercent="3%"
                 app:layout_marginEndPercent="3%">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/space_descr"
+                    android:layout_below="@id/longitude"
+                    android:inputType="textPostalAddress"
                     android:hint="description"
                     android:background="@android:color/transparent" />
             </android.support.design.widget.TextInputLayout>

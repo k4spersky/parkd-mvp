@@ -80,7 +80,7 @@ public class PaymentActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class AsyncHTTPTask extends AsyncTask<String, Void, Integer> {
+    public  class AsyncHTTPTask extends AsyncTask<String, Void, Integer> {
 
         @Override
         protected Integer doInBackground(String... params) {

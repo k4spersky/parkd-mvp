@@ -3,7 +3,7 @@
 	
 	$locate = $_POST["loc"];
 	//$locate = "BT9";
-	$sql = "Select id, lat, lng, price_per_hour, postcode from spaces where  postcode = '$locate' OR location = '$locate' OR SUBSTRING(postcode,1, 3) = '$locate'";
+	$sql = "Select id, lat, lng, price_per_hour, postcode from spaces where  postcode = '$locate' OR location = '$locate' OR SUBSTRING(postcode,1, 3) = '$locate' AND show = 1";
 	$result = mysqli_query($con,$sql);
 	
     /*$response["success"] = true;

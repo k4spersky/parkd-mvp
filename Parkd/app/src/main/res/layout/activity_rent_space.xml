@@ -21,12 +21,11 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/rentText"
+        <ProgressBar
+            android:id="@+id/pbHeaderProgress"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="You are currently not renting any spaces."/>
+            android:layout_height="wrap_content" >
+        </ProgressBar>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
