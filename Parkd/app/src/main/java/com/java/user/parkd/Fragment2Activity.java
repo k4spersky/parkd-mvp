@@ -581,7 +581,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
                                         // do the acknowledged action, beware, this is run on UI thread
                                         Intent intent = new Intent(getActivity(), BookingsActivity.class);
                                         startActivity(intent);
-
+                                     clearData();
                                     }
                                 })
                                 .create()
@@ -605,6 +605,16 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
         SendBookingConfirmation Request = new SendBookingConfirmation(email, fFormatter.format(ArrDate), fFormatter.format(DeptDate), m_spaceId, String.format("%.2f", bookingCost), payment_option, dFormatter.format(ArrDate), responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(Request);
+
+    }
+
+    private void clearData()
+    {
+        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
+        mMap.clear();
+        attributeText.setText("");
+        attributeText.setHint("find your space!");
+
 
     }
 

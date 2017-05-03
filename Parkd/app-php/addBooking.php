@@ -33,7 +33,7 @@
 	
 	
 			
-		$sql = "Select id from bookings where datebooking = '$dateofBooking' AND spaceID = '$spaceID' OR start_time = '$fromTime' OR end_time = '$toTime' OR start_time BETWEEN '$fromTime' AND '$toTime' OR end_time BETWEEN '$fromTime' AND '$toTime' ";
+		$sql = "Select id from bookings where datebooking = '$dateofBooking' AND spaceID = '$spaceID' AND start_time = '$fromTime' AND end_time = '$toTime' AND start_time BETWEEN '$fromTime' AND '$toTime' AND end_time BETWEEN '$fromTime' AND '$toTime' ";
 			if ($result = $con->query($sql)){
 			$row_cnt = $result->num_rows;
 			if ($row_cnt == 0) {
