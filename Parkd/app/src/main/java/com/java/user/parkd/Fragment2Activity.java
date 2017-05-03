@@ -88,7 +88,7 @@ public class Fragment2Activity extends Fragment implements OnMapReadyCallback {
     private Date ArrDate;
     private Date DeptDate;
 
-    private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd HH:mm aa");
+    private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd HH:mm");
     private SimpleDateFormat dFormatter = new SimpleDateFormat("yyyy-MM-dd");
     private SimpleDateFormat fFormatter = new SimpleDateFormat("HH:mm");
 

@@ -24,6 +24,7 @@
 	*/
 	$duration = $toTime - $fromTime;
 	$fee = $price * 0.80;
+	$fee = number_format((float)$fee, 2, '.', '')
   $day = substr($datey, 8, 2);
   $month = substr($datey, 5, 2);
   $year = substr($datey, 0, 4);
@@ -87,7 +88,7 @@
                                  <body>
                                  <h1>Booking Confirmed for $dateofBooking</h1>
                                  <p>$to has booked for your space at $address on $dateofBooking between $fromTime - $toTime.</p>
-								 <p>Details of payment: " . "\r\n" . "Booking price: £$price " . "\r\n" . " Commission: 20% " . "\r\n" . " Total earnings: $fee</p>
+								 <p>Details of payment: " . "\r\n" . "Booking price: £$price " . "\r\n" . " Commission: 20% " . "\r\n" . " Total earnings: £$fee</p>
                                  <p>Payment will be transfered into your account within 2 working days. " . "\r\n" . "If there is any issues please get in contact as soon as possible.</p>
                                  </body>
                                  </html>
