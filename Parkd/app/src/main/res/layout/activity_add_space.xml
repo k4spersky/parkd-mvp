@@ -14,11 +14,118 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
-    <android.support.percent.PercentRelativeLayout
-        android:id="@+id/cardLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <android.support.percent.PercentRelativeLayout
+            android:id="@+id/cardLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </android.support.percent.PercentRelativeLayout>
+            <Spinner
+                android:id="@+id/space_type_spinner"
+                style="@style/spinner_style"
+                android:layout_alignParentStart="true"
+                app:layout_widthPercent="35%"
+                app:layout_marginStartPercent="3%"
+                android:background="@color/anti_flash_white"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:layout_widthPercent="45%"
+                android:layout_marginTop="15dp"
+                android:layout_alignParentEnd="true"
+                app:layout_marginEndPercent="3%"
+                android:background="@color/anti_flash_white">
+
+                <EditText
+                    android:id="@+id/space_charge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:background="@android:color/transparent"
+                    android:maxLength="5"
+                    android:hint="your charge e.g 1.85" />
+            </android.support.design.widget.TextInputLayout>
+
+            <EditText
+                android:id="@+id/space_address"
+                app:layout_widthPercent="94%"
+                android:layout_below="@id/space_type_spinner"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                app:layout_marginStartPercent="3%"
+                app:layout_marginTopPercent="5%"
+                android:maxLength="30"
+                android:inputType="textPostalAddress"
+                android:hint="address"/>
+
+            <EditText
+                android:id="@+id/space_postcode"
+                app:layout_widthPercent="94%"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/space_address"
+                android:layout_alignParentStart="true"
+                app:layout_marginStartPercent="3%"
+                app:layout_marginTopPercent="5%"
+                android:maxLength="30"
+                android:inputType="textPostalAddress"
+                android:hint="postcode"/>
+
+            <EditText
+                android:id="@+id/space_latitude"
+                app:layout_widthPercent="45%"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/space_postcode"
+                android:inputType="numberDecimal"
+                android:maxLength="10"
+                app:layout_marginStartPercent="3%"
+                app:layout_marginTopPercent="3%"
+                android:hint="latitude" />
+
+            <EditText
+                android:id="@+id/longitude"
+                app:layout_widthPercent="45%"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/space_postcode"
+                android:layout_alignParentEnd="true"
+                android:inputType="numberDecimal"
+                android:maxLength="10"
+                app:layout_marginEndPercent="3%"
+                app:layout_marginTopPercent="3%"
+                android:hint="longitude" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/space_desc"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/anti_flash_white"
+                android:layout_below="@id/longitude"
+                app:layout_marginTopPercent="5%"
+                app:layout_marginStartPercent="3%"
+                app:layout_marginEndPercent="3%">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="description"
+                    android:background="@android:color/transparent" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/addSpaceBtn"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/space_desc"
+                android:background="@drawable/add_card_btn"
+                android:text="Add Space"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_marginStartPercent="25%"
+                app:layout_marginTopPercent="4%"
+                android:textStyle="bold"
+                app:layout_widthPercent="50%" />
+        </android.support.percent.PercentRelativeLayout>
+    </ScrollView>
 </LinearLayout>

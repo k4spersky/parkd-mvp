@@ -21,12 +21,6 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/rentProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-        </ProgressBar>
         <TextView
             android:id="@+id/rentText"
             android:layout_width="wrap_content"
@@ -57,6 +51,4 @@
             app:srcCompat="@drawable/add_rent" />
 
     </android.support.design.widget.CoordinatorLayout>
-
-
 </RelativeLayout>

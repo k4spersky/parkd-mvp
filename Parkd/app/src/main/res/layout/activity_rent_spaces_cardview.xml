@@ -49,7 +49,18 @@
                 android:layout_below="@+id/space_type"
                 android:layout_marginTop="5dp"
                 android:text="address"
-                android:textSize="12sp"
+                android:textSize="10sp"
+                app:layout_marginStartPercent="40%"
+                app:layout_widthPercent="48%" />
+
+            <TextView
+                android:id="@+id/space_postcode"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/space_address"
+                android:layout_marginTop="5dp"
+                android:text="postcode"
+                android:textSize="10sp"
                 app:layout_marginStartPercent="40%"
                 app:layout_widthPercent="48%" />
 
@@ -57,12 +68,11 @@
                 android:id="@+id/switch2"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/space_address"
-                android:text="Switch"
+                android:layout_below="@+id/space_postcode"
+                android:text="Offline"
                 android:textSize="12sp"
                 app:layout_marginStartPercent="40%"
                 app:layout_widthPercent="68%" />
         </android.support.percent.PercentRelativeLayout>
-
     </android.support.v7.widget.CardView>
 </LinearLayout>
