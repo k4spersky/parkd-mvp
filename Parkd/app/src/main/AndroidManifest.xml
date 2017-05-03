@@ -24,6 +24,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".AddPrivateSpaceActivity">
+        </activity>
+        <activity
             android:name="com.java.user.parkd.LoginActivity">
         </activity>
         <activity android:name="com.java.user.parkd.MainActivity"

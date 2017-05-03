@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -38,10 +37,9 @@ public class PaymentActivity extends AppCompatActivity {
     FloatingActionButton fb;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
-    private CardDetailsCustomAdapter adapter;
+    private PaymentsAdapter adapter;
     private List<CardDetailsData> datalist;
     private String jsonString = "";
-    private LinearLayout linlaHeaderProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +56,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         linearLayoutManager = new LinearLayoutManager(PaymentActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new CardDetailsCustomAdapter(PaymentActivity.this, datalist);
+        adapter = new PaymentsAdapter(PaymentActivity.this, datalist);
         recyclerView.setAdapter(adapter);
 
         //Downloading data from below url (Universal Resource Locator) to obtain data from the Admin database
@@ -128,7 +126,7 @@ public class PaymentActivity extends AppCompatActivity {
             //adapter.getItemCount();
             if (result == 1) {
                 //Initialising the adapter - Passing in the activity and the parsed Admin Team List
-                adapter = new CardDetailsCustomAdapter(PaymentActivity.this, datalist);
+                adapter = new PaymentsAdapter(PaymentActivity.this, datalist);
                 //Setting the adapter
                 recyclerView.setAdapter(adapter);
             } else {
