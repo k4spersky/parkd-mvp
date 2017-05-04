@@ -53,7 +53,7 @@ public class RentActivity extends AppCompatActivity {
         tb1 = (Toolbar) findViewById(R.id.toolbar);
         linlaHeaderProgress = (LinearLayout) findViewById(R.id.rentHeaderProgress);
         setSupportActionBar(tb1);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle("Your Parking Spaces");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerRentView);
