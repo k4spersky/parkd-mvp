@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * kkuczkowski
  */
 
 public class RentActivity extends AppCompatActivity {
@@ -58,10 +59,11 @@ public class RentActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerRentView);
         linearLayoutManager = new LinearLayoutManager(RentActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
+        datalist = new ArrayList<>();
 
-        SharedPreferences sharedpref = RentActivity.this.getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         String email = sharedpref.getString("email", "");
-        final String url = "http://pjohnston37.students.cs.qub.ac.uk/Android/mySpaces.php?id=" +email;
+        final String url = "http://pjohnston37.students.cs.qub.ac.uk/Android/mySpaces.php?id=" + email;
         new AsyncHTTPTask().execute(url);
         adapter = new RentAdapter(RentActivity.this, datalist);
         recyclerView.setAdapter(adapter);
@@ -72,6 +74,15 @@ public class RentActivity extends AppCompatActivity {
 
         });
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public class AsyncHTTPTask extends AsyncTask<String, Void, Integer> {
 
         @Override
@@ -102,6 +113,7 @@ public class RentActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.d("Exception Caught", e.getLocalizedMessage());
             }
+
             return result; //"Failed to fetch data!";
         }
 
@@ -145,14 +157,6 @@ public class RentActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void onRestart(){
