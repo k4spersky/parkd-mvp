@@ -41,6 +41,15 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.ViewHolder> {
         //TODO
         DecimalFormat df = new DecimalFormat("0.00##");
         String result = df.format(my_data.get(position).getPrice());
+        if (my_data.get(position).getShow().equals("1"))
+        {
+            holder.show.setChecked(true);
+            holder.show.setText("Online");
+        }
+        else {
+            holder.show.setChecked(false);
+            holder.show.setText("Offline");
+        }
 
         holder.address.setText(my_data.get(position).getAddress());
         holder.post.setText(my_data.get(position).getPostcode());
@@ -69,6 +78,7 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.ViewHolder> {
             imageView = (ImageView) itemView.findViewById(R.id.space_image);
             post= (TextView) itemView.findViewById(R.id.space_postcode);
             type = (TextView) itemView.findViewById(R.id.space_type);
+            show = (Switch) itemView.findViewById(R.id.switch2);
 
 
             //TODO
