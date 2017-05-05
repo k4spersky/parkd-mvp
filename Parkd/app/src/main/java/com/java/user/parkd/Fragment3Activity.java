@@ -117,5 +117,11 @@ public class Fragment3Activity extends Fragment {
 
     }
 
+
+    public void onResume(){
+        super.onResume();
+        getData();
+    }
+
     private String name;
 }
