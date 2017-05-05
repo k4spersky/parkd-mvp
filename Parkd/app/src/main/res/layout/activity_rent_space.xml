@@ -20,28 +20,13 @@
         android:layout_height="fill_parent"
         android:gravity="center"
         android:orientation="vertical">
-
-        <ProgressBar
-            android:id="@+id/rentProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-        </ProgressBar>
-        <TextView
-            android:id="@+id/rentText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="You are currently not renting any spaces."/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/recyclerRentView"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_height="wrap_content" />
-
-
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width = "match_parent"
@@ -59,6 +44,4 @@
             app:srcCompat="@drawable/add_rent" />
 
     </android.support.design.widget.CoordinatorLayout>
-
-
 </RelativeLayout>

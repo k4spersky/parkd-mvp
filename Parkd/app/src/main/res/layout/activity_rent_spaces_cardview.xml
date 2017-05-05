@@ -1,6 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="2dp">
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:cardBackgroundColor="#F2F3F4"
+        app:cardElevation="1dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <android.support.percent.PercentRelativeLayout
+            android:id="@+id/some_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/space_image"
+                android:layout_alignParentStart="true"
+                app:layout_marginStartPercent="5%"
+                app:layout_widthPercent="30%"
+                android:layout_height="70dp"
+                android:scaleType="centerCrop"
+                android:background="@color/dark_grey"/>
+
+            <TextView
+                android:id="@+id/space_type"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:textStyle="bold"
+                android:text="private"
+                android:textSize="14sp"
+                app:layout_marginStartPercent="40%"
+                app:layout_widthPercent="48%" />
+
+            <TextView
+                android:id="@+id/space_address"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/space_type"
+                android:layout_marginTop="5dp"
+                android:text="address"
+                android:textSize="10sp"
+                app:layout_marginStartPercent="40%"
+                app:layout_widthPercent="48%" />
+
+            <TextView
+                android:id="@+id/space_postcode"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/space_address"
+                android:layout_marginTop="5dp"
+                android:text="postcode"
+                android:textSize="10sp"
+                app:layout_marginStartPercent="40%"
+                app:layout_widthPercent="48%" />
+
+            <Switch
+                android:id="@+id/switch2"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/space_postcode"
+                android:text=""
+                android:textSize="12sp"
+                app:layout_marginStartPercent="40%"
+                app:layout_widthPercent="68%" />
+        </android.support.percent.PercentRelativeLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -9,12 +9,12 @@
   $day = substr($datey, 8, 2);
   $month = substr($datey, 5, 2);
   $year = substr($datey, 0, 4);
-  $finaldate = "$day/$month/$year";
-
+  $finaldate = "$year-$month-$day";
+	$time = date("H:i");
 
 
   //Counting the total item available in the database
-  $sql = "SELECT u2.first_name, u2.last_name, bookings.datebooking, spaces.address, spaces.postcode, bookings.duration, bookings.price, spaces.image_address, bookings.start_time, bookings.end_time, spaces.space_type FROM bookings JOIN user ON bookings.userID = user.user_id JOIN spaces ON bookings.spaceID = spaces.id JOIN user u2 ON spaces.userID = u2.user_id WHERE bookings.datebooking < '$finaldate' AND user.email =  '$user'";
+  $sql = "SELECT u2.first_name, u2.last_name, bookings.datebooking, spaces.address, spaces.postcode, bookings.duration, bookings.price, spaces.image_address, bookings.start_time, bookings.end_time, spaces.space_type FROM bookings JOIN user ON bookings.userID = user.user_id JOIN spaces ON bookings.spaceID = spaces.id JOIN user u2 ON spaces.userID = u2.user_id WHERE bookings.datebooking < '$finaldate' AND user.email =  '$user' AND bookings.end_time > '$time'";
 
 
   //Getting result
