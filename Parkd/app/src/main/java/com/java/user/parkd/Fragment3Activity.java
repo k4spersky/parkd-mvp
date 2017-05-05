@@ -14,11 +14,12 @@ import android.widget.Toast;
 public class Fragment3Activity extends Fragment {
 
     View view;
+    TextView loggedInName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_fragment3, container, false);
-         TextView loggedInName = (TextView) view.findViewById(R.id.accName);
+          loggedInName = (TextView) view.findViewById(R.id.accName);
         final TextView rent = (TextView) view.findViewById(R.id.rentSpace);
         final TextView mybook = (TextView) view.findViewById(R.id.accBooking);
         final TextView payments = (TextView) view.findViewById(R.id.payDetails);
@@ -121,6 +122,11 @@ public class Fragment3Activity extends Fragment {
     public void onResume(){
         super.onResume();
         getData();
+        if (name.length()==0) {
+        } else {
+            loggedInName.setText(name);
+        }
+
     }
 
     private String name;
