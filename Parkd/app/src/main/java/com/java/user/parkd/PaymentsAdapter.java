@@ -15,17 +15,17 @@ import java.util.List;
  * Created by Paul on 17/04/2017.
  */
 
-public class CardDetailsCustomAdapter extends RecyclerView.Adapter<CardDetailsCustomAdapter.ViewHolder> {
+public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ViewHolder> {
     private Context context;
     private List<CardDetailsData> my_data;
 
-    public CardDetailsCustomAdapter(Context context, List<CardDetailsData> my_data) {
+    public PaymentsAdapter(Context context, List<CardDetailsData> my_data) {
         this.context = context;
         this.my_data = my_data;
     }
 
     @Override
-    public CardDetailsCustomAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PaymentsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.payments_cardview,parent,false);
 
@@ -33,7 +33,7 @@ public class CardDetailsCustomAdapter extends RecyclerView.Adapter<CardDetailsCu
     }
 
     @Override
-    public void onBindViewHolder(CardDetailsCustomAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(PaymentsAdapter.ViewHolder holder, int position) {
 
         holder.card_type.setText(my_data.get(position).getType());
         holder.last_digits.setText("Ending in " + my_data.get(position).getDigits());
