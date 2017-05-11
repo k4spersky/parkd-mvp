@@ -10,7 +10,7 @@
 	$lat = $_POST['lat'];
 	$lng = $_POST['lng'];
 	$show = 1;
-	$image = "http://pjohnston37.students.cs.qub.ac.uk/Android/carParkPics/maloneroad.jpg";
+	$image = "";
 	$type = "Private";
 	$num = 1;
 	$desc = $_POST['des'];
@@ -41,7 +41,7 @@
                                  <body>
                                  <h1>Confirmation of space</h1>
                                  <p>Many thanks for advertising your space with parkd </p>
-                                 <p>Details about your space: " . "\r\n" . "Address: $address " . "\r\n" . "Postcode: $postcode " . "\r\n" . "Location: $loc" . "\r\n" . "Price per hour: $price</p>
+                                 <p>Details about your space: " . "\r\n" . "Address: $address " . "\r\n" . "Postcode: $postcode " . "\r\n" . "Location: $loc" . "\r\n" . "Price per hour: £$price</p>
 								<p>Thanks</p>
                                 </body>
                                  </html>

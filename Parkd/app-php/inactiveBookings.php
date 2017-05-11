@@ -2,8 +2,8 @@
  $con = mysqli_connect("pjohnston37.students.cs.qub.ac.uk", "pjohnston37", "pqjg4ll4k3wytzmv", "pjohnston37");
   //Getting the page number which is to be displayed
 
-  //$user = $_GET["id"];
-   $user = "pjohnston37@qub.ac.uk";
+  $user = $_GET["id"];
+   //$user = "pjohnston37@qub.ac.uk";
 
   $datey = date("Y-m-d H:i:s");
   $day = substr($datey, 8, 2);
@@ -14,7 +14,7 @@
 
 
   //Counting the total item available in the database
-  $sql = "SELECT u2.first_name, u2.last_name, bookings.datebooking, spaces.address, spaces.postcode, bookings.duration, bookings.price, spaces.image_address, bookings.start_time, bookings.end_time, spaces.space_type FROM bookings JOIN user ON bookings.userID = user.user_id JOIN spaces ON bookings.spaceID = spaces.id JOIN user u2 ON spaces.userID = u2.user_id WHERE bookings.datebooking < '$finaldate' AND user.email =  '$user' AND bookings.end_time > '$time'";
+  $sql = "SELECT u2.first_name, u2.last_name, bookings.datebooking, spaces.address, spaces.postcode, bookings.duration, bookings.price, spaces.image_address, bookings.start_time, bookings.end_time, spaces.space_type FROM bookings JOIN user ON bookings.userID = user.user_id JOIN spaces ON bookings.spaceID = spaces.id JOIN user u2 ON spaces.userID = u2.user_id WHERE bookings.datebooking <= '$finaldate' AND user.email =  '$user' AND bookings.end_time < '$time' Order by bookings.datebooking";
 
 
   //Getting result

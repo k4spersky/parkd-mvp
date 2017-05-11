@@ -144,7 +144,6 @@ public class AddPaymentActivity extends AppCompatActivity {
             startActivityForResult(scanIntent, REQUEST_SCAN);
 
         });
-
         add.setOnClickListener(view -> {
             final String card_number = etCard.getText().toString();
             final String expire_date = etExpire.getText().toString();
