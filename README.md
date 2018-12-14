@@ -36,7 +36,6 @@ SQL DB: `inactive`
 -
 
 ![card_scanning](https://user-images.githubusercontent.com/11150879/50005881-c7b3c680-ffa3-11e8-8f13-7d51de1cfedf.png)
--
 
 <h2>Booking workflow</h2>
 
