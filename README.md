@@ -39,7 +39,7 @@ SQL DB: `inactive`
 
 <h2>Booking workflow</h2>
 
-- select a parking your spot
+- choose your parking spot
 
 ![search_house_view](https://user-images.githubusercontent.com/11150879/50005965-15c8ca00-ffa4-11e8-8772-cbb2ceb3ead0.png)
 -
