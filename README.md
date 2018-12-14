@@ -8,7 +8,7 @@ Android application Parkd, allows users to:
 
 FIREBASE: `inactive`  
 SQL DB: `inactive`
-<h2>resources:</h2>
+<h2>online resources:</h2>
 
  - [icons](https://material.io/icons/)
  - [lists and menus](https://github.com/codepath/android_guides/wiki/Using-the-RecyclerView)
@@ -64,5 +64,11 @@ SQL DB: `inactive`
 ![my_bookings](https://user-images.githubusercontent.com/11150879/50006205-d9499e00-ffa4-11e8-8a33-a1f7570dee48.png)
 -
 
-Other functionality
-- email notifications
+<h2>Other functionality</h2>
+
+- email notifications, invoices
+
+<h2>Other resources</h2>
+
+- pitch presentaition > https://drive.google.com/file/d/1xobBVRRsz2RkLEbAoOlWaGwCG1lfkIUB
+- demo presentation > https://drive.google.com/file/d/1Q1rUGmYGsCjAdl9ihO_TOn1gQEDTepVU
