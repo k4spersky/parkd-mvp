@@ -7,8 +7,3 @@ https://material.io/icons/
 <h2>source for building lists and menus (USE THIS FRAMEWORK CONSISTENTLY)</h2>
 https://github.com/codepath/android_guides/wiki/Using-the-RecyclerView
 <hr>
-
-<h1>IMPORTANT</h1>
-
-<h2>if you would like to deploy this project & see it running e-mail kkuczkowski01@qub.ac.uk to gain
-access privilages to the github project at: https://github.com/k4spersky/parkd-mvp</h2>
