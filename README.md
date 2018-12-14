@@ -3,8 +3,8 @@
 Android application Parkd, allows users to:
 
  - view and discover commercial / private parking spaces
- - connect and book or rent private parking spaces
- - see parking capacity in real time
+ - connect with other users and book or rent private parking spaces
+ - check parking capacity in real time
 
 FIREBASE: `inactive`  
 SQL DB: `inactive`
@@ -70,5 +70,5 @@ SQL DB: `inactive`
 
 <h2>Other resources</h2>
 
-- pitch presentaition > https://drive.google.com/file/d/1xobBVRRsz2RkLEbAoOlWaGwCG1lfkIUB
+- pitch presentation > https://drive.google.com/file/d/1xobBVRRsz2RkLEbAoOlWaGwCG1lfkIUB
 - demo presentation > https://drive.google.com/file/d/1Q1rUGmYGsCjAdl9ihO_TOn1gQEDTepVU
