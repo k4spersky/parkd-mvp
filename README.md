@@ -1,4 +1,5 @@
-<h1>This is read me for the parkd-mvp project</h1>
+![parkd_logo_new](https://user-images.githubusercontent.com/11150879/50001811-ea3ee300-ff95-11e8-8086-66e95f7cf4ec.png)
+<h1>parkd-mvp project</h1>
 
 <h2>source for uniform icons:</h2>
 https://material.io/icons/
